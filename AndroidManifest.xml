@@ -188,6 +188,7 @@
         </activity>
 
         <activity android:name=".vpn.VpnSettings"
+		  android:label="@string/vpn_settings_title"
                 android:configChanges="orientation|keyboardHidden"
                 android:clearTaskOnLaunch="true">
             <intent-filter>
@@ -195,6 +196,7 @@
                 <action android:name="android.net.vpn.SETTINGS" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE_LAUNCH" />
+		<category android:name="com.android.settings.SHORTCUT" />
             </intent-filter>
         </activity>
 
@@ -792,5 +794,18 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/appwidget_info" />
         </receiver>
+
+	<!-- Leo Parts -->
+
+	<activity android:name="LeoParts"
+                android:label="Leo Parts"
+                android:clearTaskOnLaunch="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.android.settings.SHORTCUT" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
