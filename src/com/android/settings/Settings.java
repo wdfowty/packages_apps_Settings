@@ -61,6 +61,7 @@ public class Settings extends PreferenceActivity {
     protected void onResume() {
 	super.onResume();
 	findPreference(KEY_CALL_SETTINGS).setEnabled(!AirplaneModeEnabler.isAirplaneModeOn(this));
+
 	Intent intent = new Intent();
 	intent.setAction("android.intent.action.MAIN");
 	intent.addCategory("android.intent.category.HOME");

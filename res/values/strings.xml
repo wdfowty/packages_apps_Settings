@@ -2530,4 +2530,7 @@ found in the list of installed applications.</string>
     <string name="sound_category_feedback_title">Feedback</string>
 
     <string name="launcher_settings_title">ADWLauncher</string>
+
+    <string name="repo_name">LeoFroYo</string>
+    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
 </resources>
