@@ -146,7 +146,7 @@
        android:summary="Let the interface feets your wills">
 
       <PreferenceCategory
-	 android:title="UI">
+	 android:title="Status bar">
 
 	<CheckBoxPreference
 	   android:key="battery_percent"
@@ -155,16 +155,21 @@
 	   android:summaryOff=" Battery percentage OFF" />
 
 	<CheckBoxPreference
-	   android:key="pulse_screen_on"
-	   android:title="Pulse while screen is ON"
-	   android:summaryOn=" Trackball will pulse"
-	   android:summaryOff=" Trackball will not pulse" />
-
-	<CheckBoxPreference
 	   android:key="hide_clock"
 	   android:title="Hide the clock"
 	   android:summaryOn=" Clock is hidden"
 	   android:summaryOff=" Clock is visible" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="Trackball">
+
+	<CheckBoxPreference
+	   android:key="pulse_screen_on"
+	   android:title="Pulse while screen is ON"
+	   android:summaryOn=" Trackball will pulse"
+	   android:summaryOff=" Trackball will not pulse" />
 
 	<CheckBoxPreference
 	   android:key="trackball_wake"
@@ -178,6 +183,23 @@
 	   android:summaryOn=" Trackball unlocks the device"
 	   android:summaryOff=" Trackball does nothing"
 	   android:dependency="trackball_wake" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="Rotation">
+
+	<CheckBoxPreference
+	   android:key="rotation_90"
+	   android:title="90 degrees" />
+
+	<CheckBoxPreference
+	   android:key="rotation_180"
+	   android:title="180 degrees" />
+
+	<CheckBoxPreference
+	   android:key="rotation_270"
+	   android:title="270 degrees" />
 
       </PreferenceCategory>
 
@@ -287,7 +309,7 @@
       <PreferenceScreen
 	 android:key="about_thanks"
 	 android:title="Special thanks to"
-	 android:summary=" britoso, Cyanogen, ctso, kmbos &amp; others\n All XDA community">
+	 android:summary=" britoso, Cyanogen, ctso, kmbos, Jr33, crimsondr\n All XDA community">
       </PreferenceScreen>
 
       <PreferenceScreen

@@ -114,6 +114,12 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mTrackballWakePref;
     private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
     private CheckBoxPreference mTrackballUnlockPref;
+    private static final String ROTATION_90_PREF = "rotation_90";
+    private CheckBoxPreference mRotation90Pref;
+    private static final String ROTATION_180_PREF = "rotation_180";
+    private CheckBoxPreference mRotation180Pref;
+    private static final String ROTATION_270_PREF = "rotation_270";
+    private CheckBoxPreference mRotation270Pref;
 
     // Apps & Addons
 
@@ -237,14 +243,30 @@ public class LeoParts extends PreferenceActivity
 	 */
 	mBatteryPercentPref = (CheckBoxPreference) prefSet.findPreference(BATTERY_PERCENT_PREF);
 	mBatteryPercentPref.setOnPreferenceChangeListener(this);
+	mBatteryPercentPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, 0) == 1);
 	mPulseScreenOnPref = (CheckBoxPreference) prefSet.findPreference(PULSE_SCREEN_ON_PREF);
 	mPulseScreenOnPref.setOnPreferenceChangeListener(this);
+	mPulseScreenOnPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, 0) == 1);
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
+	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 0) == 1);
 	mTrackballWakePref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_WAKE_PREF);
 	mTrackballWakePref.setOnPreferenceChangeListener(this);
+	mTrackballWakePref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, 0) == 1);
 	mTrackballUnlockPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_UNLOCK_PREF);
 	mTrackballUnlockPref.setOnPreferenceChangeListener(this);
+	mTrackballUnlockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, 0) == 1);
+	mRotation90Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_90_PREF);
+	mRotation90Pref.setOnPreferenceChangeListener(this);
+	mRotation180Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_180_PREF);
+	mRotation180Pref.setOnPreferenceChangeListener(this);
+	mRotation270Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_270_PREF);
+	mRotation270Pref.setOnPreferenceChangeListener(this);
+	int mode = Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, 5);
+	Log.i(TAG, "InitialRotationMode=" + mode);
+	mRotation90Pref.setChecked((mode & 1) != 0);
+	mRotation180Pref.setChecked((mode & 2) != 0);
+	mRotation270Pref.setChecked((mode & 4) != 0);
 
 	/**
 	 *  Apps & Addons
@@ -325,23 +347,37 @@ public class LeoParts extends PreferenceActivity
     public boolean onPreferenceChange(Preference preference, Object objValue) {
 	if (preference == mBatteryPercentPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, mBatteryPercentPref.isChecked() ? 0 : 1);
-	    notify("You should reboot for the changes to take effect.");
+	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mPulseScreenOnPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
-	    notify("You should reboot for the changes to take effect.");
+	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mHideClockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
-	    notify("You should reboot for the changes to take effect.");
+	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mTrackballWakePref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, mTrackballWakePref.isChecked() ? 0 : 1);
-	    notify("You should reboot for the changes to take effect.");
+	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mTrackballUnlockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, mTrackballUnlockPref.isChecked() ? 0 : 1);
-	    notify("You should reboot for the changes to take effect.");
+	    toast("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mRotation90Pref ||
+		 preference == mRotation180Pref ||
+		 preference == mRotation270Pref) {
+	    int mode = 0;
+	    if (mRotation90Pref.isChecked()) mode += 1;
+	    if (mRotation180Pref.isChecked()) mode += 2;
+	    if (mRotation270Pref.isChecked()) mode += 4;
+	    if (preference == mRotation90Pref) mode += 1;
+	    if (preference == mRotation180Pref) mode += 2;
+	    if (preference == mRotation270Pref) mode += 4;
+	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
+	    Log.i(TAG, "RotationMode=" + mode);
+	    toast("You should reboot for the changes to take effect.");
 	}
 
 	// always let the preference setting proceed.
@@ -395,7 +431,7 @@ public class LeoParts extends PreferenceActivity
      *  Methods for popups
      */
 
-    public void notify(final CharSequence message) {
+    public void toast(final CharSequence message) {
 	Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
 	toast.show();
     }
@@ -462,9 +498,13 @@ public class LeoParts extends PreferenceActivity
 	    mCacheSize.setSummary(ObtainFSPartSize     ("/cache"));
 	    mSDCardFATSize.setSummary(ObtainFSPartSize ("/sdcard"));
 	    if (extfsIsMounted == true) {
-		mSDCardEXTSize.setSummary(ObtainFSPartSize ("/system/sd"));
-		mSDCardEXTSize.setEnabled(false);
+		if (fileExists("/system/sd/"))
+		    mSDCardEXTSize.setSummary(ObtainFSPartSize ("/system/sd"));
+		else
+		    mSDCardEXTSize.setEnabled(false);
 	    }
+	    else
+		mSDCardEXTSize.setEnabled(false);
 	} catch (IllegalArgumentException e) {
 	    e.printStackTrace();
 	}
