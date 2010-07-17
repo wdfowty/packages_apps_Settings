@@ -29,6 +29,12 @@
 	 android:title="Infos">
 
 	<PreferenceScreen
+	   android:key="rom_device"
+	   android:title="Device"
+	   android:summary=" Unavailable">
+	</PreferenceScreen>
+
+	<PreferenceScreen
 	   android:key="rom_name_version"
 	   android:title="Name / Version / Patch"
 	   android:summary=" Unavailable">
@@ -47,8 +53,8 @@
 	</PreferenceScreen>
 
 	<PreferenceScreen
-	   android:key="rom_radio"
-	   android:title="Radio"
+	   android:key="rom_bootloader_radio"
+	   android:title="Bootloader / Radio"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 

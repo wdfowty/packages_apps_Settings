@@ -80,9 +80,10 @@ public class LeoParts extends PreferenceActivity
     private final Configuration mCurConfig = new Configuration();
 
     // ROM infos
+    private static final String ROM_DEVICE_PREF = "rom_device";
     private static final String ROM_NAME_VERSION_PREF = "rom_name_version";
     private static final String ROM_SYSTEM_BUILD_PREF = "rom_system_build";
-    private static final String ROM_RADIO_PREF = "rom_radio";
+    private static final String ROM_BOOTLOADER_RADIO_PREF = "rom_bootloader_radio";
     private static final String ROM_KERNEL_PREF = "rom_kernel";
     private static final String ROM_UPDATE_PREF = "rom_update";
     private Preference mUpdatePref;
@@ -172,10 +173,11 @@ public class LeoParts extends PreferenceActivity
 	 *  ROM infos
 	 */
 
+	setStringSummary(ROM_DEVICE_PREF, Build.MODEL + " by " + Build.MANUFACTURER);
 	setStringSummary(ROM_NAME_VERSION_PREF, getRomName() + "  /  " + (isRomBeta() ? getRomVersion() + "-BETA" + getRomBeta() : getRomVersion() )+ "  /  patch" + getRomPatch());
 	setStringSummary(ROM_SYSTEM_BUILD_PREF, "Android " + Build.VERSION.RELEASE + "  /  " + Build.ID + " " +
-			 (fileExists("/system/framework/framework.odex") ? "" : "de") + "odex'ed  /  " + getFormattedFingerprint());
-	setStringSummary(ROM_RADIO_PREF, getSystemValue("gsm.version.baseband"));
+			 (fileExists("/system/framework/framework.odex") ? "" : "de") + "odex  /  " + Build.FINGERPRINT);
+	setStringSummary(ROM_BOOTLOADER_RADIO_PREF, Build.BOOTLOADER + "  /  " + getSystemValue("gsm.version.baseband"));
 	String kernel = getFormattedKernelVersion();
 	findPreference(ROM_KERNEL_PREF).setSummary((kernel.equals("2.6.32.9\nandroid-build@apa26") ? "stock " : "") + kernel);
 	mUpdatePref = (Preference) prefSet.findPreference(ROM_UPDATE_PREF);
@@ -534,11 +536,6 @@ public class LeoParts extends PreferenceActivity
 	    e.printStackTrace();
 	}
 	return " Unavailable";
-    }
-
-    public String getFormattedFingerprint() {
-	String[] tab = new String(Build.FINGERPRINT).split("/");
-	return new String(tab[4]);
     }
 
     private String getFormattedKernelVersion() {
