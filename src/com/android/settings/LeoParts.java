@@ -110,6 +110,10 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mPulseScreenOnPref;
     private static final String HIDE_CLOCK_PREF = "hide_clock";
     private CheckBoxPreference mHideClockPref;
+    private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
+    private CheckBoxPreference mTrackballWakePref;
+    private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
+    private CheckBoxPreference mTrackballUnlockPref;
 
     // Apps & Addons
 
@@ -237,6 +241,10 @@ public class LeoParts extends PreferenceActivity
 	mPulseScreenOnPref.setOnPreferenceChangeListener(this);
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
+	mTrackballWakePref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_WAKE_PREF);
+	mTrackballWakePref.setOnPreferenceChangeListener(this);
+	mTrackballUnlockPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_UNLOCK_PREF);
+	mTrackballUnlockPref.setOnPreferenceChangeListener(this);
 
 	/**
 	 *  Apps & Addons
@@ -325,6 +333,14 @@ public class LeoParts extends PreferenceActivity
 	}
 	else if (preference == mHideClockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
+	    notify("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mTrackballWakePref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, mTrackballWakePref.isChecked() ? 0 : 1);
+	    notify("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mTrackballUnlockPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, mTrackballUnlockPref.isChecked() ? 0 : 1);
 	    notify("You should reboot for the changes to take effect.");
 	}
 

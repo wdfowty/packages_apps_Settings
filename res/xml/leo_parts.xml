@@ -166,6 +166,19 @@
 	   android:summaryOn=" Clock is hidden"
 	   android:summaryOff=" Clock is visible" />
 
+	<CheckBoxPreference
+	   android:key="trackball_wake"
+	   android:title="Trackball Wake"
+	   android:summaryOn=" Trackball wakes the device"
+	   android:summaryOff=" Trackball does nothing" />
+
+	<CheckBoxPreference
+	   android:key="trackball_unlock"
+	   android:title="Trackball Unlock"
+	   android:summaryOn=" Trackball unlocks the device"
+	   android:summaryOff=" Trackball does nothing"
+	   android:dependency="trackball_wake" />
+
       </PreferenceCategory>
 
     </PreferenceScreen>
