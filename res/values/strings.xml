@@ -870,6 +870,8 @@
     <string name="wifi_setting_sleep_policy_error">There was a problem setting the sleep policy.</string>
     <!-- Wi-Fi settings screen, advanced, title of the item to show the Wi-Fi device's MAC address. -->
     <string name="wifi_advanced_mac_address_title">MAC address</string>
+    <!-- Wi-Fi settings screen, advanced, title of the item to show the Wi-Fi device's current IP address. -->
+    <string name="wifi_advanced_ip_address_title">IP address</string>
     <!-- Title of the screen to adjust IP settings -->
     <string name="wifi_ip_settings_titlebar">IP settings</string>
     <!-- Menu ietm to save the IP settings -->
@@ -1240,6 +1242,8 @@
     <string name="status_operator">Network</string>
     <!-- About phone, status item title.  The MAC address of the Wi-Fi network adapter. -->
     <string name="status_wifi_mac_address">Wi-Fi MAC address</string>
+    <!-- About phone, status item title.  The IP address of the Wi-Fi network adapter. -->
+    <string name="status_wifi_ip_address">Wi-Fi IP address</string>
     <!-- About phone, status item title.  The bluetooth adapter's hardware address-->
     <string name="status_bt_address">Bluetooth address</string>
     <!-- About phone, status item value if the actual value is not available. -->
