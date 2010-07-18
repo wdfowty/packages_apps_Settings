@@ -17,6 +17,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:title="@string/about_settings">
 
+  <PreferenceCategory
+     android:title="Stock">
+
 	<!-- Device status - launches activity -->
 	<PreferenceScreen android:key="status_info"
 		android:title="@string/device_status"
@@ -89,34 +92,21 @@
 	    <intent android:action="android.intent.action.SYSTEM_TUTORIAL" />
 	</PreferenceScreen>
 
-	<!-- Device hardware model -->
-	<Preference android:key="device_model"
-		style="?android:preferenceInformationStyle"
-		android:title="@string/model_number"
-		android:summary="@string/device_info_default"/>
+  </PreferenceCategory>
 
-	<!-- Device firmware version -->
-	<Preference android:key="firmware_version"
-		style="?android:preferenceInformationStyle"
-		android:title="@string/firmware_version"
-		android:summary="@string/device_info_default"/>
+  <PreferenceCategory
+     android:title="LeoFroYo" >
 
-	<!-- Device Baseband version -->
-	<Preference android:key="baseband_version"
-		style="?android:preferenceInformationStyle"
-		android:title="@string/baseband_version"
-		android:summary="@string/device_info_default"/>
+	<!-- Leo Parts -->
+	<PreferenceScreen android:key="leo_parts"
+		android:title="More"
+		android:summary="Use Leo Parts to get more infos">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.settings"
+                android:targetClass="com.android.settings.LeoParts" />
+        </PreferenceScreen>
 
-	<!-- Device Kernel version -->
-	<Preference android:key="kernel_version"
-		style="?android:preferenceInformationStyle"
-		android:title="@string/kernel_version"
-		android:summary="@string/device_info_default"/>
-
-	<!-- Detailed build version -->
-	<Preference android:key="build_number"
-		style="?android:preferenceInformationStyle"
-		android:title="@string/build_number"
-		android:summary="@string/device_info_default"/>
+  </PreferenceCategory>
 
 </PreferenceScreen>
