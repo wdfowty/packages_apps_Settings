@@ -2601,6 +2601,10 @@ found in the list of installed applications.</string>
     <string name="title_notifications_items_text">Items text color</string>
     <string name="title_notifications_items_time">Items time color</string>
 
+    <string name="lockscreen_settings_title">Lockscreen settings</string>
+    <string name="pref_lockscreen_music_controls_title">Lockscreen music controls</string>
+    <string name="pref_lockscreen_music_controls_summary">Displays music controls on the lockscreen</string>
+
     <string name="repo_name">LeoFroYo</string>
     <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
 </resources>

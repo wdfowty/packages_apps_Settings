@@ -140,6 +140,9 @@ public class LeoParts extends PreferenceActivity
     private static final String UI_NOTIF_ITEM_TIME_COLOR = "notifications_time_color";
     private Preference mNotifItemTimePref;
 
+    private static final String LOCKSCREEN_MUSIC_CONTROLS = "lockscreen_music_controls";
+    private CheckBoxPreference mMusicControlPref;
+
     private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
     private CheckBoxPreference mPulseScreenOnPref;
     private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
@@ -284,6 +287,10 @@ public class LeoParts extends PreferenceActivity
 	mHideClockPref.setOnPreferenceChangeListener(this);
 	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
 
+	mMusicControlPref = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_MUSIC_CONTROLS);
+	mMusicControlPref.setOnPreferenceChangeListener(this);
+	mMusicControlPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 0) == 1);
+
 	mBatteryPercentColorPreference = prefSet.findPreference(UI_BATTERY_PERCENT_COLOR);
 	mClockColorPref = prefSet.findPreference(UI_CLOCK_COLOR);
 	mClockColorPref.setEnabled(mHideClockPref.isChecked() ? false : true);
@@ -401,6 +408,9 @@ public class LeoParts extends PreferenceActivity
 	else if (preference == mHideClockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
 	    toast("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mMusicControlPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS, mMusicControlPref.isChecked() ? 0 : 1);
 	}
 	else if (preference == mPulseScreenOnPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
