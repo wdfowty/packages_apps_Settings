@@ -12,12 +12,13 @@
 ** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
-** limitations under the License.
+** limitations under the LicOBense.
 */
 
 package com.android.settings;
 
 import com.android.settings.ShellInterface;
+import com.android.settings.ColorPickerDialog;
 
 import android.app.ActivityManagerNative;
 import android.app.AlertDialog;
@@ -107,10 +108,40 @@ public class LeoParts extends PreferenceActivity
     // User Interface
     private static final String BATTERY_PERCENT_PREF = "battery_percent";
     private CheckBoxPreference mBatteryPercentPref;
-    private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
-    private CheckBoxPreference mPulseScreenOnPref;
     private static final String HIDE_CLOCK_PREF = "hide_clock";
     private CheckBoxPreference mHideClockPref;
+
+    private static final String UI_BATTERY_PERCENT_COLOR = "battery_status_color_title";
+    private Preference mBatteryPercentColorPreference;
+    private static final String UI_CLOCK_COLOR = "clock_color";
+    private Preference mClockColorPref;
+    private static final String UI_DATE_COLOR = "date_color";
+    private Preference mDateColorPref;
+    private static final String UI_PLMN_LABEL_COLOR = "plmn_label_color";
+    private Preference mPlmnLabelColorPref;
+    private static final String UI_SPN_LABEL_COLOR = "spn_label_color";
+    private Preference mSpnLabelColorPref;
+    private static final String UI_NO_NOTIF_COLOR = "no_notifications_color";
+    private Preference mNoNotifColorPref;
+    private static final String UI_LATEST_NOTIF_COLOR = "latest_notifications_color";
+    private Preference mLatestNotifColorPref;
+    private static final String UI_ONGOING_NOTIF_COLOR = "ongoing_notifications_color";
+    private Preference mOngoingNotifColorPref;
+    private static final String UI_CLEAR_LABEL_COLOR = "clear_button_label_color";
+    private Preference mClearLabelColorPref;
+    private static final String UI_NOTIF_TICKER_COLOR = "new_notifications_ticker_color";
+    private Preference mNotifTickerColor;
+    private static final String UI_NOTIF_COUNT_COLOR = "notifications_count_color";
+    private Preference mNotifCountColor;
+    private static final String UI_NOTIF_ITEM_TITLE_COLOR = "notifications_title_color";
+    private Preference mNotifItemTitlePref;
+    private static final String UI_NOTIF_ITEM_TEXT_COLOR = "notifications_text_color";
+    private Preference mNotifItemTextPref;
+    private static final String UI_NOTIF_ITEM_TIME_COLOR = "notifications_time_color";
+    private Preference mNotifItemTimePref;
+
+    private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
+    private CheckBoxPreference mPulseScreenOnPref;
     private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
     private CheckBoxPreference mTrackballWakePref;
     private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
@@ -251,7 +282,24 @@ public class LeoParts extends PreferenceActivity
 	mPulseScreenOnPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, 0) == 1);
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
-	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 0) == 1);
+	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
+
+	mBatteryPercentColorPreference = prefSet.findPreference(UI_BATTERY_PERCENT_COLOR);
+	mClockColorPref = prefSet.findPreference(UI_CLOCK_COLOR);
+	mClockColorPref.setEnabled(mHideClockPref.isChecked() ? false : true);
+	mDateColorPref = prefSet.findPreference(UI_DATE_COLOR);
+	mPlmnLabelColorPref = prefSet.findPreference(UI_PLMN_LABEL_COLOR);
+	mSpnLabelColorPref = prefSet.findPreference(UI_SPN_LABEL_COLOR);
+	mNotifTickerColor = prefSet.findPreference(UI_NOTIF_TICKER_COLOR);
+	mNotifCountColor = prefSet.findPreference(UI_NOTIF_COUNT_COLOR);
+	mNoNotifColorPref = prefSet.findPreference(UI_NO_NOTIF_COLOR);
+	mClearLabelColorPref = prefSet.findPreference(UI_CLEAR_LABEL_COLOR);
+	mOngoingNotifColorPref = prefSet.findPreference(UI_ONGOING_NOTIF_COLOR);
+	mLatestNotifColorPref = prefSet.findPreference(UI_LATEST_NOTIF_COLOR);
+	mNotifItemTitlePref = prefSet.findPreference(UI_NOTIF_ITEM_TITLE_COLOR);
+	mNotifItemTextPref = prefSet.findPreference(UI_NOTIF_ITEM_TEXT_COLOR);
+	mNotifItemTimePref = prefSet.findPreference(UI_NOTIF_ITEM_TIME_COLOR);
+
 	mTrackballWakePref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_WAKE_PREF);
 	mTrackballWakePref.setOnPreferenceChangeListener(this);
 	mTrackballWakePref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, 0) == 1);
@@ -265,7 +313,6 @@ public class LeoParts extends PreferenceActivity
 	mRotation270Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_270_PREF);
 	mRotation270Pref.setOnPreferenceChangeListener(this);
 	int mode = Settings.System.getInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, 5);
-	Log.i(TAG, "InitialRotationMode=" + mode);
 	mRotation90Pref.setChecked((mode & 1) != 0);
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
@@ -280,34 +327,34 @@ public class LeoParts extends PreferenceActivity
 
 	mAboutAuthor = (Preference) prefSet.findPreference(ABOUT_AUTHOR);
 	findPreference(ABOUT_AUTHOR).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-		    public boolean onPreferenceClick(Preference preference) {
-			String url = "http://forum.xda-developers.com/member.php?u=2398805";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-			return true;
-		    }
-		});
+		public boolean onPreferenceClick(Preference preference) {
+		    String url = "http://forum.xda-developers.com/member.php?u=2398805";
+		    Intent i = new Intent(Intent.ACTION_VIEW);
+		    i.setData(Uri.parse(url));
+		    startActivity(i);
+		    return true;
+		}
+	    });
 	mAboutDonate = (Preference) prefSet.findPreference(ABOUT_DONATE);
 	findPreference(ABOUT_DONATE).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-		    public boolean onPreferenceClick(Preference preference) {
-			String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FP4JTHPKJPKS6&lc=FR&item_name=leonnib4&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-			return true;
-		    }
-		});
+		public boolean onPreferenceClick(Preference preference) {
+		    String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FP4JTHPKJPKS6&lc=FR&item_name=leonnib4&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
+		    Intent i = new Intent(Intent.ACTION_VIEW);
+		    i.setData(Uri.parse(url));
+		    startActivity(i);
+		    return true;
+		}
+	    });
 	mAboutSources = (Preference) prefSet.findPreference(ABOUT_SOURCES);
 	findPreference(ABOUT_SOURCES).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-		    public boolean onPreferenceClick(Preference preference) {
-			String url = "http://github.com/leonnib4/development_apps_Settings";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-			return true;
-		    }
-		});
+		public boolean onPreferenceClick(Preference preference) {
+		    String url = "http://github.com/leonnib4/development_apps_Settings";
+		    Intent i = new Intent(Intent.ACTION_VIEW);
+		    i.setData(Uri.parse(url));
+		    startActivity(i);
+		    return true;
+		}
+	    });
 
 	/**
 	 *  Storage
@@ -351,21 +398,19 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, mBatteryPercentPref.isChecked() ? 0 : 1);
 	    toast("You should reboot for the changes to take effect.");
 	}
-	else if (preference == mPulseScreenOnPref) {
-	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
-	}
 	else if (preference == mHideClockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
 	    toast("You should reboot for the changes to take effect.");
 	}
+	else if (preference == mPulseScreenOnPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
+	    toast("You should reboot for the changes to take effect.");
+	}
 	else if (preference == mTrackballWakePref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, mTrackballWakePref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mTrackballUnlockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, mTrackballUnlockPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mRotation90Pref ||
 		 preference == mRotation180Pref ||
@@ -390,6 +435,291 @@ public class LeoParts extends PreferenceActivity
 	public void onResume() {
 	super.onResume();
     }
+
+    /**
+     *  Colors relative
+     */
+
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+	if (preference == mBatteryPercentColorPreference) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mBatteryColorListener, readBatteryColor());
+	    cp.show();
+	}
+	else if (preference == mClockColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mClockFontColorListener, readClockFontColor());
+	    cp.show();
+	}
+	if (preference == mDateColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mDateFontColorListener, readDateFontColor());
+	    cp.show();
+	}
+	else if (preference == mPlmnLabelColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mPlmnLabelColorListener, readPlmnLabelColor());
+	    cp.show();
+	}
+	else if (preference == mSpnLabelColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mSpnLabelColorListener, readSpnLabelColor());
+	    cp.show();
+	}
+	else if (preference == mNotifTickerColor) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifTickerColorListener, readNotifTickerColor());
+	    cp.show();
+	}
+	else if (preference == mNotifCountColor) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifCountColorListener, readNotifCountColor());
+	    cp.show();
+	}
+	else if (preference == mNoNotifColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNoNotifColorListener, readNoNotifColor());
+	    cp.show();
+	}
+	else if (preference == mClearLabelColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mClearLabelColorListener, readClearLabelColor());
+	    cp.show();
+	}
+	else if (preference == mOngoingNotifColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mOngoingNotifColorListener, readOngoingNotifColor());
+	    cp.show();
+	}
+	else if (preference == mLatestNotifColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mLatestNotifColorListener, readLatestNotifColor());
+	    cp.show();
+	}
+	else if (preference == mNotifItemTitlePref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifItemTitleColorListener, readNotifItemTitleColor());
+	    cp.show();
+	}
+	else if (preference == mNotifItemTextPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifItemTextColorListener, readNotifItemTextColor());
+	    cp.show();
+	}
+	else if (preference == mNotifItemTimePref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifItemTimeColorListener, readNotifItemTimeColor());
+	    cp.show();
+	}
+	return true;
+    }
+
+    ColorPickerDialog.OnColorChangedListener mBatteryColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readBatteryColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mClockFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.CLOCK_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readClockFontColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.CLOCK_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    private int readDateFontColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.DATE_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mDateFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.DATE_COLOR, color);
+	    }
+	};
+
+    private int readPlmnLabelColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.PLMN_LABEL_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mPlmnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.PLMN_LABEL_COLOR, color);
+	    }
+	};
+
+    private int readSpnLabelColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mSpnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR, color);
+            }
+	};
+
+    private int readNotifTickerColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NEW_NOTIF_TICKER_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNotifTickerColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NEW_NOTIF_TICKER_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readNotifCountColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_COUNT_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNotifCountColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_COUNT_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readNoNotifColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NO_NOTIF_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNoNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NO_NOTIF_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readClearLabelColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mClearLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readOngoingNotifColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.ONGOING_NOTIF_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mOngoingNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.ONGOING_NOTIF_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readLatestNotifColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.LATEST_NOTIF_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mLatestNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.LATEST_NOTIF_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readNotifItemTitleColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_ITEM_TITLE_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNotifItemTitleColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TITLE_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readNotifItemTextColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_ITEM_TEXT_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNotifItemTextColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TEXT_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
+    private int readNotifItemTimeColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mNotifItemTimeColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
 
     /**
      *  Shell interaction
@@ -517,7 +847,7 @@ public class LeoParts extends PreferenceActivity
      */
 
     public boolean fileExists(String filename) {
-        File f = new File(filename);
+	File f = new File(filename);
 	return f.exists();
     }
 
@@ -552,29 +882,29 @@ public class LeoParts extends PreferenceActivity
 	    } finally {
 		reader.close();
 	    }
-	        final String PROC_VERSION_REGEX =
-		    "\\w+\\s+" + /* ignore: Linux */
-		    "\\w+\\s+" + /* ignore: version */
-		    "([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
-		    "\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
-		    "\\(.*?(?:\\(.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
-		    "([^\\s]+)\\s+" + /* group 3: #26 */
-		    "(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
-		    "(.+)"; /* group 4: date */
-		Pattern p = Pattern.compile(PROC_VERSION_REGEX);
-		Matcher m = p.matcher(procVersionStr);
-		if (!m.matches()) {
-		    Log.e(TAG, "Regex did not match on /proc/version: " + procVersionStr);
-		    return " Unavailable";
-		} else if (m.groupCount() < 4) {
-		    Log.e(TAG, "Regex match on /proc/version only returned " + m.groupCount() + " groups");
-		    return " Unavailable";
-		} else {
-		    return (new StringBuilder(m.group(1).substring(0, m.group(1).indexOf('-')))
-			    .append("\n")
-			    .append(m.group(2))
-			    .toString());
-		}
+	    final String PROC_VERSION_REGEX =
+		"\\w+\\s+" + /* ignore: Linux */
+		"\\w+\\s+" + /* ignore: version */
+		"([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
+		"\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
+		"\\(.*?(?:\\(.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
+		"([^\\s]+)\\s+" + /* group 3: #26 */
+		"(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
+		"(.+)"; /* group 4: date */
+	    Pattern p = Pattern.compile(PROC_VERSION_REGEX);
+	    Matcher m = p.matcher(procVersionStr);
+	    if (!m.matches()) {
+		Log.e(TAG, "Regex did not match on /proc/version: " + procVersionStr);
+		return " Unavailable";
+	    } else if (m.groupCount() < 4) {
+		Log.e(TAG, "Regex match on /proc/version only returned " + m.groupCount() + " groups");
+		return " Unavailable";
+	    } else {
+		return (new StringBuilder(m.group(1).substring(0, m.group(1).indexOf('-')))
+			.append("\n")
+			.append(m.group(2))
+			.toString());
+	    }
 	} catch (IOException e) {
 	    e.printStackTrace();
 	    return " Unavailable";

@@ -166,6 +166,113 @@
 	   android:summaryOn=" Clock is hidden"
 	   android:summaryOff=" Clock is visible" />
 
+	<PreferenceScreen
+	   android:title="Wysie's colors"
+	   android:summary="Change colors of text in status bar">
+
+	  <PreferenceCategory
+	     android:title="Battery percentage">
+
+	    <Preference
+	       android:key="battery_status_color_title"
+	       android:title="@string/battery_status_color_title"
+	       android:defaultValue="-1"
+	       android:dependency="battery_percent" />
+
+	  </PreferenceCategory>
+
+	  <PreferenceCategory
+	     android:title="Clock">
+
+	    <Preference
+	       android:key="clock_color"
+	       android:title="@string/title_clock_color"
+	       android:defaultValue="-16777216" />
+
+	  </PreferenceCategory>
+
+	  <PreferenceCategory
+	     android:title="Date">
+
+	    <Preference
+	       android:key="date_color"
+	       android:title="@string/title_date_color"
+	       android:defaultValue="-16777216" />
+
+	  </PreferenceCategory>
+
+	  <PreferenceCategory
+	     android:title="Carrier">
+
+	    <Preference
+	       android:key="plmn_label_color"
+	       android:title="@string/title_plmn_label_color"
+	       android:defaultValue="-16777216" />
+
+	    <Preference
+	       android:key="spn_label_color"
+	       android:title="@string/title_spn_label_color"
+	       android:defaultValue="-16777216" />
+
+	  </PreferenceCategory>
+
+	  <PreferenceCategory
+	     android:title="@string/title_notifications_sb">
+
+	    <Preference
+	       android:key="new_notifications_ticker_color"
+	       android:title="@string/title_notifications_ticker_color"
+	       android:defaultValue="-16777216" />
+
+	    <Preference
+	       android:key="notifications_count_color"
+	       android:title="@string/title_notifications_count_color"
+	       android:defaultValue="-1" />
+
+	    <Preference
+	       android:key="no_notifications_color"
+	       android:title="@string/title_no_notifications_color"
+	       android:defaultValue="-1" />
+
+	    <Preference
+	       android:key="clear_button_label_color"
+	       android:title="@string/title_clear_button_label_color"
+	       android:defaultValue="-16777216" />
+
+	    <Preference
+	       android:key="ongoing_notifications_color"
+	       android:title="@string/title_ongoing_notifications_color"
+	       android:defaultValue="-1" />
+
+	    <Preference
+	       android:key="latest_notifications_color"
+	       android:title="@string/title_latest_notifications_color"
+	       android:defaultValue="-1" />
+
+	  </PreferenceCategory>
+
+	  <PreferenceCategory
+	     android:title="@string/title_notifications_items">
+
+	    <Preference
+	       android:key="notifications_title_color"
+	       android:title="@string/title_notifications_items_title"
+	       android:defaultValue="-16777216" />
+
+	    <Preference
+	       android:key="notifications_text_color"
+	       android:title="@string/title_notifications_items_text"
+	       android:defaultValue="-16777216" />
+
+	    <Preference
+	       android:key="notifications_time_color"
+	       android:title="@string/title_notifications_items_time"
+	       android:defaultValue="-16777216" />
+
+	  </PreferenceCategory>
+
+	</PreferenceScreen>
+
       </PreferenceCategory>
 
       <PreferenceCategory
