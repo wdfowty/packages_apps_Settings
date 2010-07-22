@@ -137,10 +137,31 @@
       <PreferenceCategory
 	 android:title="Stock">
 
+	<ListPreference
+	   android:key="app2sd"
+	   android:title="Stock App2SD"
+	   android:summary=" Choose where to store apps"
+	   android:entries="@array/entries_app2sd"
+	   android:entryValues="@array/entryvalues_app2sd"
+	   android:defaultValue="0"
+	   android:dialogTitle="Select an option" />
+
+	<CheckBoxPreference
+	   android:key="ui_sounds"
+	   android:title="Deactivate UI sounds"
+	   android:summaryOn=" UI sounds deactivated"
+	   android:summaryOff=" UI sounds activated" />
+
 	<PreferenceScreen
-	   android:key="stock1"
-	   android:title="stock1"
-	   android:summary=" stock1">
+	   android:key="fix_perms"
+	   android:title="Fix permissions"
+	   android:summary=" Can solve weird Force Closes">
+	</PreferenceScreen>
+
+	<PreferenceScreen
+	   android:key="fix_market"
+	   android:title="Force Market re-sync"
+	   android:summary=" Forces the Market to re-sync apps">
 	</PreferenceScreen>
 
       </PreferenceCategory>
@@ -340,10 +361,34 @@
 	   android:summary="Stock apps that you can (only) remove">
 
 	  <CheckBoxPreference
-	     android:key="facebook"
-	     android:title="Facebook"
-	     android:summaryOn=" Facebook installed"
-	     android:summaryOff=" Facebook removed" />
+             android:key="car_home"
+             android:title="Car Home"
+             android:summaryOn=" Car Home installed"
+             android:summaryOff=" Car Home removed" />
+
+	  <CheckBoxPreference
+             android:key="email"
+             android:title="Email"
+             android:summaryOn=" Email installed"
+             android:summaryOff=" Email removed" />
+
+	  <CheckBoxPreference
+             android:key="facebook"
+             android:title="Facebook"
+             android:summaryOn=" Facebook installed"
+             android:summaryOff=" Facebook removed" />
+
+          <CheckBoxPreference
+	     android:key="google_talk"
+	     android:title="Google Talk"
+	     android:summaryOn=" Google Talk installed"
+	     android:summaryOff=" Google Talk removed" />
+
+	  <CheckBoxPreference
+	     android:key="google_voice"
+	     android:title="Google Voice"
+	     android:summaryOn=" Google Voice installed"
+	     android:summaryOff=" Google Voice removed" />
 
 	  <CheckBoxPreference
 	     android:key="twitter"
@@ -351,10 +396,17 @@
 	     android:summaryOn=" Twitter installed"
 	     android:summaryOff=" Twitter removed" />
 
+	  <CheckBoxPreference
+	     android:key="youtube"
+	     android:title="Youtube"
+	     android:summaryOn=" Youtube installed"
+	     android:summaryOff=" Youtube removed" />
+
 	</PreferenceScreen>
 
       </PreferenceCategory>
 
+      <!--
       <PreferenceCategory
 	 android:title="Addons">
 
@@ -404,6 +456,7 @@
 	</PreferenceScreen>
 
       </PreferenceCategory>
+      -->
 
     </PreferenceScreen>
 
@@ -432,7 +485,7 @@
       <PreferenceScreen
 	 android:key="about_thanks"
 	 android:title="Special thanks to"
-	 android:summary=" britoso, Cyanogen, ctso, kmbos, Jr33, crimsondr\n All XDA community">
+	 android:summary=" britoso, Jr33, crimsondr\n Cyanogen, Wysie, jeagoss, kmobs, ctso\n All XDA community">
       </PreferenceScreen>
 
       <PreferenceScreen

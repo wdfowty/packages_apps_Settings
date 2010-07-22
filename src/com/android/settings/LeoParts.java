@@ -104,6 +104,14 @@ public class LeoParts extends PreferenceActivity
     private Preference mRemountROPref;
 
     // Tweaks
+    private static final String APP2SD_PREF = "app2sd";
+    private ListPreference mApp2sdPref;
+    private static final String UI_SOUNDS_PREF = "ui_sounds";
+    private CheckBoxPreference mUiSoundsPref;
+    private static final String FIX_PERMS_PREF = "fix_perms";
+    private Preference mFixPermsPref;
+    private static final String FIX_MARKET_PREF = "fix_market";
+    private Preference mFixMarketPref;
 
     // User Interface
     private static final String BATTERY_PERCENT_PREF = "battery_percent";
@@ -157,6 +165,20 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mRotation270Pref;
 
     // Apps & Addons
+    private static final String CAR_HOME_PREF = "car_home";
+    private CheckBoxPreference mCarHomePref;
+    private static final String EMAIL_PREF = "email";
+    private CheckBoxPreference mEmailPref;
+    private static final String FACEBOOK_PREF = "facebook";
+    private CheckBoxPreference mFacebookPref;
+    private static final String GOOGLE_TALK_PREF = "google_talk";
+    private CheckBoxPreference mGoogleTalkPref;
+    private static final String GOOGLE_VOICE_PREF = "google_voice";
+    private CheckBoxPreference mGoogleVoicePref;
+    private static final String TWITTER_PREF = "twitter";
+    private CheckBoxPreference mTwitterPref;
+    private static final String YOUTUBE_PREF = "youtube";
+    private CheckBoxPreference mYouTubePref;
 
     // About
     private static final String ABOUT_AUTHOR = "about_author";
@@ -203,11 +225,15 @@ public class LeoParts extends PreferenceActivity
 	PreferenceScreen prefSet = getPreferenceScreen();
 	REPO = getResources().getString(R.string.repo_url);
 
+	// Checks
+	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))	popup("Warning", "You don't seems to have ROOT permissions!");
+	if (!fileExists("/system/bin/busybox") && !fileExists("/system/xbin/busybox"))	popup("Warning", "You don't seems to have busybox!");
+
 	/**
 	 *  ROM infos
 	 */
 
-	setStringSummary(ROM_DEVICE_PREF, Build.MODEL + " by " + Build.MANUFACTURER);
+	setStringSummary(ROM_DEVICE_PREF, Build.MODEL + " by " + Build.BRAND + "/" + Build.MANUFACTURER);
 	setStringSummary(ROM_NAME_VERSION_PREF, getRomName() + "  /  " + (isRomBeta() ? getRomVersion() + "-BETA" + getRomBeta() : getRomVersion() )+ "  /  patch" + getRomPatch());
 	setStringSummary(ROM_SYSTEM_BUILD_PREF, "Android " + Build.VERSION.RELEASE + "  /  " + Build.ID + " " +
 			 (fileExists("/system/framework/framework.odex") ? "" : "de") + "odex  /  " + getFormattedFingerprint());
@@ -274,9 +300,34 @@ public class LeoParts extends PreferenceActivity
 	 *  Tweaks
 	 */
 
+	mApp2sdPref = (ListPreference) prefSet.findPreference(APP2SD_PREF);
+	mApp2sdPref.setOnPreferenceChangeListener(this);
+	mUiSoundsPref = (CheckBoxPreference) prefSet.findPreference(UI_SOUNDS_PREF);
+	mUiSoundsPref.setOnPreferenceChangeListener(this);
+	mUiSoundsPref.setEnabled(fileExists("/system/xbin/nouisounds"));
+	mFixPermsPref = (Preference) prefSet.findPreference(FIX_PERMS_PREF);
+	mFixPermsPref.setEnabled(fileExists("/system/xbin/fix_permissions"));
+	findPreference(FIX_PERMS_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    String[] commands = { "fix_permissions" };
+		    sendshell(commands, false, "Fixing permissions...");
+		    return true;
+		}
+	    });
+	mFixMarketPref = (Preference) prefSet.findPreference(FIX_MARKET_PREF);
+	mFixMarketPref.setEnabled(fileExists("/data/data/com.android.vending/shared_prefs/vending_preferences.xml"));
+	findPreference(FIX_MARKET_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    String[] commands = { "sed -i 's/false/true/' /data/data/com.android.vending/shared_prefs/vending_preferences.xml" };
+		    sendshell(commands, false, "Force Market re-sync...");
+		    return true;
+		}
+	    });
+
 	/**
 	 *  User Interface
 	 */
+
 	mBatteryPercentPref = (CheckBoxPreference) prefSet.findPreference(BATTERY_PERCENT_PREF);
 	mBatteryPercentPref.setOnPreferenceChangeListener(this);
 	mBatteryPercentPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, 0) == 1);
@@ -328,6 +379,35 @@ public class LeoParts extends PreferenceActivity
 	 *  Apps & Addons
 	 */
 
+	mCarHomePref = (CheckBoxPreference) prefSet.findPreference(CAR_HOME_PREF);
+	mCarHomePref.setOnPreferenceChangeListener(this);
+	mCarHomePref.setChecked(fileExists("/system/app/CarHomeGoogle.apk") && fileExists("/system/app/CarHomeLauncher.apk"));
+	mCarHomePref.setEnabled(fileExists("/system/app/CarHomeGoogle.apk") && fileExists("/system/app/CarHomeLauncher.apk"));
+	mEmailPref = (CheckBoxPreference) prefSet.findPreference(EMAIL_PREF);
+	mEmailPref.setOnPreferenceChangeListener(this);
+	mEmailPref.setChecked(fileExists("/system/app/Email.apk"));
+	mEmailPref.setEnabled(fileExists("/system/app/Email.apk"));
+	mFacebookPref = (CheckBoxPreference) prefSet.findPreference(FACEBOOK_PREF);
+	mFacebookPref.setOnPreferenceChangeListener(this);
+	mFacebookPref.setChecked(fileExists("/system/app/Facebook.apk"));
+	mFacebookPref.setEnabled(fileExists("/system/app/Facebook.apk"));
+	mGoogleTalkPref = (CheckBoxPreference) prefSet.findPreference(GOOGLE_TALK_PREF);
+	mGoogleTalkPref.setOnPreferenceChangeListener(this);
+	mGoogleTalkPref.setChecked(fileExists("/system/app/Talk.apk"));
+	mGoogleTalkPref.setEnabled(fileExists("/system/app/Talk.apk"));
+	mGoogleVoicePref = (CheckBoxPreference) prefSet.findPreference(GOOGLE_VOICE_PREF);
+	mGoogleVoicePref.setOnPreferenceChangeListener(this);
+	mGoogleVoicePref.setChecked(fileExists("/system/app/googlevoice.apk"));
+	mGoogleVoicePref.setEnabled(fileExists("/system/app/googlevoice.apk"));
+	mTwitterPref = (CheckBoxPreference) prefSet.findPreference(TWITTER_PREF);
+	mTwitterPref.setOnPreferenceChangeListener(this);
+	mTwitterPref.setChecked(fileExists("/system/app/Twitter.apk"));
+	mTwitterPref.setEnabled(fileExists("/system/app/Twitter.apk"));
+	mYouTubePref = (CheckBoxPreference) prefSet.findPreference(YOUTUBE_PREF);
+	mYouTubePref.setOnPreferenceChangeListener(this);
+	mYouTubePref.setChecked(fileExists("/system/app/YouTube.apk"));
+	mYouTubePref.setEnabled(fileExists("/system/app/YouTube.apk"));
+
 	/**
 	 *  About
 	 */
@@ -345,7 +425,8 @@ public class LeoParts extends PreferenceActivity
 	mAboutDonate = (Preference) prefSet.findPreference(ABOUT_DONATE);
 	findPreference(ABOUT_DONATE).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
-		    String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FP4JTHPKJPKS6&lc=FR&item_name=leonnib4&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
+		    String url = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=FP4JTHPKJPKS6&lc=FR" +
+			"&item_name=leonnib4&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted";
 		    Intent i = new Intent(Intent.ACTION_VIEW);
 		    i.setData(Uri.parse(url));
 		    startActivity(i);
@@ -401,7 +482,20 @@ public class LeoParts extends PreferenceActivity
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-	if (preference == mBatteryPercentPref) {
+	if (preference == mApp2sdPref) {
+	    String[] commands = {
+		"pm setInstallLocation " + objValue
+	    };
+	    sendshell(commands, false, "Activating stock app2sd...");
+	}
+	else if (preference == mUiSoundsPref) {
+	    String[] commands = { "nouisounds" };
+	    if (mUiSoundsPref.isChecked() == false)
+		sendshell(commands, false, "Deactivating UI sounds...");
+	    else
+		sendshell(commands, false, "Activating UI sounds...");
+	}
+	else if (preference == mBatteryPercentPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, mBatteryPercentPref.isChecked() ? 0 : 1);
 	    toast("You should reboot for the changes to take effect.");
 	}
@@ -422,9 +516,7 @@ public class LeoParts extends PreferenceActivity
 	else if (preference == mTrackballUnlockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, mTrackballUnlockPref.isChecked() ? 0 : 1);
 	}
-	else if (preference == mRotation90Pref ||
-		 preference == mRotation180Pref ||
-		 preference == mRotation270Pref) {
+	else if (preference == mRotation90Pref || preference == mRotation180Pref || preference == mRotation270Pref) {
 	    int mode = 0;
 	    if (mRotation90Pref.isChecked()) mode += 1;
 	    if (mRotation180Pref.isChecked()) mode += 2;
@@ -433,10 +525,22 @@ public class LeoParts extends PreferenceActivity
 	    if (preference == mRotation180Pref) mode += 2;
 	    if (preference == mRotation270Pref) mode += 4;
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
-	    Log.i(TAG, "RotationMode=" + mode);
 	    toast("You should reboot for the changes to take effect.");
 	}
-
+	// else if (preference == mCarHomePref)
+	//     return removeSystemApp(mEmailPref, "Email", "Email.apk");
+	else if (preference == mEmailPref)
+	    return removeSystemApp(mEmailPref, "Email", "Email.apk");
+	else if (preference == mFacebookPref)
+	    return removeSystemApp(mFacebookPref, "Facebook", "Facebook.apk");
+	else if (preference == mGoogleTalkPref)
+	    return removeSystemApp(mGoogleTalkPref, "Talk", "Talk.apk");
+	else if (preference == mGoogleVoicePref)
+	    return removeSystemApp(mFacebookPref, "Google Voice", "googlevoice.apk");
+	else if (preference == mTwitterPref)
+	    return removeSystemApp(mTwitterPref, "Twitter", "Twitter.apk");
+	else if (preference == mYouTubePref)
+	    return removeSystemApp(mYouTubePref, "YouTube", "YouTube.apk");
 	// always let the preference setting proceed.
 	return true;
     }
@@ -815,6 +919,38 @@ public class LeoParts extends PreferenceActivity
 		});
 	AlertDialog alert = builder.create();
 	alert.show();
+    }
+
+    /**
+     *  Methods for apps & addons
+     */
+
+    public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk) {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	builder.setTitle("Confirm")
+	    .setMessage("Are you sure you want to remove " + name + "?")
+	    .setCancelable(false)
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+			String[] commands = {
+			    REMOUNT_RW,
+			    "busybox rm -f /system/app/" + apk,
+			    REMOUNT_RO
+			};
+			sendshell(commands, false, "Removing " + name + "...");
+			preference.setEnabled(false);
+		    }
+		})
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+			preference.setChecked(true);
+		    }
+		});
+	AlertDialog alert = builder.create();
+	alert.show();
+	return true;
     }
 
     /**

@@ -413,9 +413,9 @@
     <!-- Leo Parts -->
 
     <string-array name="entries_app2sd">
-        <item>Default</item>
-        <item>Internal</item>
-        <item>External</item>
+        <item>Default (auto)</item>
+        <item>Internal (Phone)</item>
+        <item>External (SDCard/FAT)</item>
     </string-array>
 
     <string-array name="entryvalues_app2sd">
@@ -435,7 +435,6 @@
         <item>NexusX red</item>
         <item>NexusX white</item>
         <item>NexusX yellow</item>
-
     </string-array>
 
     <string-array name="entryvalues_bootanim">
