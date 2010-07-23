@@ -187,6 +187,12 @@
 	   android:summaryOn=" Clock is hidden"
 	   android:summaryOff=" Clock is visible" />
 
+	<CheckBoxPreference
+	   android:key="am_pm"
+	   android:title="Hide AM/PM in clock"
+	   android:summaryOn=" AM/PM is hidden"
+	   android:summaryOff=" AM/PM is displayed" />
+
 	<PreferenceScreen
 	   android:title="Wysie's colors"
 	   android:summary="Change colors of text in status bar">
@@ -304,6 +310,12 @@
 	   android:title="@string/pref_lockscreen_music_controls_title"
 	   android:summary="@string/pref_lockscreen_music_controls_summary" />
 
+	<CheckBoxPreference
+	   android:key="lockscreen_always_music_controls"
+           android:dependency="lockscreen_music_controls"
+           android:title="@string/pref_lockscreen_always_music_controls_title"
+	   android:summary="@string/pref_lockscreen_always_music_controls_summary" />
+
       </PreferenceCategory>
 
       <PreferenceCategory
@@ -344,6 +356,17 @@
 	<CheckBoxPreference
 	   android:key="rotation_270"
 	   android:title="270 degrees" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="Other">
+
+	<CheckBoxPreference
+	   android:key="power_prompt"
+	   android:title="Power prompt"
+           android:summary="Change whether there is a prompt after choosing shutdown or reboot"
+           android:defaultValue="true" />
 
       </PreferenceCategory>
 
@@ -406,7 +429,6 @@
 
       </PreferenceCategory>
 
-      <!--
       <PreferenceCategory
 	 android:title="Addons">
 
@@ -419,6 +441,12 @@
 	     android:title="File manager"
 	     android:summaryOn=" File manager installed"
 	     android:summaryOff=" File manager not installed" />
+
+	  <CheckBoxPreference
+             android:key="terminal"
+             android:title="Terminal"
+             android:summaryOn=" Terminal installed"
+             android:summaryOff=" Terminal not installed" />
 
 	</PreferenceScreen>
 
@@ -447,16 +475,9 @@
 	     android:summaryOn=" CPUstatusLED installed"
 	     android:summaryOff=" CPUstatusLED not installed" />
 
-	  <CheckBoxPreference
-	     android:key="player"
-	     android:title="DivX/XviD player"
-	     android:summaryOn=" RockPlayer installed"
-	     android:summaryOff=" RockPlayer not installed" />
-
 	</PreferenceScreen>
 
       </PreferenceCategory>
-      -->
 
     </PreferenceScreen>
 

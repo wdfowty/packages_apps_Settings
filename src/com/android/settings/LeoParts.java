@@ -118,6 +118,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mBatteryPercentPref;
     private static final String HIDE_CLOCK_PREF = "hide_clock";
     private CheckBoxPreference mHideClockPref;
+    private static final String AM_PM_PREF = "am_pm";
+    private CheckBoxPreference mAmPmPref;
 
     private static final String UI_BATTERY_PERCENT_COLOR = "battery_status_color_title";
     private Preference mBatteryPercentColorPreference;
@@ -150,6 +152,8 @@ public class LeoParts extends PreferenceActivity
 
     private static final String LOCKSCREEN_MUSIC_CONTROLS = "lockscreen_music_controls";
     private CheckBoxPreference mMusicControlPref;
+    private static final String LOCKSCREEN_ALWAYS_MUSIC_CONTROLS = "lockscreen_always_music_controls";
+    private CheckBoxPreference mAlwaysMusicControlPref;
 
     private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
     private CheckBoxPreference mPulseScreenOnPref;
@@ -163,6 +167,9 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mRotation180Pref;
     private static final String ROTATION_270_PREF = "rotation_270";
     private CheckBoxPreference mRotation270Pref;
+
+    private static final String POWER_PROMPT_PREF = "power_prompt";
+    private CheckBoxPreference mPowerPromptPref;
 
     // Apps & Addons
     private static final String CAR_HOME_PREF = "car_home";
@@ -179,6 +186,18 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mTwitterPref;
     private static final String YOUTUBE_PREF = "youtube";
     private CheckBoxPreference mYouTubePref;
+
+    private static final String FILEMANAGER_PREF = "filemanager";
+    private CheckBoxPreference mFileManagerPref;
+    private static final String TERMINAL_PREF = "terminal";
+    private CheckBoxPreference mTerminalPref;
+
+    private static final String BOOTANIM_PREF = "bootanim";
+    private ListPreference mBootanimPref;
+    private static final String HTC_IME_PREF = "htc_ime";
+    private CheckBoxPreference mHtcImePref;
+    private static final String CPU_LED_PREF = "cpu_led";
+    private CheckBoxPreference mCpuLedPref;
 
     // About
     private static final String ABOUT_AUTHOR = "about_author";
@@ -337,10 +356,16 @@ public class LeoParts extends PreferenceActivity
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
 	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
+	mAmPmPref = (CheckBoxPreference) prefSet.findPreference(AM_PM_PREF);
+	mAmPmPref.setOnPreferenceChangeListener(this);
+	mAmPmPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_TWELVE_HOUR_CLOCK_PERIOD, 1) == 0);
 
 	mMusicControlPref = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_MUSIC_CONTROLS);
 	mMusicControlPref.setOnPreferenceChangeListener(this);
 	mMusicControlPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS, 0) == 1);
+	mAlwaysMusicControlPref = (CheckBoxPreference) prefSet.findPreference(LOCKSCREEN_ALWAYS_MUSIC_CONTROLS);
+	mAlwaysMusicControlPref.setOnPreferenceChangeListener(this);
+	mAlwaysMusicControlPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_MUSIC_CONTROLS, 0) == 1);
 
 	mBatteryPercentColorPreference = prefSet.findPreference(UI_BATTERY_PERCENT_COLOR);
 	mClockColorPref = prefSet.findPreference(UI_CLOCK_COLOR);
@@ -375,6 +400,8 @@ public class LeoParts extends PreferenceActivity
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
+	mPowerPromptPref = (CheckBoxPreference) prefSet.findPreference(POWER_PROMPT_PREF);
+
 	/**
 	 *  Apps & Addons
 	 */
@@ -407,6 +434,22 @@ public class LeoParts extends PreferenceActivity
 	mYouTubePref.setOnPreferenceChangeListener(this);
 	mYouTubePref.setChecked(fileExists("/system/app/YouTube.apk"));
 	mYouTubePref.setEnabled(fileExists("/system/app/YouTube.apk"));
+
+	mFileManagerPref = (CheckBoxPreference) prefSet.findPreference(FILEMANAGER_PREF);
+	mFileManagerPref.setOnPreferenceChangeListener(this);
+	mFileManagerPref.setChecked(fileExists("/system/app/FileManager.apk"));
+	mFileManagerPref.setEnabled(mFileManagerPref.isChecked());
+	mTerminalPref = (CheckBoxPreference) prefSet.findPreference(TERMINAL_PREF);
+	mTerminalPref.setOnPreferenceChangeListener(this);
+	mTerminalPref.setChecked(fileExists("/system/app/Terminal.apk"));
+	mTerminalPref.setEnabled(mTerminalPref.isChecked());
+
+	mBootanimPref = (ListPreference) prefSet.findPreference(BOOTANIM_PREF);
+	mBootanimPref.setOnPreferenceChangeListener(this);
+	mHtcImePref = (CheckBoxPreference) prefSet.findPreference(HTC_IME_PREF);
+	mHtcImePref.setOnPreferenceChangeListener(this);
+	mCpuLedPref = (CheckBoxPreference) prefSet.findPreference(CPU_LED_PREF);
+	mCpuLedPref.setOnPreferenceChangeListener(this);
 
 	/**
 	 *  About
@@ -478,6 +521,10 @@ public class LeoParts extends PreferenceActivity
 		    }
 		});
 
+	/**
+	 *  Defaults
+	 */
+
 	mWindowManager = IWindowManager.Stub.asInterface(ServiceManager.getService("window"));
     }
 
@@ -503,8 +550,17 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
 	    toast("You should reboot for the changes to take effect.");
 	}
+	else if (preference == mAmPmPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_TWELVE_HOUR_CLOCK_PERIOD, mAmPmPref.isChecked() ? 1 : 0);
+	    toast("You should reboot for the changes to take effect.");
+	}
 	else if (preference == mMusicControlPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS, mMusicControlPref.isChecked() ? 0 : 1);
+	    toast("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mAlwaysMusicControlPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_MUSIC_CONTROLS, mAlwaysMusicControlPref.isChecked() ? 0 : 1);
+	    toast("You should reboot for the changes to take effect.");
 	}
 	else if (preference == mPulseScreenOnPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
@@ -527,8 +583,12 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
 	    toast("You should reboot for the changes to take effect.");
 	}
-	// else if (preference == mCarHomePref)
-	//     return removeSystemApp(mEmailPref, "Email", "Email.apk");
+	else if (preference == mPowerPromptPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 1 : 0);
+	    toast("You should reboot for the changes to take effect.");
+	}
+	else if (preference == mCarHomePref)
+	    return removeSystemApp(mCarHomePref, "CarHome", "CarHomeGoogle.apk", "CarHomeLauncher.apk");
 	else if (preference == mEmailPref)
 	    return removeSystemApp(mEmailPref, "Email", "Email.apk");
 	else if (preference == mFacebookPref)
@@ -541,6 +601,36 @@ public class LeoParts extends PreferenceActivity
 	    return removeSystemApp(mTwitterPref, "Twitter", "Twitter.apk");
 	else if (preference == mYouTubePref)
 	    return removeSystemApp(mYouTubePref, "YouTube", "YouTube.apk");
+	else if (preference == mBootanimPref) {
+	    String[] commands = {
+		REMOUNT_RW,
+		"busybox wget -q " + REPO + objValue.toString() + " -O /data/local/tmp/bootanimation.zip" +
+		" && busybox mv /data/local/tmp/bootanimation.zip /system/media/bootanimation.zip",
+		REMOUNT_RO
+	    };
+	    sendshell(commands, true, "Downloading and installing " + objValue.toString().substring(0, objValue.toString().indexOf('-')) + "...");
+	}
+	else if (preference == mHtcImePref) {
+	    if (mHtcImePref.isChecked() == false) {
+		String[] commands = {
+		    "busybox wget -q " + REPO + "clicker.apk -O /data/local/tmp/clicker.apk" +
+		    " && pm install -r /data/local/tmp/clicker.apk ; busybox rm -f /data/local/tmp/clicker.apk",
+		    "busybox wget -q " + REPO + "htc_ime.apk -O /data/local/tmp/htc_ime.apk" +
+		    " && pm install -r /data/local/tmp/htc_ime.apk ; busybox rm -f /data/local/tmp/htc_ime.apk"
+		};
+		sendshell(commands, false, "Downloading and installing HTC_IME...");
+	    }
+	    else {
+		String[] commands = {
+		    "pm uninstall com.htc.clicker",
+		    "pm uninstall jonasl.ime"
+		};
+		sendshell(commands, false, "Removing HTC_IME...");
+	    }
+	}
+	else if (preference == mCpuLedPref)
+	    return installOrRemoveAddon(mCpuLedPref, REPO + "cpu_led.apk", false, "CPU Led", "com.britoso.cpustatusled");
+
 	// always let the preference setting proceed.
 	return true;
     }
@@ -646,6 +736,13 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
+    ColorPickerDialog.OnColorChangedListener mDateFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.DATE_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
     private int readDateFontColor() {
 	try {
 	    return Settings.System.getInt(getContentResolver(), Settings.System.DATE_COLOR);
@@ -655,9 +752,10 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mDateFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mPlmnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.DATE_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.PLMN_LABEL_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
 	    }
 	};
 
@@ -670,30 +768,16 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mPlmnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mSpnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.PLMN_LABEL_COLOR, color);
-	    }
+		Settings.System.putInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+            }
 	};
 
     private int readSpnLabelColor() {
 	try {
 	    return Settings.System.getInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR);
-	}
-	catch (SettingNotFoundException e) {
-	    return -16777216;
-	}
-    }
-
-    ColorPickerDialog.OnColorChangedListener mSpnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
-	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR, color);
-            }
-	};
-
-    private int readNotifTickerColor() {
-	try {
-	    return Settings.System.getInt(getContentResolver(), Settings.System.NEW_NOTIF_TICKER_COLOR);
 	}
 	catch (SettingNotFoundException e) {
 	    return -16777216;
@@ -707,12 +791,12 @@ public class LeoParts extends PreferenceActivity
 	    }
 	};
 
-    private int readNotifCountColor() {
+    private int readNotifTickerColor() {
 	try {
-	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_COUNT_COLOR);
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NEW_NOTIF_TICKER_COLOR);
 	}
 	catch (SettingNotFoundException e) {
-	    return -1;
+	    return -16777216;
 	}
     }
 
@@ -723,9 +807,9 @@ public class LeoParts extends PreferenceActivity
 	    }
 	};
 
-    private int readNoNotifColor() {
+    private int readNotifCountColor() {
 	try {
-	    return Settings.System.getInt(getContentResolver(), Settings.System.NO_NOTIF_COLOR);
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_COUNT_COLOR);
 	}
 	catch (SettingNotFoundException e) {
 	    return -1;
@@ -739,6 +823,22 @@ public class LeoParts extends PreferenceActivity
 	    }
 	};
 
+    private int readNoNotifColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.NO_NOTIF_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -1;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mClearLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR, color);
+		toast("You should reboot for the changes to take effect.");
+	    }
+	};
+
     private int readClearLabelColor() {
 	try {
 	    return Settings.System.getInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR);
@@ -748,9 +848,9 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mClearLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mOngoingNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.ONGOING_NOTIF_COLOR, color);
 		toast("You should reboot for the changes to take effect.");
 	    }
 	};
@@ -764,9 +864,9 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mOngoingNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mLatestNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.ONGOING_NOTIF_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.LATEST_NOTIF_COLOR, color);
 		toast("You should reboot for the changes to take effect.");
 	    }
 	};
@@ -780,9 +880,9 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mLatestNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mNotifItemTitleColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.LATEST_NOTIF_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TITLE_COLOR, color);
 		toast("You should reboot for the changes to take effect.");
 	    }
 	};
@@ -796,9 +896,9 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mNotifItemTitleColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mNotifItemTextColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TITLE_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TEXT_COLOR, color);
 		toast("You should reboot for the changes to take effect.");
 	    }
 	};
@@ -812,9 +912,9 @@ public class LeoParts extends PreferenceActivity
 	}
     }
 
-    ColorPickerDialog.OnColorChangedListener mNotifItemTextColorListener = new ColorPickerDialog.OnColorChangedListener() {
+    ColorPickerDialog.OnColorChangedListener mNotifItemTimeColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TEXT_COLOR, color);
+		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR, color);
 		toast("You should reboot for the changes to take effect.");
 	    }
 	};
@@ -827,13 +927,6 @@ public class LeoParts extends PreferenceActivity
 	    return -16777216;
 	}
     }
-
-    ColorPickerDialog.OnColorChangedListener mNotifItemTimeColorListener = new ColorPickerDialog.OnColorChangedListener() {
-	    public void colorChanged(int color) {
-		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
-	    }
-	};
 
     /**
      *  Shell interaction
@@ -925,7 +1018,7 @@ public class LeoParts extends PreferenceActivity
      *  Methods for apps & addons
      */
 
-    public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk) {
+    public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk1, final String apk2) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	builder.setTitle("Confirm")
 	    .setMessage("Are you sure you want to remove " + name + "?")
@@ -935,7 +1028,8 @@ public class LeoParts extends PreferenceActivity
 			dialog.cancel();
 			String[] commands = {
 			    REMOUNT_RW,
-			    "busybox rm -f /system/app/" + apk,
+			    "busybox rm -f /system/app/" + apk1,
+			    "busybox rm -f /system/app/" + apk2,
 			    REMOUNT_RO
 			};
 			sendshell(commands, false, "Removing " + name + "...");
@@ -950,6 +1044,52 @@ public class LeoParts extends PreferenceActivity
 		});
 	AlertDialog alert = builder.create();
 	alert.show();
+	return true;
+    }
+
+    public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk1) {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	builder.setTitle("Confirm")
+	    .setMessage("Are you sure you want to remove " + name + "?")
+	    .setCancelable(false)
+	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+			String[] commands = {
+			    REMOUNT_RW,
+			    "busybox rm -f /system/app/" + apk1,
+			    REMOUNT_RO
+			};
+			sendshell(commands, false, "Removing " + name + "...");
+			preference.setEnabled(false);
+		    }
+		})
+	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+			preference.setChecked(true);
+		    }
+		});
+	AlertDialog alert = builder.create();
+	alert.show();
+	return true;
+    }
+
+    public boolean installOrRemoveAddon(CheckBoxPreference preference, final String src, final boolean reboot, final String name, final String activity) {
+	boolean have = preference.isChecked();
+	if (!have) {
+	    String[] commands = {
+		"busybox wget -q " + src + " -O /data/local/tmp/" + activity + ".apk" +
+		" && pm install -r /data/local/tmp/" + activity + ".apk ; busybox rm -f /data/local/tmp/" + activity + ".apk"
+	    };
+	    sendshell(commands, false, "Downloading and installing " + name + "...");
+	}
+	else {
+	    String[] commands = {
+		"pm uninstall " + activity
+	    };
+	    sendshell(commands, false, "Removing " + name + "...");
+	}
 	return true;
     }
 
