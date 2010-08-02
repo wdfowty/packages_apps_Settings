@@ -384,6 +384,12 @@
 	   android:summary="Stock apps that you can (only) remove">
 
 	  <CheckBoxPreference
+             android:key="amazon_mp3"
+             android:title="Amazon mp3"
+             android:summaryOn=" Amazon mp3 installed"
+             android:summaryOff=" Amazon mp3 removed" />
+
+	  <CheckBoxPreference
              android:key="car_home"
              android:title="Car Home"
              android:summaryOn=" Car Home installed"
@@ -414,6 +420,12 @@
 	     android:summaryOff=" Google Voice removed" />
 
 	  <CheckBoxPreference
+	     android:key="stk"
+	     android:title="Sim Toolkit"
+	     android:summaryOn=" Stk installed"
+	     android:summaryOff=" Stk removed" />
+
+	  <CheckBoxPreference
 	     android:key="twitter"
 	     android:title="Twitter"
 	     android:summaryOn=" Twitter installed"
@@ -432,49 +444,61 @@
       <PreferenceCategory
 	 android:title="Addons">
 
+	<ListPreference
+	   android:key="bootanim"
+	   android:title="Bootanimation"
+	   android:summary=" Change the bootanimation"
+	   android:entries="@array/entries_bootanim"
+	   android:entryValues="@array/entryvalues_bootanim"
+	   android:defaultValue="1"
+	   android:dialogTitle="Select an option" />
+
+	<CheckBoxPreference
+	   android:key="filemanager"
+	   android:title="File manager"
+	   android:summaryOn=" File manager installed"
+	   android:summaryOff=" File manager removed" />
+
+	<CheckBoxPreference
+	   android:key="terminal"
+	   android:title="Terminal"
+	   android:summaryOn=" Terminal installed"
+	   android:summaryOff=" Terminal removed" />
+
+	<CheckBoxPreference
+	   android:key="htc_ime"
+	   android:title="HTC_IME keyboard"
+	   android:summaryOn=" HTC_IME installed"
+	   android:summaryOff=" HTC_IME not installed" />
+
+	<CheckBoxPreference
+	   android:key="cpu_led"
+	   android:title="%CPU LED monitor"
+	   android:summaryOn=" CPUstatusLED installed"
+	   android:summaryOff=" CPUstatusLED not installed" />
+
 	<PreferenceScreen
-	   android:title="Integrated addons"
-	   android:summary="Additional apps installed by default">
-
-	  <CheckBoxPreference
-	     android:key="filemanager"
-	     android:title="File manager"
-	     android:summaryOn=" File manager installed"
-	     android:summaryOff=" File manager not installed" />
-
-	  <CheckBoxPreference
-             android:key="terminal"
-             android:title="Terminal"
-             android:summaryOn=" Terminal installed"
-             android:summaryOff=" Terminal not installed" />
-
+	   android:key="metamorph"
+	   android:title="Metamorph"
+	   android:summary=" Install from Market">
 	</PreferenceScreen>
 
 	<PreferenceScreen
-	   android:title="Addons"
-	   android:summary="Apps to boost user experience">
+	   android:key="blink"
+	   android:title="Blink"
+	   android:summary=" Install from Market">
+	</PreferenceScreen>
 
-	  <ListPreference
-	     android:key="bootanim"
-	     android:title="Bootanimation"
-	     android:summary=" Change the bootanimation"
-	     android:entries="@array/entries_bootanim"
-	     android:entryValues="@array/entryvalues_bootanim"
-	     android:defaultValue="1"
-	     android:dialogTitle="Select an option" />
+	<PreferenceScreen
+	   android:key="player"
+	   android:title="DivX/XviD player"
+	   android:summary=" Install from Market">
+	</PreferenceScreen>
 
-	  <CheckBoxPreference
-	     android:key="htc_ime"
-	     android:title="HTC_IME keyboard"
-	     android:summaryOn=" HTC_IME installed"
-	     android:summaryOff=" HTC_IME not installed" />
-
-	  <CheckBoxPreference
-	     android:key="cpu_led"
-	     android:title="%CPU LED monitor"
-	     android:summaryOn=" CPUstatusLED installed"
-	     android:summaryOff=" CPUstatusLED not installed" />
-
+	<PreferenceScreen
+	   android:key="barcode_scanner"
+	   android:title="Barcode scanner"
+	   android:summary=" Install from Market">
 	</PreferenceScreen>
 
       </PreferenceCategory>

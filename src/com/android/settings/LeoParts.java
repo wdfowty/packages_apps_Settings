@@ -39,6 +39,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.StatFs;
+import android.os.Environment;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -55,6 +56,13 @@ import android.net.Uri;
 import android.text.format.Formatter;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -70,6 +78,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class LeoParts extends PreferenceActivity
     implements Preference.OnPreferenceChangeListener {
@@ -172,6 +182,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mPowerPromptPref;
 
     // Apps & Addons
+    private static final String AMAZON_PREF = "amazon_mp3";
+    private CheckBoxPreference mAmazonPref;
     private static final String CAR_HOME_PREF = "car_home";
     private CheckBoxPreference mCarHomePref;
     private static final String EMAIL_PREF = "email";
@@ -182,6 +194,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mGoogleTalkPref;
     private static final String GOOGLE_VOICE_PREF = "google_voice";
     private CheckBoxPreference mGoogleVoicePref;
+    private static final String STK_PREF = "stk";
+    private CheckBoxPreference mStkPref;
     private static final String TWITTER_PREF = "twitter";
     private CheckBoxPreference mTwitterPref;
     private static final String YOUTUBE_PREF = "youtube";
@@ -191,6 +205,14 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mFileManagerPref;
     private static final String TERMINAL_PREF = "terminal";
     private CheckBoxPreference mTerminalPref;
+    private static final String METAMORPH_PREF = "metamorph";
+    private Preference mMetamorphPref;
+    private static final String BLINK_PREF = "blink";
+    private Preference mBlinkPref;
+    private static final String PLAYER_PREF = "player";
+    private Preference mPlayerPref;
+    private static final String BARCODE_PREF = "barcode_scanner";
+    private Preference mBarcodePref;
 
     private static final String BOOTANIM_PREF = "bootanim";
     private ListPreference mBootanimPref;
@@ -406,6 +428,10 @@ public class LeoParts extends PreferenceActivity
 	 *  Apps & Addons
 	 */
 
+	mAmazonPref = (CheckBoxPreference) prefSet.findPreference(AMAZON_PREF);
+	mAmazonPref.setOnPreferenceChangeListener(this);
+	mAmazonPref.setChecked(fileExists("/system/app/com.amazon.mp3.apk"));
+	mAmazonPref.setEnabled(fileExists("/system/app/com.amazon.mp3.apk"));
 	mCarHomePref = (CheckBoxPreference) prefSet.findPreference(CAR_HOME_PREF);
 	mCarHomePref.setOnPreferenceChangeListener(this);
 	mCarHomePref.setChecked(fileExists("/system/app/CarHomeGoogle.apk") && fileExists("/system/app/CarHomeLauncher.apk"));
@@ -430,6 +456,10 @@ public class LeoParts extends PreferenceActivity
 	mTwitterPref.setOnPreferenceChangeListener(this);
 	mTwitterPref.setChecked(fileExists("/system/app/Twitter.apk"));
 	mTwitterPref.setEnabled(fileExists("/system/app/Twitter.apk"));
+	mStkPref = (CheckBoxPreference) prefSet.findPreference(STK_PREF);
+	mStkPref.setOnPreferenceChangeListener(this);
+	mStkPref.setChecked(fileExists("/system/app/Stk.apk"));
+	mStkPref.setEnabled(fileExists("/system/app/Stk.apk"));
 	mYouTubePref = (CheckBoxPreference) prefSet.findPreference(YOUTUBE_PREF);
 	mYouTubePref.setOnPreferenceChangeListener(this);
 	mYouTubePref.setChecked(fileExists("/system/app/YouTube.apk"));
@@ -443,6 +473,42 @@ public class LeoParts extends PreferenceActivity
 	mTerminalPref.setOnPreferenceChangeListener(this);
 	mTerminalPref.setChecked(fileExists("/system/app/Terminal.apk"));
 	mTerminalPref.setEnabled(mTerminalPref.isChecked());
+	mMetamorphPref = (Preference) prefSet.findPreference(METAMORPH_PREF);
+	findPreference(METAMORPH_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://search?q=metamorph");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mBarcodePref = (Preference) prefSet.findPreference(BARCODE_PREF);
+	findPreference(BARCODE_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mBlinkPref = (Preference) prefSet.findPreference(BLINK_PREF);
+	findPreference(BLINK_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=imoblife.blink");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mPlayerPref = (Preference) prefSet.findPreference(PLAYER_PREF);
+	findPreference(PLAYER_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=org.freecoder.android.cmplayer.v7");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
 
 	mBootanimPref = (ListPreference) prefSet.findPreference(BOOTANIM_PREF);
 	mBootanimPref.setOnPreferenceChangeListener(this);
@@ -587,6 +653,8 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 1 : 0);
 	    toast("You should reboot for the changes to take effect.");
 	}
+	else if (preference == mAmazonPref)
+	    return removeSystemApp(mAmazonPref, "Amazon mp3", "com.amazon.mp3.apk");
 	else if (preference == mCarHomePref)
 	    return removeSystemApp(mCarHomePref, "CarHome", "CarHomeGoogle.apk", "CarHomeLauncher.apk");
 	else if (preference == mEmailPref)
@@ -597,6 +665,8 @@ public class LeoParts extends PreferenceActivity
 	    return removeSystemApp(mGoogleTalkPref, "Talk", "Talk.apk");
 	else if (preference == mGoogleVoicePref)
 	    return removeSystemApp(mFacebookPref, "Google Voice", "googlevoice.apk");
+	else if (preference == mStkPref)
+	    return removeSystemApp(mStkPref, "Sim Toolkit", "Stk.apk");
 	else if (preference == mTwitterPref)
 	    return removeSystemApp(mTwitterPref, "Twitter", "Twitter.apk");
 	else if (preference == mYouTubePref)
@@ -612,6 +682,14 @@ public class LeoParts extends PreferenceActivity
 	}
 	else if (preference == mHtcImePref) {
 	    if (mHtcImePref.isChecked() == false) {
+		if (Settings.Secure.getInt(getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 0) {
+		    Toast toast = Toast.makeText(getApplicationContext(), "You need to enable third part apps", Toast.LENGTH_LONG);
+		    toast.show();
+		    Intent intent = new Intent();
+		    intent.setAction(Settings.ACTION_APPLICATION_SETTINGS);
+		    startActivity(intent);
+		    return false;
+		}
 		String[] commands = {
 		    "busybox wget -q " + REPO + "clicker.apk -O /data/local/tmp/clicker.apk" +
 		    " && pm install -r /data/local/tmp/clicker.apk ; busybox rm -f /data/local/tmp/clicker.apk",
@@ -629,7 +707,7 @@ public class LeoParts extends PreferenceActivity
 	    }
 	}
 	else if (preference == mCpuLedPref)
-	    return installOrRemoveAddon(mCpuLedPref, REPO + "cpu_led.apk", false, "CPU Led", "com.britoso.cpustatusled");
+	    return installOrRemoveAddon(mCpuLedPref, "cpu_led.apk", false, "CPU Led", "com.britoso.cpustatusled");
 
 	// always let the preference setting proceed.
 	return true;
@@ -1078,9 +1156,17 @@ public class LeoParts extends PreferenceActivity
     public boolean installOrRemoveAddon(CheckBoxPreference preference, final String src, final boolean reboot, final String name, final String activity) {
 	boolean have = preference.isChecked();
 	if (!have) {
+	    if (Settings.Secure.getInt(getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 0) {
+		Toast toast = Toast.makeText(getApplicationContext(), "You need to enable third part apps", Toast.LENGTH_LONG);
+		toast.show();
+		Intent intent = new Intent();
+		intent.setAction(Settings.ACTION_APPLICATION_SETTINGS);
+		startActivity(intent);
+		return false;
+	    }
 	    String[] commands = {
-		"busybox wget -q " + src + " -O /data/local/tmp/" + activity + ".apk" +
-		" && pm install -r /data/local/tmp/" + activity + ".apk ; busybox rm -f /data/local/tmp/" + activity + ".apk"
+	    	"busybox wget -q " + src + " -O /data/local/tmp/" + activity + ".apk" +
+	    	" && pm install -r /data/local/tmp/" + activity + ".apk ; busybox rm -f /data/local/tmp/" + activity + ".apk"
 	    };
 	    sendshell(commands, false, "Downloading and installing " + name + "...");
 	}
