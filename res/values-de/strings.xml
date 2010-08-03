@@ -1096,4 +1096,213 @@
     <string name="sound_category_calls_title" msgid="3688531959256239012">"Eingehende Anrufe"</string>
     <string name="sound_category_notification_title" msgid="3502115998790286943">"Benachrichtigungen"</string>
     <string name="sound_category_feedback_title" msgid="4399742321363475393">"Feedback"</string>
+
+    <!--
+       ** Leo Parts **
+      -->
+
+    <string name="repo_name">LeoFroYo</string>
+    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
+
+    <string name="launcher_settings_title">ADWLauncher</string>
+
+    <string name="title_color_picker">Wähle eine Farbe</string>
+    <string name="msg_color_picker">Drücke die Farbe in der Mitte zum bestätigen.\nPress back to cancel.</string>
+
+    <string name="bc_title">Batterie und Uhr</string>
+    <string name="bc_summary">Batterie und Uhr Tewaks</string>
+
+    <string name="battery_title">Batterie</string>
+    <string name="pref_battery_percentage_title">Batterie-Prozentanzeige</string>
+    <string name="pref_battery_percentage_summary">Batterie-Prozentanzeige in der Status Bar</string>
+    <string name="battery_status_color_title">Farbe der Prozentanzeige</string>
+
+    <string name="clock_title">Uhr</string>
+    <string name="title_show_clock">Uhr Symbol anzeigen</string>
+    <string name="title_clock_color">Farbe der Uhr</string>
+
+    <string name="dp_title">Datum und Anbieter</string>
+    <string name="dp_summary">Datum und Anbieter Tweaks</string>
+
+    <string name="date_title">Datum</string>
+    <string name="title_date_color">Farbe des Datums</string>
+
+    <string name="plmn_title">Einstellungen PLMN Anbieter</string>
+    <string name="title_show_plmn_ls">Zeige PLMN (Lockscreen)</string>
+    <string name="summary_on_show_plmn_ls">PLMN Feld wird im Lockscreen angezeigt</string>
+    <string name="summary_off_show_plmn_ls">PLMN Feld wird nicht im Lockscreen angezeigt</string>
+    <string name="title_show_plmn_sb">Zeige PLMN (Status Bar)</string>
+    <string name="summary_on_show_plmn_sb">PLMN Feld wird in der Status Bar angezeigt</string>
+    <string name="summary_off_show_plmn_sb">PLMN Feld wird nicht in der Status Bar angezeigt</string>
+    <string name="title_plmn_label_color">Eigene PLMN Farbe</string>
+
+    <string name="spn_title">Einstellungen SPN Anbieter</string>
+    <string name="title_show_spn_ls">Zeige SPN (Lockscreen)</string>
+    <string name="summary_on_show_spn_ls">SPN Feld wird im Lockscreen angezeigt</string>
+    <string name="summary_off_show_spn_ls">SPN Feld wird nicht im Lockscreen angezeigt</string>
+    <string name="title_show_spn_sb">Zeige SPN (Status Bar)</string>
+    <string name="summary_on_show_spn_sb">SPN Feld wird in der Status Bar angezeigt</string>
+    <string name="summary_off_show_spn_sb">SPN Feld wird nicht in der Status Bar angezeigt</string>
+    <string name="title_spn_label_color">Eigene SPN Farbe</string>
+
+    <string name="title_notifications_sb">Status Bar Nachrichten</string>
+    <string name="title_notifications_color_tweaks">Nachrichten Farben</string>
+    <string name="summary_notifications_color_tweaks">Nachrichten Ticker, anstehende Nachrichten, letzte Nachrichten, keine Nachrichten, etc.</string>
+    <string name="title_notifications_ticker_color">Nachrichten Ticker Farbe</string>
+    <string name="title_notifications_count_color">Nachrichten Zähler Farbe</string>
+    <string name="title_no_notifications_color">Keine Nachrichten Titel Farbe</string>
+    <string name="title_clear_button_label_color">Clear notifications label color</string>
+    <string name="title_ongoing_notifications_color">Anstehende Nachrichten Titel Farbe</string>
+    <string name="title_latest_notifications_color">Letzte Nachrichten Titel Farbe</string>
+    <string name="title_notifications_items">Elemente Nachrichten</string>
+    <string name="title_notifications_items_title">Elemente Titel Farbe</string>
+    <string name="title_notifications_items_text">Elemente Text Farbe</string>
+    <string name="title_notifications_items_time">Elemente Zeit Farbe</string>
+
+    <string name="lockscreen_settings_title">Lockscreen Einstellungen</string>
+    <string name="pref_lockscreen_music_controls_title">Lockscreen Musik Bedienung</string>
+    <string name="pref_lockscreen_music_controls_summary">Zeige Musik Bedienung auf dem Lockscreen</string>
+    <string name="pref_lockscreen_always_music_controls_title">Bedienung der Musik immer anzei anzeigen</string>
+    <string name="pref_lockscreen_always_music_controls_summary">Bedienung der Musik anzeigen, auch wenn keine Musik läuft</string>
+
+    <string name="software">Software</string>
+
+    <string name="rom_infos_title">ROM Infos</string>
+    <string name="rom_infos_summary">ROM Name, Build und Systemversion.</string>
+    <string name="infos">Infos</string>
+    <string name="device">Gerät</string>
+    <string name="name_version">Name / Version / Patch</string>
+    <string name="system_build">System / Build / Fingerprint</string>
+    <string name="kernel">Kernel</string>
+    <string name="bootloader_radio">Bootloader / Radio</string>
+    <string name="updates">Updates</string>
+    <string name="updates_title">Nach Updates suchen</string>
+    <string name="updates_summary"> Klicken zum auswählen</string>
+
+    <string name="quick_commands_title">Schnell Kommandos</string>
+    <string name="quick_commands_summary">Neustart; System Partitions Kommandos</string>
+    <string name="shutdown_title">Herunterfahren</string>
+    <string name="shutdown_summary"> Fürht ein normales Herunterfahren des Systemes durch</string>
+    <string name="reboot_title">Neustart</string>
+    <string name="reboot_summary"> Führt ein normalen Neustart des Systemes durch</string>
+    <string name="reboot_recovery_title">Neustart in das Recovery</string>
+    <string name="reboot_recovery_summary"> Führt einen Neustart in das Recovery durch</string>
+    <string name="reboot_bootloader_title">Neustart in den Bootloader</string>
+    <string name="reboot_bootloader_summary"> Führt einen Neustart in den Bootloader durch</string>
+    <string name="remount_sys">Remount /system</string>
+    <string name="remount_rw_title">Lese-Schreibrechte auf /system</string>
+    <string name="remount_rw_summary"> Remount /system mit Lese- und Schreibrechten</string>
+    <string name="remount_ro_title">Lese-Rechte</string>
+    <string name="remount_ro_summary"> Remount /system mit Leserechten</string>
+
+    <string name="tweaks_title">Tweaks</string>
+    <string name="tweaks_summary">Fortgeschrittene Tweaks</string>
+    <string name="stock">Standart</string>
+    <string name="stock_a2sd_title">Standart App2SD</string>
+    <string name="stock_a2sd_summary">Wähle wo die Apps installiert werden sollen</string>
+    <string name="select_option">Wähle eine Option</string>
+    <string name="trackball">Trackball</string>
+    <string name="pulse_title">Trackball leuchtet wenn das Display an ist</string>
+    <string name="pulse_summary_on"> Trackball leuchtet</string>
+    <string name="pulse_summary_off"> Trackball leuchtet nicht</string>
+    <string name="wake_title">Trackball Aufwachen</string>
+    <string name="wake_summary_on"> Trackball weckt das Gerät auf</string>
+    <string name="wake_summary_off"> Trackball tut nichts</string>
+    <string name="unlock_title">Trackball Entsperren</string>
+    <string name="unlock_summary_on"> Trackball weckt das Gerät auf und entsperrt es</string>
+    <string name="unlock_summary_off"> Trackball entsperrt nicht</string>
+    <string name="scripts">Skripte</string>
+    <string name="uisounds_title">Deaktivieren der UI Töne</string>
+    <string name="uisounds_summary_on"> UI Töne deaktiviert</string>
+    <string name="uisounds_summary_off"> UI Töne aktiviert</string>
+    <string name="fixperms_title">Fix permissions</string>
+    <string name="fixperms_summary">Kann wirre "schließen erzwingen" Probleme lösen</string>
+    <string name="fixmarket_title">Zwinge den Market zu einer neue Synchronisation</string>
+    <string name="fixmarket_summary">Zwingt den Market die Apps neu zu synchronisieren</string>
+
+    <string name="ui_title">Benutzer Oberfläche</string>
+    <string name="ui_summary">Passe die Oberfläche nach deinem Willen an</string>
+    <string name="status_bar">Status bar</string>
+    <string name="battery_percent_title">Batterie Prozentanzeige</string>
+    <string name="battery_percent_on"> Batterie Prozentanzeige inst AN</string>
+    <string name="battery_percent_off"> Batterie Prozentanzeige ist AUS</string>
+    <string name="hide_clock_title">Uhr Symbol verstecken</string>
+    <string name="hide_clock_on"> Uhr Symbol ist versteckt</string>
+    <string name="hide_clock_off"> uhr Symbol ist sichtbar</string>
+    <string name="hide_ampm_title">Verstecke AM/PM in der Uhr-Anzeige</string>
+    <string name="hide_ampm_on"> AM/PM ist versteckt</string>
+    <string name="hide_ampm_off"> AM/PM ist sichtbar</string>
+    <string name="wysie_colors_title">Wysie\'s Farben</string>
+    <string name="wysie_colors_summary">Ändere die Farbe des Textes in der Status Bar</string>
+    <string name="lockscreen">Lockscreen</string>
+    <string name="rotation">Orientierung</string>
+    <string name="rotation_90">90 grad</string>
+    <string name="rotation_180">180 grad</string>
+    <string name="rotation_270">270 grad</string>
+    <string name="other">Anderes</string>
+    <string name="power_prompt_title">Power prompt</string>
+    <string name="power_prompt_summary"> Change whether there is a prompt after choosing shutdown or reboot</string>
+
+    <string name="apps_addons_title">Apps &amp; Addons</string>
+    <string name="apps_addons_summary">Verbessern die Benutzerfreundlichkeit</string>
+    <string name="stock_apps_title">Standart Apps</string>
+    <string name="stock_apps_summary">Standart Apps die NUR entfernt werden können</string>
+    <!-- apps? installed/removed -->
+    <string name="addons">Addons</string>
+    <string name="bootanimation_title">Bootanimation</string>
+    <string name="bootanimation_summary"> Ändern der Bootanimation</string>
+    <!-- apps? installed/removed -->
+    <string name="install_market"> Installieren vom Market</string>
+    <string name="about_title">Über</string>
+    <string name="about_summary">Über diese modifizierten Einstellungen</string>
+    <string name="about_version">Version</string>
+    <string name="about_author">Autor</string>
+    <string name="about_donate">Spende</string>
+    <string name="donate"> Spende über PayPal</string>
+    <string name="thanks_title">Dankeschön an</string>
+    <string name="about_addons"> Apps und Adons sind nicht von mir\ Dankeschön bitte an die Autoren</string>
+    <string name="about_sources">Quellen</string>
+
+    <string name="hardware">Hardware</string>
+
+    <string name="data_storage_title">Daten und Speicher Einstellungen</string>
+    <string name="data_storage_summary">Speicher, App2SD, Dalvik-Cache &amp; mehr</string>
+    <string name="storage_sizes">Speicher Größe</string>
+    <string name="refresh_storage">Speicher Daten neu laden</string>
+    <string name="a2sd_dalvik">App2SD / Dalvik-Cache</string>
+    <string name="a2sd_title">Altes App2SD (EXT)</string>
+    <string name="a2sd_summary_on"> Altes App2SD aktiviert</string>
+    <string name="a2sd_summary_off"> Altes App2SD deaktiviert</string>
+    <string name="dalvik_title">Dalvik-Cache auf SDKarte</string>
+    <string name="dalvik_summary_on"> Dalvik-Cache auf SDKarte</string>
+    <string name="dalvik_summary_off"> Dalvik-Cache auf /data</string>
+    <string name="data_title">Data auf SDKarte</string>
+    <string name="data_summary_on"> Data auf SDKarte</string>
+    <string name="data_summary_off"> Data auf /system</string>
+    <string name="media_title">Media auf SDKarte</string>
+    <string name="media_summary_on"> System/media auf SDKarte</string>
+    <string name="media_summary_off"> System/media auf /system</string>
+
+    <string name="warning">Achtung!</string>
+    <string name="warning_root">Du scheinst keine ROOT Rechte zu haben!</string>
+    <string name="warning_busybox">Du scheinst keine  Busybox zu haben!</string>
+    <string name="shuting_down">Herunterfahren...</string>
+    <string name="rebooting">Neustarten...</string>
+    <string name="remounting">Remounting...</string>
+    <string name="fixing_permissions">Fixing persmissions...</string>
+    <string name="fixing_market">Erzwinge Synchronisation des Markets...</string>
+    <string name="activating_ui_sounds">Aktiviere UI Töne...</string>
+    <string name="deactivating_ui_sounds">Deaktiviere UI Töne...</string>
+    <string name="should_reboot">Su solltest neustarten um die Änderungen zu übernehmen</string>
+    <string name="downloading_installing">Downloade und installiere...</string>
+    <string name="third_part_apps">Du musst Anwendungen von unbekannten Herstellern erlauben</string>
+    <string name="removing">Entferne...</string>
+    <string name="error">Fehler</string>
+    <string name="download_install_error">Downloaden oder Installieren wurde unerwartet beendet</string>
+    <string name="reboot_requiered">Ein Neustart ist erforderlich, willst du jetzt neustarten?</string>
+    <string name="confirm">Aktzeptiert</string>
+    <string name="sure_remove">Bist du dir sicher das du es entfernen willst?</string>
+    <string name="used_out_of">verwendet von</string>
+    <string name="unavailable">Unerreichbar</string>
+
 </resources>
