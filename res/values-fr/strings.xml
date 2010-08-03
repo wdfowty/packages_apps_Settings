@@ -1095,4 +1095,213 @@
     <string name="sound_category_calls_title" msgid="3688531959256239012">"Appels entrants"</string>
     <string name="sound_category_notification_title" msgid="3502115998790286943">"Notifications"</string>
     <string name="sound_category_feedback_title" msgid="4399742321363475393">"Commentaires"</string>
+
+    <!--
+       ** Leo Parts **
+      -->
+
+    <string name="repo_name">LeoFroYo</string>
+    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
+
+    <string name="launcher_settings_title">ADWLauncher</string>
+
+    <string name="title_color_picker">Choisir une couleur</string>
+    <string name="msg_color_picker">Toucher la couleur au centre pour confirmer.\nPresser sur retour pour annuler</string>
+
+    <string name="bc_title">Batterie et horloge</string>
+    <string name="bc_summary">Bidouilles batterie et horloge</string>
+
+    <string name="battery_title">Batterie</string>
+    <string name="pref_battery_percentage_title">Pourcentage de charge</string>
+    <string name="pref_battery_percentage_summary">Affichage du pourcentage de charge de la batterie</string>
+    <string name="battery_status_color_title">Couleur de la charge</string>
+
+    <string name="clock_title">Heure</string>
+    <string name="title_show_clock">Afficher l\'heure</string>
+    <string name="title_clock_color">Couleur de l\'heure</string>
+
+    <string name="dp_title">Date et opérateur</string>
+    <string name="dp_summary">Tweaks date et opérateur</string>
+
+    <string name="date_title">Date</string>
+    <string name="title_date_color">Couleur de la date</string>
+
+    <string name="plmn_title">Paramètres de l\'affichage du réseau</string>
+    <string name="title_show_plmn_ls">Afficher réseau (lockscreen)</string>
+    <string name="summary_on_show_plmn_ls">Le réseau actuellement en utilisation sera affiché sur l\'écran de verrouillage</string>
+    <string name="summary_off_show_plmn_ls">Le réseau actuellement en utilisation ne sera pas affiché sur l\'écran de verrouillage</string>
+    <string name="title_show_plmn_sb">Afficher réseau (barre de statut)</string>
+    <string name="summary_on_show_plmn_sb">Le réseau actuellement en utilisation sera affiché dans la barre de statut</string>
+    <string name="summary_off_show_plmn_sb">Le réseau actuellement en utilisation ne sera pas affiché dans la barre de statut</string>
+    <string name="title_plmn_label_color">Couleur du réseau</string>
+
+    <string name="spn_title">Paramètres de l\'affichage de l\'opérateur</string>
+    <string name="title_show_spn_ls">Afficher opérateur (lockscreen)</string>
+    <string name="summary_on_show_spn_ls">L\'opérateur sera affiché sur l\'écran de verrouillage</string>
+    <string name="summary_off_show_spn_ls">L\'opérateur ne sera affiché sur l\'écran de verrouillage</string>
+    <string name="title_show_spn_sb">Afficher opérateur (barre de statut)</string>
+    <string name="summary_on_show_spn_sb">L\'opérateur sera affiché dans la barre de statut</string>
+    <string name="summary_off_show_spn_sb">L\'opérateur ne sera pas affiché dans la barre de statut</string>
+    <string name="title_spn_label_color">Couleur de l\'opérateur</string>
+
+    <string name="title_notifications_sb">Notifications de la barre de statut</string>
+    <string name="title_notifications_color_tweaks">Couleurs des notifications</string>
+    <string name="summary_notifications_color_tweaks">Alertes, notifications en cours, dernières notifications, effaçage des notifications, etc</string>
+    <string name="title_notifications_ticker_color">Alertes</string>
+    <string name="title_notifications_count_color">Nombre de notifications</string>
+    <string name="title_no_notifications_color">Aucune notification</string>
+    <string name="title_clear_button_label_color">Bouton effacer</string>
+    <string name="title_ongoing_notifications_color">Notifications en cours</string>
+    <string name="title_latest_notifications_color">Dernières notifications</string>
+    <string name="title_notifications_items">Contenu des notifications</string>
+    <string name="title_notifications_items_title">Couleur du titre</string>
+    <string name="title_notifications_items_text">Couleur du texte</string>
+    <string name="title_notifications_items_time">Couleur de l\'heure</string>
+
+    <string name="lockscreen_settings_title">Paramètres de l\'écran de verrouillage</string>
+    <string name="pref_lockscreen_music_controls_title">Contrôles de la lecture</string>
+    <string name="pref_lockscreen_music_controls_summary">Afficher les contrôles permettant de commander la lecture musicale sur l\'écran de verrouillage</string>
+    <string name="pref_lockscreen_always_music_controls_title">Toujours afficher les contrôles de la lecture musicale</string>
+    <string name="pref_lockscreen_always_music_controls_summary">Toujours aficher les contrôles de la lecture musicale même si aucune musique n\'est jouée</string>
+
+    <string name="software">Programme</string>
+
+    <string name="rom_infos_title">Infos sur la ROM</string>
+    <string name="rom_infos_summary">Nom de la ROM, sa build et la version du système.</string>
+    <string name="infos">Informations</string>
+    <string name="device">Appareil</string>
+    <string name="name_version">Nom / Version / Correctif</string>
+    <string name="system_build">Système / Build / Emprunte</string>
+    <string name="kernel">Noyau</string>
+    <string name="bootloader_radio">Bootloader / Radio</string>
+    <string name="updates">Mises-à-jour</string>
+    <string name="updates_title">Vérifier les mises-à-jour</string>
+    <string name="updates_summary"> Cliquez pour vérifier</string>
+
+    <string name="quick_commands_title">Commandes rapides</string>
+    <string name="quick_commands_summary">Redémarrer &amp; remonter</string>
+    <string name="shutdown_title">Eteindre</string>
+    <string name="shutdown_summary"> Eteindre normalement</string>
+    <string name="reboot_title">Redémarrer</string>
+    <string name="reboot_summary"> Redémarrer normalement</string>
+    <string name="reboot_recovery_title">Mode de récupération</string>
+    <string name="reboot_recovery_summary"> Redémarrer en mode de récupération</string>
+    <string name="reboot_bootloader_title">Mode bootloader</string>
+    <string name="reboot_bootloader_summary"> Redémarrer en mode bootloader</string>
+    <string name="remount_sys">Remonter /system</string>
+    <string name="remount_rw_title">Lecture et écriture</string>
+    <string name="remount_rw_summary"> Remonter /system en lecture et écriture</string>
+    <string name="remount_ro_title">Lecture seule</string>
+    <string name="remount_ro_summary"> Remonter /system en lecture seule</string>
+
+    <string name="tweaks_title">Réglages</string>
+    <string name="tweaks_summary">Réglages avancés</string>
+    <string name="stock">D\'origine</string>
+    <string name="stock_a2sd_title">App2SD d\'origine</string>
+    <string name="stock_a2sd_summary"> Choisissez où installer les applications</string>
+    <string name="select_option">Selectionner une option</string>
+    <string name="trackball">Trackball</string>
+    <string name="pulse_title">Briller lorsque l\'écran est allumé</string>
+    <string name="pulse_summary_on"> La trackball brillera</string>
+    <string name="pulse_summary_off"> La trackball ne brillera pas</string>
+    <string name="wake_title">Trackball Wake</string>
+    <string name="wake_summary_on"> La trackball reveillera l\'appareil</string>
+    <string name="wake_summary_off"> La trackball ne fera rien</string>
+    <string name="unlock_title">Trackball unlock</string>
+    <string name="unlock_summary_on"> La trackball reveillera et débloquera l\'appareil</string>
+    <string name="unlock_summary_off"> La trackball ne fera rien</string>
+    <string name="scripts">Scripts</string>
+    <string name="uisounds_title">Désactiver les sons de l\'IU</string>
+    <string name="uisounds_summary_on"> Sons de l\'IU désactivés</string>
+    <string name="uisounds_summary_off"> Sons de l\'IU activés</string>
+    <string name="fixperms_title">Réparer les permissions</string>
+    <string name="fixperms_summary"> Permet de règler des fermetures soudaines intempestives</string>
+    <string name="fixmarket_title">Re-synchronisation du Market</string>
+    <string name="fixmarket_summary"> Forcer le Market à se re-synchroniser</string>
+
+    <string name="ui_title">Interface Utilisateur</string>
+    <string name="ui_summary">Laissez l\'interface épouser vos envies</string>
+    <string name="status_bar">Bar d\'état</string>
+    <string name="battery_percent_title">Pourcentage de batterie</string>
+    <string name="battery_percent_on"> Pourcentage de batterie actif</string>
+    <string name="battery_percent_off"> Pourcentage de batterie inactif</string>
+    <string name="hide_clock_title">Cacher l\'horloge</string>
+    <string name="hide_clock_on"> L\'horloge est cachée</string>
+    <string name="hide_clock_off"> L\'horloge est visible</string>
+    <string name="hide_ampm_title">Cache le AM/MP de l\'horloge</string>
+    <string name="hide_ampm_on"> AM/PM est caché</string>
+    <string name="hide_ampm_off"> AM/PM est visible</string>
+    <string name="wysie_colors_title">Les couleurs par Wysie</string>
+    <string name="wysie_colors_summary">Changer les couleurs des textes de la barre d\'état</string>
+    <string name="lockscreen">Ecran de verouillage</string>
+    <string name="rotation">Rotation</string>
+    <string name="rotation_90">90 degrés</string>
+    <string name="rotation_180">180 degrés</string>
+    <string name="rotation_270">270 degrés</string>
+    <string name="other">Autre</string>
+    <string name="power_prompt_title">Popup d\'arrêt de l\'appareil</string>
+    <string name="power_prompt_summary"> Change s\'il doit apparaître une popup lors d\' un redémarrage ou d\'un arrêt</string>
+
+    <string name="apps_addons_title">Applications &amp; Ajouts</string>
+    <string name="apps_addons_summary">Améliorer votre expérience d\'utilisateur</string>
+    <string name="stock_apps_title">Applications d\'origine</string>
+    <string name="stock_apps_summary">Applications que vous ne pouvez (que) supprimer</string>
+    <!-- apps? installed/removed -->
+    <string name="addons">Ajouts</string>
+    <string name="bootanimation_title">Animation de démarrage</string>
+    <string name="bootanimation_summary"> Changer d\'animation de démarrage</string>
+    <!-- apps? installed/removed -->
+    <string name="install_market"> Installer depuis le Market</string>
+    <string name="about_title">A propos</string>
+    <string name="about_summary">A propos de ce Paramètres modifié</string>
+    <string name="about_version">Version</string>
+    <string name="about_author">Auteur</string>
+    <string name="about_donate">Donations</string>
+    <string name="donate"> Donner via PayPal</string>
+    <string name="thanks_title">Remerciements à</string>
+    <string name="about_addons"> Les applications ne sont pas les miennes.\n Les remerciements vont à leurs auteurs.</string>
+    <string name="about_sources">Sources</string>
+
+    <string name="hardware">Matériel</string>
+
+    <string name="data_storage_title">Options de stockage</string>
+    <string name="data_storage_summary">Stockage, App2SD, Dalvik-Cache &amp; plus</string>
+    <string name="storage_sizes">Occupation du stockage</string>
+    <string name="refresh_storage">Rafraichir les données</string>
+    <string name="a2sd_dalvik">App2SD / Dalvik-Cache</string>
+    <string name="a2sd_title">Ancien App2SD</string>
+    <string name="a2sd_summary_on"> Ancien App2SD activé</string>
+    <string name="a2sd_summary_off"> Ancien App2SD désactivé</string>
+    <string name="dalvik_title">Dalvik-Cache sur la SDCard</string>
+    <string name="dalvik_summary_on"> Dalvik-Cache sur la SDCard</string>
+    <string name="dalvik_summary_off"> Dalvik-Cache dans /data</string>
+    <string name="data_title">Data sur la SDCard</string>
+    <string name="data_summary_on"> Data sur la SDCard</string>
+    <string name="data_summary_off"> Data dans /system</string>
+    <string name="media_title">Media sur la SDCard</string>
+    <string name="media_summary_on"> System/media sur la SDCard</string>
+    <string name="media_summary_off"> System/media dans /system</string>
+
+    <string name="warning">Attention</string>
+    <string name="warning_root">Vous semblez ne pas avoir les permissions ROOT!</string>
+    <string name="warning_busybox">Vous semblez ne pas avoir busybox!</string>
+    <string name="shuting_down">Arrêt...</string>
+    <string name="rebooting">Redémarrage...</string>
+    <string name="remounting">En train de re-monter...</string>
+    <string name="fixing_permissions">Réparation des permissions...</string>
+    <string name="fixing_market">En train de forcer le Market à se re-synchroniser...</string>
+    <string name="activating_ui_sounds">Activation des sons de l\'IU...</string>
+    <string name="deactivating_ui_sounds">Désactivation des sons de l\'IU...</string>
+    <string name="should_reboot">Vous devrez redémarrer pour que les changements prennent effet.</string>
+    <string name="downloading_installing">Téléchargement et installation de</string>
+    <string name="third_part_apps">Vous devez activer les sources inconnues</string>
+    <string name="removing">Désinstallation de</string>
+    <string name="error">Erreur</string>
+    <string name="download_install_error">Le téléchargement ou l\'installation s\'est terminé/e de manière inattendu/e!</string>
+    <string name="reboot_requiered">Une redémarrage est necessaire. Voulez-vous redémarrer maintenant?</string>
+    <string name="confirm">Confirmation</string>
+    <string name="sure_remove">Etes-vous sûr de vouloir supprimer</string>
+    <string name="used_out_of">utilisés sur</string>
+    <string name="unavailable">Indisponible</string>
+
 </resources>
