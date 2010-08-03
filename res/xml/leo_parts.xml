@@ -19,111 +19,113 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
   <PreferenceCategory
-     android:title="Software">
+     android:title="@string/software">
 
     <PreferenceScreen
-       android:title="ROM infos"
-       android:summary="ROM name, build and system version.">
+       android:title="@string/rom_infos_title"
+       android:summary="@string/rom_infos_summary">
 
       <PreferenceCategory
-	 android:title="Infos">
+	 android:title="@string/infos">
 
 	<PreferenceScreen
 	   android:key="rom_device"
-	   android:title="Device"
+	   android:title="@string/device"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_name_version"
-	   android:title="Name / Version / Patch"
+	   android:title="@string/name_version"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_system_build"
-	   android:title="System / Build / Fingerprint"
+	   android:title="@string/system_build"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_kernel"
-	   android:title="Kernel"
+	   android:title="@string/kernel"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_bootloader_radio"
-	   android:title="Bootloader / Radio"
+	   android:title="@string/bootloader_radio"
 	   android:summary=" Unavailable">
 	</PreferenceScreen>
 
       </PreferenceCategory>
 
+      <!--
       <PreferenceCategory
-	 android:title="Updates">
+	 android:title="@string/updates">
 
 	<PreferenceScreen
 	   android:key="rom_update"
-	   android:title="Check for updates"
-	   android:summary=" Click to check">
+	   android:title="@string/updates_title"
+	   android:summary="@string/updates_summary">
 	</PreferenceScreen>
 
       </PreferenceCategory>
+      -->
 
     </PreferenceScreen>
 
     <PreferenceScreen
-       android:title="Quick commands"
-       android:summary="Reboot &amp; remount commands">
+       android:title="@string/quick_commands_title"
+       android:summary="@string/quick_commands_summary">
 
       <PreferenceCategory
-	 android:title="Shutdown">
+	 android:title="@string/shutdown_title">
 
 	<PreferenceScreen
 	   android:key="shutdown_shutdown"
-	   android:title="Shutdown"
-	   android:summary=" Do a normal shutdown">
+	   android:title="@string/shutdown_title"
+	   android:summary="@string/shutdown_summary">
 	</PreferenceScreen>
 
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Reboot">
+	 android:title="@string/reboot_title">
 
 	<PreferenceScreen
 	   android:key="reboot_reboot"
-	   android:title="Reboot"
-	   android:summary=" Do a normal reboot">
+	   android:title="@string/reboot_title"
+	   android:summary="@string/reboot_summary">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="reboot_recovery"
-	   android:title="Reboot recovery"
-	   android:summary=" Reboot into recovery">
+	   android:title="@string/reboot_recovery_title"
+	   android:summary="@string/reboot_recovery_summary">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="reboot_bootloader"
-	   android:title="Reboot bootloader"
-	   android:summary=" Reboot into bootloader">
+	   android:title="@string/reboot_bootloader_title"
+	   android:summary="@string/reboot_bootloader_summary">
 	</PreferenceScreen>
 
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Remount /system">
+	 android:title="@string/remount_sys">
 
 	<PreferenceScreen
 	   android:key="remount_rw"
-	   android:title="Read-Write"
-	   android:summary=" Remount /system with RW permissions">
+	   android:title="@string/remount_rw_title"
+	   android:summary="@string/remount_rw_summary">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="remount_ro"
-	   android:title="Read-Only"
-	   android:summary=" Remount /system with RO permissions">
+	   android:title="@string/remount_ro_title"
+	   android:summary="@string/remount_ro_summary">
 	</PreferenceScreen>
 
       </PreferenceCategory>
@@ -131,37 +133,66 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-       android:title="Tweaks"
-       android:summary="Advanced tweaks">
+       android:title="@string/tweaks_title"
+       android:summary="@string/tweaks_summary">
 
       <PreferenceCategory
-	 android:title="Stock">
+	 android:title="@string/stock">
 
 	<ListPreference
 	   android:key="app2sd"
-	   android:title="Stock App2SD"
-	   android:summary=" Choose where to store apps"
+	   android:title="@string/stock_a2sd_title"
+	   android:summary="@string/stock_a2sd_summary"
 	   android:entries="@array/entries_app2sd"
 	   android:entryValues="@array/entryvalues_app2sd"
 	   android:defaultValue="0"
-	   android:dialogTitle="Select an option" />
+	   android:dialogTitle="@string/select_option" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="Trackball">
+
+	<CheckBoxPreference
+	   android:key="pulse_screen_on"
+	   android:title="@string/pulse_title"
+	   android:summaryOn="@string/pulse_summary_on"
+	   android:summaryOff="@string/pulse_summary_off" />
+
+	<CheckBoxPreference
+	   android:key="trackball_wake"
+	   android:title="@string/wake_title"
+	   android:summaryOn="@string/wake_summary_on"
+	   android:summaryOff="@string/wake_summary_off" />
+
+	<CheckBoxPreference
+	   android:key="trackball_unlock"
+	   android:title="@string/unlock_title"
+	   android:summaryOn="@string/unlock_summary_on"
+	   android:summaryOff="@string/unlock_summary_off"
+	   android:dependency="trackball_wake" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="@string/scripts">
 
 	<CheckBoxPreference
 	   android:key="ui_sounds"
-	   android:title="Deactivate UI sounds"
-	   android:summaryOn=" UI sounds deactivated"
-	   android:summaryOff=" UI sounds activated" />
+	   android:title="@string/uisounds_title"
+	   android:summaryOn="@string/uisounds_summary_on"
+	   android:summaryOff="@string/uisounds_summary_off" />
 
 	<PreferenceScreen
 	   android:key="fix_perms"
-	   android:title="Fix permissions"
-	   android:summary=" Can solve weird Force Closes">
+	   android:title="@string/fixperms_title"
+	   android:summary="@string/fixperms_summary">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="fix_market"
-	   android:title="Force Market re-sync"
-	   android:summary=" Forces the Market to re-sync apps">
+	   android:title="@string/fixmarket_title"
+	   android:summary="@string/fixmarket_summary">
 	</PreferenceScreen>
 
       </PreferenceCategory>
@@ -169,36 +200,36 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-       android:title="User Interface"
-       android:summary="Let the interface feets your wills">
+       android:title="@string/ui_title"
+       android:summary="@string/ui_summary">
 
       <PreferenceCategory
-	 android:title="Status bar">
+	 android:title="@string/status_bar">
 
 	<CheckBoxPreference
 	   android:key="battery_percent"
-	   android:title="Battery percentage"
-	   android:summaryOn=" Battery percentage ON"
-	   android:summaryOff=" Battery percentage OFF" />
+	   android:title="@string/battery_percent_title"
+	   android:summaryOn="@string/battery_percent_on"
+	   android:summaryOff="@string/battery_percent_off" />
 
 	<CheckBoxPreference
 	   android:key="hide_clock"
-	   android:title="Hide the clock"
-	   android:summaryOn=" Clock is hidden"
-	   android:summaryOff=" Clock is visible" />
+	   android:title="@string/hide_clock_title"
+	   android:summaryOn="@string/hide_clock_on"
+	   android:summaryOff="@string/hide_clock_off" />
 
 	<CheckBoxPreference
 	   android:key="am_pm"
-	   android:title="Hide AM/PM in clock"
-	   android:summaryOn=" AM/PM is hidden"
-	   android:summaryOff=" AM/PM is displayed" />
+	   android:title="@string/hide_ampm_title"
+	   android:summaryOn="@string/hide_ampm_on"
+	   android:summaryOff="@string/hide_ampm_off" />
 
 	<PreferenceScreen
-	   android:title="Wysie's colors"
-	   android:summary="Change colors of text in status bar">
+	   android:title="@string/wysie_colors_title"
+	   android:summary="@string/wysie_colors_summary">
 
 	  <PreferenceCategory
-	     android:title="Battery percentage">
+	     android:title="@string/battery_percent_title">
 
 	    <Preference
 	       android:key="battery_status_color_title"
@@ -303,7 +334,7 @@
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Lock screen">
+	 android:title="@string/lockscreen">
 
         <CheckBoxPreference
 	   android:key="lockscreen_music_controls"
@@ -319,53 +350,29 @@
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Trackball">
-
-	<CheckBoxPreference
-	   android:key="pulse_screen_on"
-	   android:title="Pulse while screen is ON"
-	   android:summaryOn=" Trackball will pulse"
-	   android:summaryOff=" Trackball will not pulse" />
-
-	<CheckBoxPreference
-	   android:key="trackball_wake"
-	   android:title="Trackball Wake"
-	   android:summaryOn=" Trackball wakes the device"
-	   android:summaryOff=" Trackball does nothing" />
-
-	<CheckBoxPreference
-	   android:key="trackball_unlock"
-	   android:title="Trackball Unlock"
-	   android:summaryOn=" Trackball unlocks the device"
-	   android:summaryOff=" Trackball does nothing"
-	   android:dependency="trackball_wake" />
-
-      </PreferenceCategory>
-
-      <PreferenceCategory
-	 android:title="Rotation">
+	 android:title="@string/rotation">
 
 	<CheckBoxPreference
 	   android:key="rotation_90"
-	   android:title="90 degrees" />
+	   android:title="@string/rotation_90" />
 
 	<CheckBoxPreference
 	   android:key="rotation_180"
-	   android:title="180 degrees" />
+	   android:title="@string/rotation_180" />
 
 	<CheckBoxPreference
 	   android:key="rotation_270"
-	   android:title="270 degrees" />
+	   android:title="@string/rotation_270" />
 
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Other">
+	 android:title="@string/other">
 
 	<CheckBoxPreference
 	   android:key="power_prompt"
-	   android:title="Power prompt"
-           android:summary="Change whether there is a prompt after choosing shutdown or reboot"
+	   android:title="@string/power_prompt_title"
+           android:summary="@string/power_prompt_summary"
            android:defaultValue="true" />
 
       </PreferenceCategory>
@@ -373,21 +380,21 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-       android:title="Apps &amp; Addons"
-       android:summary="Boost the user experience">
+       android:title="@string/apps_addons_title"
+       android:summary="@string/apps_addons_summary">
 
       <PreferenceCategory
-	 android:title="Stock">
+	 android:title="@string/stock">
 
 	<PreferenceScreen
-	   android:title="Stock apps"
-	   android:summary="Stock apps that you can (only) remove">
+	   android:title="@string/stock_apps_title"
+	   android:summary="@string/stock_apps_summary">
 
 	  <CheckBoxPreference
-             android:key="amazon_mp3"
-             android:title="Amazon mp3"
-             android:summaryOn=" Amazon mp3 installed"
-             android:summaryOff=" Amazon mp3 removed" />
+             android:key="calculator"
+             android:title="Calculator"
+             android:summaryOn=" Calculator installed"
+             android:summaryOff=" Calculator removed" />
 
 	  <CheckBoxPreference
              android:key="car_home"
@@ -442,16 +449,16 @@
       </PreferenceCategory>
 
       <PreferenceCategory
-	 android:title="Addons">
+	 android:title="@string/addons">
 
 	<ListPreference
 	   android:key="bootanim"
-	   android:title="Bootanimation"
-	   android:summary=" Change the bootanimation"
+	   android:title="@string/bootanimation_title"
+	   android:summary="@string/bootanimation_summary"
 	   android:entries="@array/entries_bootanim"
 	   android:entryValues="@array/entryvalues_bootanim"
 	   android:defaultValue="1"
-	   android:dialogTitle="Select an option" />
+	   android:dialogTitle="@string/select_option" />
 
 	<CheckBoxPreference
 	   android:key="filemanager"
@@ -480,25 +487,31 @@
 	<PreferenceScreen
 	   android:key="metamorph"
 	   android:title="Metamorph"
-	   android:summary=" Install from Market">
+	   android:summary="@string/install_market">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="blink"
 	   android:title="Blink"
-	   android:summary=" Install from Market">
+	   android:summary="@string/install_market">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="player"
 	   android:title="DivX/XviD player"
-	   android:summary=" Install from Market">
+	   android:summary="@string/install_market">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="barcode_scanner"
 	   android:title="Barcode scanner"
-	   android:summary=" Install from Market">
+	   android:summary="@string/install_market">
+	</PreferenceScreen>
+
+	<PreferenceScreen
+	   android:key="handycalc"
+	   android:title="handyCakc scanner"
+	   android:summary="@string/install_market">
 	</PreferenceScreen>
 
       </PreferenceCategory>
@@ -506,42 +519,42 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-       android:title="About"
-       android:summary="About this Modded SpareParts">
+       android:title="@string/about_title"
+       android:summary="@string/about_summary">
 
       <PreferenceScreen
 	 android:key="about_version"
-	 android:title="Version"
+	 android:title="@string/about_version"
 	 android:summary=" Settings / Leo Parts v7.0">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_author"
-	 android:title="Author"
+	 android:title="@string/about_author"
 	 android:summary=" leonnib4 @ xda-developers.com">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_donate"
-	 android:title="Donate"
-	 android:summary=" Donate via PayPal">
+	 android:title="@string/about_donate"
+	 android:summary="@string/donate">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_thanks"
-	 android:title="Special thanks to"
-	 android:summary=" britoso, Jr33, crimsondr\n Cyanogen, Wysie, jeagoss, kmobs, ctso\n All XDA community">
+	 android:title="@string/thanks_title"
+	 android:summary=" britoso, Jr33, crimsondr\n Cyanogen, Wysie, jeagoss, kmobs, ctso\n XDA community and... You">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_addond"
-	 android:title="Addons"
-	 android:summary=" Apps and Addons are not mine\n Credits go to their authors">
+	 android:title="@string/addons"
+	 android:summary="@string/about_addons">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_sources"
-	 android:title="Sources"
+	 android:title="@string/about_sources"
 	 android:summary=" http://github.com/leonnib4/">
       </PreferenceScreen>
 
@@ -550,14 +563,14 @@
   </PreferenceCategory>
 
   <PreferenceCategory
-     android:title="Hardware">
+     android:title="@string/hardware">
 
     <PreferenceScreen
-       android:title="Data Storage Options"
-       android:summary="Storage, App2sd, Dalvik-Cache &amp; more">
+       android:title="@string/data_storage_title"
+       android:summary="@string/data_storage_summary">
 
       <PreferenceCategory
-	  android:title="Storage Sizes">
+	  android:title="@string/storage_sizes">
 
       <PreferenceScreen
 	    android:key="system_storage_levels"
@@ -579,50 +592,50 @@
 
       <PreferenceScreen
 	    android:key="sdcardfat_storage_levels"
-	    android:title="SDCARD - FAT32 partition"
+	    android:title="SDCARD - FAT32"
 	    android:summary=" Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="sdcardext_storage_levels"
-	    android:title="SDCARD - EXT3 partition"
+	    android:title="SDCARD - EXT3"
 	    android:summary=" Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="refresh"
-	    android:title="Refresh storage data"
+	    android:title="@string/refresh_storage"
 	    android:summary="">
       </PreferenceScreen>
 
       </PreferenceCategory>
 
       <PreferenceCategory
-	  android:title="App2SD / Dalvik-Cache">
+	  android:title="@string/a2sd_dalvik">
 
       <CheckBoxPreference
 	    android:key="app2sd_opt"
-	    android:title="Old App2SD"
-	    android:summaryOn=" Old App2SD enabled"
-	    android:summaryOff=" Old App2SD disabled"/>
+	    android:title="@string/a2sd_title"
+	    android:summaryOn="@string/a2sd_summary_on"
+	    android:summaryOff="@string/a2sd_summary_off"/>
 
       <CheckBoxPreference
 	    android:key="dalvik2sd_opt"
-	    android:title="Dalvik-Cache on SDCard"
-	    android:summaryOn=" Dalvik-Cache on sdcard"
-	    android:summaryOff=" Dalvik-Cache on /data"/>
+	    android:title="@string/dalvik_title"
+	    android:summaryOn="@string/dalvik_summary_on"
+	    android:summaryOff="@string/dalvik_summary_off"/>
 
       <CheckBoxPreference
 	    android:key="data2sd_opt"
-	    android:title="Data on SDCard"
-	    android:summaryOn=" Data on sdcard"
-	    android:summaryOff=" Data on /system"/>
+	    android:title="@string/data_title"
+	    android:summaryOn="@string/data_summary_on"
+	    android:summaryOff="@string/data_summary_off"/>
 
       <CheckBoxPreference
 	    android:key="media2sd_opt"
-	    android:title="Media on SDCard"
-	    android:summaryOn=" System/media on sdcard"
-	    android:summaryOff=" System/media on /system"/>
+	    android:title="@string/media_title"
+	    android:summaryOn="@string/media_summary_on"
+	    android:summaryOff="@string/media_summary_off"/>
 
       </PreferenceCategory>
 

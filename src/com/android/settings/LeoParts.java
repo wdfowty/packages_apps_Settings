@@ -86,6 +86,8 @@ public class LeoParts extends PreferenceActivity
     private static final String TAG = "LeoParts";
     private static final String REMOUNT_RO = "mount -o ro,remount -t yaffs2 /dev/block/mtdblock3 /system";
     private static final String REMOUNT_RW = "mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system";
+    private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
+    private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
     private static String REPO;
 
     private final Configuration mCurConfig = new Configuration();
@@ -116,6 +118,12 @@ public class LeoParts extends PreferenceActivity
     // Tweaks
     private static final String APP2SD_PREF = "app2sd";
     private ListPreference mApp2sdPref;
+    private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
+    private CheckBoxPreference mPulseScreenOnPref;
+    private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
+    private CheckBoxPreference mTrackballWakePref;
+    private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
+    private CheckBoxPreference mTrackballUnlockPref;
     private static final String UI_SOUNDS_PREF = "ui_sounds";
     private CheckBoxPreference mUiSoundsPref;
     private static final String FIX_PERMS_PREF = "fix_perms";
@@ -165,12 +173,6 @@ public class LeoParts extends PreferenceActivity
     private static final String LOCKSCREEN_ALWAYS_MUSIC_CONTROLS = "lockscreen_always_music_controls";
     private CheckBoxPreference mAlwaysMusicControlPref;
 
-    private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
-    private CheckBoxPreference mPulseScreenOnPref;
-    private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
-    private CheckBoxPreference mTrackballWakePref;
-    private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
-    private CheckBoxPreference mTrackballUnlockPref;
     private static final String ROTATION_90_PREF = "rotation_90";
     private CheckBoxPreference mRotation90Pref;
     private static final String ROTATION_180_PREF = "rotation_180";
@@ -182,8 +184,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mPowerPromptPref;
 
     // Apps & Addons
-    private static final String AMAZON_PREF = "amazon_mp3";
-    private CheckBoxPreference mAmazonPref;
+    private static final String CALCULATOR_PREF = "calculator";
+    private CheckBoxPreference mCalculatorPref;
     private static final String CAR_HOME_PREF = "car_home";
     private CheckBoxPreference mCarHomePref;
     private static final String EMAIL_PREF = "email";
@@ -213,6 +215,8 @@ public class LeoParts extends PreferenceActivity
     private Preference mPlayerPref;
     private static final String BARCODE_PREF = "barcode_scanner";
     private Preference mBarcodePref;
+    private static final String HANDYCALC_PREF = "handycalc";
+    private Preference mHandyCakcPref;
 
     private static final String BOOTANIM_PREF = "bootanim";
     private ListPreference mBootanimPref;
@@ -267,8 +271,12 @@ public class LeoParts extends PreferenceActivity
 	REPO = getResources().getString(R.string.repo_url);
 
 	// Checks
-	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))	popup("Warning", "You don't seems to have ROOT permissions!");
-	if (!fileExists("/system/bin/busybox") && !fileExists("/system/xbin/busybox"))	popup("Warning", "You don't seems to have busybox!");
+	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))
+	    popup(getResources().getString(R.string.warning ),
+		  getResources().getString(R.string.warning_root));
+	if (!fileExists("/system/bin/busybox") && !fileExists("/system/xbin/busybox"))
+	    popup(getResources().getString(R.string.warning),
+		  getResources().getString(R.string.warning_busybox));
 
 	/**
 	 *  ROM infos
@@ -281,8 +289,8 @@ public class LeoParts extends PreferenceActivity
 	setStringSummary(ROM_BOOTLOADER_RADIO_PREF, Build.BOOTLOADER + "  /  " + getSystemValue("gsm.version.baseband"));
 	String kernel = getFormattedKernelVersion();
 	findPreference(ROM_KERNEL_PREF).setSummary((kernel.equals("2.6.32.9\nandroid-build@apa26") ? "stock " : "") + kernel);
-	mUpdatePref = (Preference) prefSet.findPreference(ROM_UPDATE_PREF);
-	mUpdatePref.setEnabled(false);
+	// mUpdatePref = (Preference) prefSet.findPreference(ROM_UPDATE_PREF);
+	// mUpdatePref.setEnabled(false);
 
 	/**
 	 *  Quick commands
@@ -292,7 +300,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(SHUTDOWN_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "toolbox reboot -p" };
-		    sendshell(commands, false, "Shuting down...");
+		    sendshell(commands, false, getResources().getString(R.string.shuting_down));
 		    return true;
 		}
 	    });
@@ -300,7 +308,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(REBOOT_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "reboot" };
-		    sendshell(commands, false, "Rebooting...");
+		    sendshell(commands, false, getResources().getString(R.string.rebooting));
 		    return true;
 		}
 	    });
@@ -308,7 +316,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(RECOVERY_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "reboot recovery" };
-		    sendshell(commands, false, "Rebooting...");
+		    sendshell(commands, false, getResources().getString(R.string.rebooting));
 		    return true;
 		}
 	    });
@@ -316,7 +324,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(BOOTLOADER_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "reboot bootloader" };
-		    sendshell(commands, false, "Rebooting...");
+		    sendshell(commands, false, getResources().getString(R.string.rebooting));
 		    return true;
 		}
 	    });
@@ -324,7 +332,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(REMOUNT_RO_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { REMOUNT_RO };
-		    sendshell(commands, false, "Remounting...");
+		    sendshell(commands, false, getResources().getString(R.string.remounting));
 		    return true;
 		}
 	    });
@@ -332,7 +340,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(REMOUNT_RW_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { REMOUNT_RW };
-		    sendshell(commands, false, "Remounting...");
+		    sendshell(commands, false, getResources().getString(R.string.remounting));
 		    return true;
 		}
 	    });
@@ -343,6 +351,15 @@ public class LeoParts extends PreferenceActivity
 
 	mApp2sdPref = (ListPreference) prefSet.findPreference(APP2SD_PREF);
 	mApp2sdPref.setOnPreferenceChangeListener(this);
+	mPulseScreenOnPref = (CheckBoxPreference) prefSet.findPreference(PULSE_SCREEN_ON_PREF);
+	mPulseScreenOnPref.setOnPreferenceChangeListener(this);
+	mPulseScreenOnPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, 0) == 1);
+	mTrackballWakePref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_WAKE_PREF);
+	mTrackballWakePref.setOnPreferenceChangeListener(this);
+	mTrackballWakePref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, 0) == 1);
+	mTrackballUnlockPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_UNLOCK_PREF);
+	mTrackballUnlockPref.setOnPreferenceChangeListener(this);
+	mTrackballUnlockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, 0) == 1);
 	mUiSoundsPref = (CheckBoxPreference) prefSet.findPreference(UI_SOUNDS_PREF);
 	mUiSoundsPref.setOnPreferenceChangeListener(this);
 	mUiSoundsPref.setEnabled(fileExists("/system/xbin/nouisounds"));
@@ -351,7 +368,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(FIX_PERMS_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "fix_permissions" };
-		    sendshell(commands, false, "Fixing permissions...");
+		    sendshell(commands, false, getResources().getString(R.string.fixing_permissions));
 		    return true;
 		}
 	    });
@@ -360,7 +377,7 @@ public class LeoParts extends PreferenceActivity
 	findPreference(FIX_MARKET_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "sed -i 's/false/true/' /data/data/com.android.vending/shared_prefs/vending_preferences.xml" };
-		    sendshell(commands, false, "Force Market re-sync...");
+		    sendshell(commands, false, getResources().getString(R.string.fixing_market));
 		    return true;
 		}
 	    });
@@ -372,9 +389,6 @@ public class LeoParts extends PreferenceActivity
 	mBatteryPercentPref = (CheckBoxPreference) prefSet.findPreference(BATTERY_PERCENT_PREF);
 	mBatteryPercentPref.setOnPreferenceChangeListener(this);
 	mBatteryPercentPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, 0) == 1);
-	mPulseScreenOnPref = (CheckBoxPreference) prefSet.findPreference(PULSE_SCREEN_ON_PREF);
-	mPulseScreenOnPref.setOnPreferenceChangeListener(this);
-	mPulseScreenOnPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, 0) == 1);
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
 	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
@@ -405,12 +419,6 @@ public class LeoParts extends PreferenceActivity
 	mNotifItemTextPref = prefSet.findPreference(UI_NOTIF_ITEM_TEXT_COLOR);
 	mNotifItemTimePref = prefSet.findPreference(UI_NOTIF_ITEM_TIME_COLOR);
 
-	mTrackballWakePref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_WAKE_PREF);
-	mTrackballWakePref.setOnPreferenceChangeListener(this);
-	mTrackballWakePref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, 0) == 1);
-	mTrackballUnlockPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_UNLOCK_PREF);
-	mTrackballUnlockPref.setOnPreferenceChangeListener(this);
-	mTrackballUnlockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, 0) == 1);
 	mRotation90Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_90_PREF);
 	mRotation90Pref.setOnPreferenceChangeListener(this);
 	mRotation180Pref = (CheckBoxPreference) prefSet.findPreference(ROTATION_180_PREF);
@@ -428,10 +436,10 @@ public class LeoParts extends PreferenceActivity
 	 *  Apps & Addons
 	 */
 
-	mAmazonPref = (CheckBoxPreference) prefSet.findPreference(AMAZON_PREF);
-	mAmazonPref.setOnPreferenceChangeListener(this);
-	mAmazonPref.setChecked(fileExists("/system/app/com.amazon.mp3.apk"));
-	mAmazonPref.setEnabled(fileExists("/system/app/com.amazon.mp3.apk"));
+	mCalculatorPref = (CheckBoxPreference) prefSet.findPreference(CALCULATOR_PREF);
+	mCalculatorPref.setOnPreferenceChangeListener(this);
+	mCalculatorPref.setChecked(fileExists("/system/app/Calculator.apk"));
+	mCalculatorPref.setEnabled(fileExists("/system/app/Calculator.apk"));
 	mCarHomePref = (CheckBoxPreference) prefSet.findPreference(CAR_HOME_PREF);
 	mCarHomePref.setOnPreferenceChangeListener(this);
 	mCarHomePref.setChecked(fileExists("/system/app/CarHomeGoogle.apk") && fileExists("/system/app/CarHomeLauncher.apk"));
@@ -482,15 +490,6 @@ public class LeoParts extends PreferenceActivity
 		    return true;
 		}
 	    });
-	mBarcodePref = (Preference) prefSet.findPreference(BARCODE_PREF);
-	findPreference(BARCODE_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
-		public boolean onPreferenceClick(Preference preference) {
-		    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
-		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
-		    startActivity(intent);
-		    return true;
-		}
-	    });
 	mBlinkPref = (Preference) prefSet.findPreference(BLINK_PREF);
 	findPreference(BLINK_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
@@ -504,6 +503,24 @@ public class LeoParts extends PreferenceActivity
 	findPreference(PLAYER_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    Uri marketUri = Uri.parse("market://details?id=org.freecoder.android.cmplayer.v7");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mBarcodePref = (Preference) prefSet.findPreference(BARCODE_PREF);
+	findPreference(BARCODE_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mHandyCakcPref = (Preference) prefSet.findPreference(HANDYCALC_PREF);
+	findPreference(HANDYCALC_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=org.mmin.handycalc");
 		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
 		    startActivity(intent);
 		    return true;
@@ -604,33 +621,33 @@ public class LeoParts extends PreferenceActivity
 	else if (preference == mUiSoundsPref) {
 	    String[] commands = { "nouisounds" };
 	    if (mUiSoundsPref.isChecked() == false)
-		sendshell(commands, false, "Deactivating UI sounds...");
+		sendshell(commands, false, getResources().getString(R.string.deactivating_ui_sounds));
 	    else
-		sendshell(commands, false, "Activating UI sounds...");
+		sendshell(commands, false, getResources().getString(R.string.activating_ui_sounds));
 	}
 	else if (preference == mBatteryPercentPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, mBatteryPercentPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mHideClockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mAmPmPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_TWELVE_HOUR_CLOCK_PERIOD, mAmPmPref.isChecked() ? 1 : 0);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mMusicControlPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_MUSIC_CONTROLS, mMusicControlPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mAlwaysMusicControlPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.LOCKSCREEN_ALWAYS_MUSIC_CONTROLS, mAlwaysMusicControlPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mPulseScreenOnPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, mPulseScreenOnPref.isChecked() ? 0 : 1);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mTrackballWakePref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_WAKE_SCREEN, mTrackballWakePref.isChecked() ? 0 : 1);
@@ -647,14 +664,14 @@ public class LeoParts extends PreferenceActivity
 	    if (preference == mRotation180Pref) mode += 2;
 	    if (preference == mRotation270Pref) mode += 4;
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mPowerPromptPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 1 : 0);
-	    toast("You should reboot for the changes to take effect.");
+	    toast(getResources().getString(R.string.should_reboot));
 	}
-	else if (preference == mAmazonPref)
-	    return removeSystemApp(mAmazonPref, "Amazon mp3", "com.amazon.mp3.apk");
+	else if (preference == mCalculatorPref)
+	    return removeSystemApp(mCalculatorPref, "Calculator", "Calculator.apk");
 	else if (preference == mCarHomePref)
 	    return removeSystemApp(mCarHomePref, "CarHome", "CarHomeGoogle.apk", "CarHomeLauncher.apk");
 	else if (preference == mEmailPref)
@@ -678,13 +695,12 @@ public class LeoParts extends PreferenceActivity
 		" && busybox mv /data/local/tmp/bootanimation.zip /system/media/bootanimation.zip",
 		REMOUNT_RO
 	    };
-	    sendshell(commands, true, "Downloading and installing " + objValue.toString().substring(0, objValue.toString().indexOf('-')) + "...");
+	    sendshell(commands, true, getResources().getString(R.string.downloading_installing) + " " + objValue.toString().substring(0, objValue.toString().indexOf('-')) + "...");
 	}
 	else if (preference == mHtcImePref) {
 	    if (mHtcImePref.isChecked() == false) {
 		if (Settings.Secure.getInt(getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 0) {
-		    Toast toast = Toast.makeText(getApplicationContext(), "You need to enable third part apps", Toast.LENGTH_LONG);
-		    toast.show();
+		    toast(getResources().getString(R.string.third_part_apps));
 		    Intent intent = new Intent();
 		    intent.setAction(Settings.ACTION_APPLICATION_SETTINGS);
 		    startActivity(intent);
@@ -696,14 +712,14 @@ public class LeoParts extends PreferenceActivity
 		    "busybox wget -q " + REPO + "htc_ime.apk -O /data/local/tmp/htc_ime.apk" +
 		    " && pm install -r /data/local/tmp/htc_ime.apk ; busybox rm -f /data/local/tmp/htc_ime.apk"
 		};
-		sendshell(commands, false, "Downloading and installing HTC_IME...");
+		sendshell(commands, false, getResources().getString(R.string.downloading_installing) + " HTC_IME...");
 	    }
 	    else {
 		String[] commands = {
 		    "pm uninstall com.htc.clicker",
 		    "pm uninstall jonasl.ime"
 		};
-		sendshell(commands, false, "Removing HTC_IME...");
+		sendshell(commands, false, getResources().getString(R.string.removing) + " HTC_IME...");
 	    }
 	}
 	else if (preference == mCpuLedPref)
@@ -785,7 +801,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mBatteryColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -801,7 +817,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mClockFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.CLOCK_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -817,7 +833,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mDateFontColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.DATE_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -833,7 +849,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mPlmnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.PLMN_LABEL_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -849,7 +865,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mSpnLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.SPN_LABEL_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
             }
 	};
 
@@ -865,7 +881,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNotifTickerColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NEW_NOTIF_TICKER_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -881,7 +897,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNotifCountColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_COUNT_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -897,7 +913,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNoNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NO_NOTIF_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -913,7 +929,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mClearLabelColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.CLEAR_BUTTON_LABEL_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -929,7 +945,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mOngoingNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.ONGOING_NOTIF_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -945,7 +961,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mLatestNotifColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.LATEST_NOTIF_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -961,7 +977,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNotifItemTitleColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TITLE_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -977,7 +993,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNotifItemTextColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TEXT_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -993,7 +1009,7 @@ public class LeoParts extends PreferenceActivity
     ColorPickerDialog.OnColorChangedListener mNotifItemTimeColorListener = new ColorPickerDialog.OnColorChangedListener() {
 	    public void colorChanged(int color) {
 		Settings.System.putInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR, color);
-		toast("You should reboot for the changes to take effect.");
+		toast(getResources().getString(R.string.should_reboot));
 	    }
 	};
 
@@ -1035,7 +1051,7 @@ public class LeoParts extends PreferenceActivity
 		    if (message != null)
 			mHandler.post(mCommandFinished);
 		    if (shell.interrupted())
-			popup("Error", "Download or install has finished unexpectedly!");
+			popup(getResources().getString(R.string.error), getResources().getString(R.string.download_install_error));
 		    if (reboot == true)
 			mHandler.post(mNeedReboot);
 		}
@@ -1077,13 +1093,15 @@ public class LeoParts extends PreferenceActivity
 	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	builder.setMessage("Reboot is requiered to apply. Would you like to reboot now?")
 	    .setCancelable(false)
-	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	    .setPositiveButton(getResources().getString(R.string.yes),
+			       new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
 			String[] commands = { "reboot" };
-			sendshell(commands, false, "Rebooting...");
+			sendshell(commands, false, getResources().getString(R.string.rebooting));
 		    }
 		})
-	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+	    .setNegativeButton(getResources().getString(R.string.no),
+			       new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
 			dialog.cancel();
 		    }
@@ -1098,8 +1116,8 @@ public class LeoParts extends PreferenceActivity
 
     public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk1, final String apk2) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	builder.setTitle("Confirm")
-	    .setMessage("Are you sure you want to remove " + name + "?")
+	builder.setTitle(getResources().getString(R.string.confirm))
+	    .setMessage(getResources().getString(R.string.sure_remove) + " " + name + "?")
 	    .setCancelable(false)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
@@ -1110,7 +1128,7 @@ public class LeoParts extends PreferenceActivity
 			    "busybox rm -f /system/app/" + apk2,
 			    REMOUNT_RO
 			};
-			sendshell(commands, false, "Removing " + name + "...");
+			sendshell(commands, false, getResources().getString(R.string.removing) + " " + name + "...");
 			preference.setEnabled(false);
 		    }
 		})
@@ -1127,8 +1145,8 @@ public class LeoParts extends PreferenceActivity
 
     public boolean removeSystemApp(final CheckBoxPreference preference, final String name, final String apk1) {
 	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-	builder.setTitle("Confirm")
-	    .setMessage("Are you sure you want to remove " + name + "?")
+	builder.setTitle(getResources().getString(R.string.confirm))
+	    .setMessage(getResources().getString(R.string.sure_remove) + " " + name + "?")
 	    .setCancelable(false)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
@@ -1138,7 +1156,7 @@ public class LeoParts extends PreferenceActivity
 			    "busybox rm -f /system/app/" + apk1,
 			    REMOUNT_RO
 			};
-			sendshell(commands, false, "Removing " + name + "...");
+			sendshell(commands, false, getResources().getString(R.string.removing) + " " + name + "...");
 			preference.setEnabled(false);
 		    }
 		})
@@ -1157,8 +1175,7 @@ public class LeoParts extends PreferenceActivity
 	boolean have = preference.isChecked();
 	if (!have) {
 	    if (Settings.Secure.getInt(getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 0) {
-		Toast toast = Toast.makeText(getApplicationContext(), "You need to enable third part apps", Toast.LENGTH_LONG);
-		toast.show();
+		toast(getResources().getString(R.string.third_part_apps));
 		Intent intent = new Intent();
 		intent.setAction(Settings.ACTION_APPLICATION_SETTINGS);
 		startActivity(intent);
@@ -1168,13 +1185,13 @@ public class LeoParts extends PreferenceActivity
 	    	"busybox wget -q " + src + " -O /data/local/tmp/" + activity + ".apk" +
 	    	" && pm install -r /data/local/tmp/" + activity + ".apk ; busybox rm -f /data/local/tmp/" + activity + ".apk"
 	    };
-	    sendshell(commands, false, "Downloading and installing " + name + "...");
+	    sendshell(commands, false, getResources().getString(R.string.downloading_installing) + " " + name + "...");
 	}
 	else {
 	    String[] commands = {
 		"pm uninstall " + activity
 	    };
-	    sendshell(commands, false, "Removing " + name + "...");
+	    sendshell(commands, false, getResources().getString(R.string.removing) + " " + name + "...");
 	}
 	return true;
     }
@@ -1190,7 +1207,7 @@ public class LeoParts extends PreferenceActivity
 	long eBlockSize = extraStat.getBlockSize();
 	long eTotalBlocks = extraStat.getBlockCount();
 	retstr = Formatter.formatFileSize(this, (eTotalBlocks * eBlockSize) - (extraStat.getAvailableBlocks() * eBlockSize));
-	retstr += "  used out of  ";
+	retstr += "  " + getResources().getString(R.string.used_out_of) + "  ";
 	retstr += Formatter.formatFileSize(this, eTotalBlocks * eBlockSize);
 	return retstr;
     }
@@ -1227,13 +1244,13 @@ public class LeoParts extends PreferenceActivity
 	try {
 	    findPreference(preference).setSummary(value);
 	} catch (RuntimeException e) {
-	    findPreference(preference).setSummary(" Unavailable");
+	    findPreference(preference).setSummary(" " + getResources().getString(R.string.unavailable));
 	}
     }
 
     public String getSystemValue(String property) {
 	try {
-	    return SystemProperties.get(property, " Unavailable");
+	    return SystemProperties.get(property, "?");
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	}
@@ -1270,7 +1287,7 @@ public class LeoParts extends PreferenceActivity
 		return " Unavailable";
 	    } else if (m.groupCount() < 4) {
 		Log.e(TAG, "Regex match on /proc/version only returned " + m.groupCount() + " groups");
-		return " Unavailable";
+		return " " + getResources().getString(R.string.unavailable);
 	    } else {
 		return (new StringBuilder(m.group(1).substring(0, m.group(1).indexOf('-')))
 			.append("\n")
@@ -1279,7 +1296,7 @@ public class LeoParts extends PreferenceActivity
 	    }
 	} catch (IOException e) {
 	    e.printStackTrace();
-	    return " Unavailable";
+	    return " " + getResources().getString(R.string.unavailable);
 	}
     }
 
@@ -1287,39 +1304,30 @@ public class LeoParts extends PreferenceActivity
      *  Methods to parse ROM infos
      */
 
-    public static String removeChar(String s, char c) {
-	String r = "";
-	for (int i = 0; i < s.length(); i ++)
-	    if (s.charAt(i) != c)
-		r += s.charAt(i);
-	return r;
+    public String getRomName() { // .+
+	String name = getSystemValue(SYS_PROP_MOD_VERSION);
+	name = name.substring(0, name.indexOf('_'));
+        return (name == null || name.length() == 0 ? "?" : name);
     }
 
-    public String getRomName() {
-	String name = Build.DISPLAY; // N_VpP(-B)?
-	name = name.substring(0, name.indexOf('_')); // N
-	return name;
+    public String getRomVersion() { // [0-9]\.[0-9]\.[0-9]
+	String version = getSystemValue(SYS_PROP_MOD_VERSION);
+	version = version.substring(version.indexOf('_') + 1, version.length());
+	if (version.contains("-"))
+	    version = version.substring(0, version.indexOf('-'));
+        return (version == null || version.length() == 0 ? "?" : version);
     }
 
-    public String getRomVersion() {
-	String version = Build.DISPLAY; // N_VpP(-B)?
-	version = version.substring(version.indexOf('_') + 1, version.indexOf('p')); // V
-	return version;
+    public String getRomPatch() { // version + [0-9]+ = [0-9]{4}
+	String patch = getSystemValue(SYS_PROP_MOD_PATCH);
+	if (patch != null && patch.length() == 4)
+	    return patch.substring(3, 4);
+        return getResources().getString(R.string.unavailable);
     }
 
-    public String getRomPatch() {
-	String patch = Build.DISPLAY; // N_VpP(-B)?
-	if (isRomBeta()) // P-B
-	    patch = patch.substring(patch.indexOf('p') + 1, patch.indexOf('-')); // P
-	else // P
-	    patch = patch.substring(patch.indexOf('p') + 1, patch.length()); // P
-	return patch;
-    }
-
-    public int getRomBeta() {
-	String beta = Build.DISPLAY; // N_VpP(-B)?
+    public int getRomBeta() { // -BETA[0-9]?
+	String beta = getSystemValue(SYS_PROP_MOD_VERSION);
 	if (isRomBeta()) {
-	    beta = beta.substring(beta.indexOf('p'), beta.length());
 	    beta = beta.substring(beta.indexOf('-') + 5, beta.indexOf('-') + 6);
 	    return Integer.parseInt(beta);
 	}
@@ -1327,7 +1335,7 @@ public class LeoParts extends PreferenceActivity
     }
 
     public boolean isRomBeta() {
-	String beta = Build.DISPLAY; // N_VpP(-B)?
+	String beta = getSystemValue(SYS_PROP_MOD_VERSION);
 	return beta.contains("-BETA");
     }
 

@@ -2537,36 +2537,37 @@ found in the list of installed applications.</string>
     <string name="sound_category_notification_title">Notifications</string>
     <string name="sound_category_feedback_title">Feedback</string>
 
+
+    <!--
+       ** Leo Parts **
+      -->
+
+    <string name="repo_name">LeoFroYo</string>
+    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
+
     <string name="launcher_settings_title">ADWLauncher</string>
 
-    <!-- Color Picker -->
     <string name="title_color_picker">Pick a color</string>
     <string name="msg_color_picker">Tap on center color to confirm.\nPress back to cancel.</string>
 
-    <!-- Battery and Clock -->
     <string name="bc_title">Battery and Clock</string>
     <string name="bc_summary">Battery and Clock tweaks</string>
 
-    <!-- Battery and Clock, Battery -->
     <string name="battery_title">Battery</string>
     <string name="pref_battery_percentage_title">Battery Percentage</string>
     <string name="pref_battery_percentage_summary">Battery percentage displayed in the status bar</string>
     <string name="battery_status_color_title">Battery percentage color</string>
 
-    <!-- Battery and Clock, Clock -->
     <string name="clock_title">Clock</string>
     <string name="title_show_clock">Show clock</string>
     <string name="title_clock_color">Clock color</string>
 
-    <!-- Date and Provider -->
     <string name="dp_title">Date and Provider</string>
     <string name="dp_summary">Date and provider tweaks</string>
 
-    <!-- Date and Provider, Date -->
     <string name="date_title">Date</string>
     <string name="title_date_color">Date color</string>
 
-    <!-- Date and Provider, PLMN -->
     <string name="plmn_title">PLMN carrier string</string>
     <string name="title_show_plmn_ls">Display PLMN (lockscreen)</string>
     <string name="summary_on_show_plmn_ls">PLMN field is displayed on lockscreen</string>
@@ -2576,7 +2577,6 @@ found in the list of installed applications.</string>
     <string name="summary_off_show_plmn_sb">PLMN field is not displayed in status bar</string>
     <string name="title_plmn_label_color">Carrier PLMN label color</string>
 
-    <!-- Date and Provider, SPN -->
     <string name="spn_title">Settings for SPN carrier string</string>
     <string name="title_show_spn_ls">Display SPN (lockscreen)</string>
     <string name="summary_on_show_spn_ls">SPN field is displayed on lockscreen</string>
@@ -2586,7 +2586,6 @@ found in the list of installed applications.</string>
     <string name="summary_off_show_spn_sb">SPN field is not displayed in status bar</string>
     <string name="title_spn_label_color">Carrier SPN label color</string>
 
-    <!-- Notifications -->
     <string name="title_notifications_sb">Status Bar Notifications</string>
     <string name="title_notifications_color_tweaks">Notifications Colors</string>
     <string name="summary_notifications_color_tweaks">Notifications ticker, ongoing notifications, latest notifications, clear notifications, etc.</string>
@@ -2607,6 +2606,144 @@ found in the list of installed applications.</string>
     <string name="pref_lockscreen_always_music_controls_title">Always display music controls</string>
     <string name="pref_lockscreen_always_music_controls_summary">Display music controls regardless of whether or not music is playing</string>
 
-    <string name="repo_name">LeoFroYo</string>
-    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
+    <string name="software">Software</string>
+
+    <string name="rom_infos_title">ROM infos</string>
+    <string name="rom_infos_summary">ROM name, build and system version.</string>
+    <string name="infos">Infos</string>
+    <string name="device">Device</string>
+    <string name="name_version">Name / Version / Patch</string>
+    <string name="system_build">System / Build / Fingerprint</string>
+    <string name="kernel">Kernel</string>
+    <string name="bootloader_radio">Bootloader / Radio</string>
+    <string name="updates">Updates</string>
+    <string name="updates_title">Check for updates</string>
+    <string name="updates_summary"> Click to check</string>
+
+    <string name="quick_commands_title">Quick commands</string>
+    <string name="quick_commands_summary">Reboot &amp; remount commands</string>
+    <string name="shutdown_title">Shutdown</string>
+    <string name="shutdown_summary"> Do a normal shutdown</string>
+    <string name="reboot_title">Reboot</string>
+    <string name="reboot_summary"> Do a normal reboot</string>
+    <string name="reboot_recovery_title">Reboot recovery</string>
+    <string name="reboot_recovery_summary"> Reboot into recovery</string>
+    <string name="reboot_bootloader_title">Reboot bootloader</string>
+    <string name="reboot_bootloader_summary"> Reboot into bootloader</string>
+    <string name="remount_sys">Remount /system</string>
+    <string name="remount_rw_title">Read-Write</string>
+    <string name="remount_rw_summary"> Remount /system with RW permissions</string>
+    <string name="remount_ro_title">Read-Only</string>
+    <string name="remount_ro_summary"> Remount /system with RO permissions</string>
+
+    <string name="tweaks_title">Tweaks</string>
+    <string name="tweaks_summary">Advanced tweaks</string>
+    <string name="stock">Stock</string>
+    <string name="stock_a2sd_title">Stock App2SD</string>
+    <string name="stock_a2sd_summary"> Choose where to store apps</string>
+    <string name="select_option">Select an option</string>
+    <string name="trackball">Trackball</string>
+    <string name="pulse_title">Pulse while screen is on</string>
+    <string name="pulse_summary_on"> Trackball will pulse</string>
+    <string name="pulse_summary_off"> Trackball will not pulse</string>
+    <string name="wake_title">Trackball Wake</string>
+    <string name="wake_summary_on"> Trackball wakes the device</string>
+    <string name="wake_summary_off"> Trackball does nothing</string>
+    <string name="unlock_title">Trackball unlock</string>
+    <string name="unlock_summary_on"> Trackball wakes and unlocks the device</string>
+    <string name="unlock_summary_off"> Trackball do not unlock</string>
+    <string name="scripts">Scripts</string>
+    <string name="uisounds_title">Deactivate UI sounds</string>
+    <string name="uisounds_summary_on"> UI sounds deactivated</string>
+    <string name="uisounds_summary_off"> UI sounds activated</string>
+    <string name="fixperms_title">Fix permissions</string>
+    <string name="fixperms_summary"> Can solve weird Force Closes</string>
+    <string name="fixmarket_title">Force Market to re-sync</string>
+    <string name="fixmarket_summary"> Forces the Market to re-sync apps</string>
+
+    <string name="ui_title">User Interface</string>
+    <string name="ui_summary">Let the interface feets your wills</string>
+    <string name="status_bar">Status bar</string>
+    <string name="battery_percent_title">Battery percentage</string>
+    <string name="battery_percent_on"> Battery percentage is ON</string>
+    <string name="battery_percent_off"> Battery percentage is OFF</string>
+    <string name="hide_clock_title">Hide the clock</string>
+    <string name="hide_clock_on"> Clock is hidden</string>
+    <string name="hide_clock_off"> Clock is visible</string>
+    <string name="hide_ampm_title">Hide AM/PM in clock</string>
+    <string name="hide_ampm_on"> AM/PM is hidden</string>
+    <string name="hide_ampm_off"> AM/PM is visible</string>
+    <string name="wysie_colors_title">Wysie\'s colors</string>
+    <string name="wysie_colors_summary">Change colors of text in status bar</string>
+    <string name="lockscreen">Lockscreen</string>
+    <string name="rotation">Rotation</string>
+    <string name="rotation_90">90 degrees</string>
+    <string name="rotation_180">180 degrees</string>
+    <string name="rotation_270">270 degrees</string>
+    <string name="other">Other</string>
+    <string name="power_prompt_title">Power prompt</string>
+    <string name="power_prompt_summary"> Change whether there is a prompt after choosing shutdown or reboot</string>
+
+    <string name="apps_addons_title">Apps &amp; Addons</string>
+    <string name="apps_addons_summary">Boost the user experiece</string>
+    <string name="stock_apps_title">Stock apps</string>
+    <string name="stock_apps_summary">Stock apps that you can (only) remove</string>
+    <!-- apps? installed/removed -->
+    <string name="addons">Addons</string>
+    <string name="bootanimation_title">Bootanimation</string>
+    <string name="bootanimation_summary"> Change the bootanimation</string>
+    <!-- apps? installed/removed -->
+    <string name="install_market"> Install from Market</string>
+    <string name="about_title">About</string>
+    <string name="about_summary">About this Modded Settings</string>
+    <string name="about_version">Version</string>
+    <string name="about_author">Author</string>
+    <string name="about_donate">Donate</string>
+    <string name="donate"> Donate via PayPal</string>
+    <string name="thanks_title">Special thanks to</string>
+    <string name="about_addons"> Apps and Adons are not mine\n Credits go to their authors</string>
+    <string name="about_sources">Sources</string>
+
+    <string name="hardware">Hardware</string>
+
+    <string name="data_storage_title">Data storage options</string>
+    <string name="data_storage_summary">Storage, App2SD, Dalvik-Cache &amp; more</string>
+    <string name="storage_sizes">Storage sizes</string>
+    <string name="refresh_storage">Refresh storage data</string>
+    <string name="a2sd_dalvik">App2SD / Dalvik-Cache</string>
+    <string name="a2sd_title">Old App2SD</string>
+    <string name="a2sd_summary_on"> Old App2SD enabled</string>
+    <string name="a2sd_summary_off"> Old App2SD disabled</string>
+    <string name="dalvik_title">Dalvik-Cache on SDCard</string>
+    <string name="dalvik_summary_on"> Dalvik-Cache on SDCard</string>
+    <string name="dalvik_summary_off"> Dalvik-Cache on /data</string>
+    <string name="data_title">Data on SDCard</string>
+    <string name="data_summary_on"> Data on SDCard</string>
+    <string name="data_summary_off"> Data on /system</string>
+    <string name="media_title">Media on SDCard</string>
+    <string name="media_summary_on"> System/media on SDCard</string>
+    <string name="media_summary_off"> System/media on /system</string>
+
+    <string name="warning">Warning</string>
+    <string name="warning_root">You don\'t seems to have ROOT permissions!</string>
+    <string name="warning_busybox">You don\'t seems to have busybox!</string>
+    <string name="shuting_down">Shuting down...</string>
+    <string name="rebooting">Rebooting...</string>
+    <string name="remounting">Remounting...</string>
+    <string name="fixing_permissions">Fixing persmissions...</string>
+    <string name="fixing_market">Force Market to re-sync...</string>
+    <string name="activating_ui_sounds">Activating UI sounds...</string>
+    <string name="deactivating_ui_sounds">Deactivate UI sounds...</string>
+    <string name="should_reboot">You should reboot for the changes to take effect.</string>
+    <string name="downloading_installing">Downloading and installing</string>
+    <string name="third_part_apps">You need to enable third part apps</string>
+    <string name="removing">Removing</string>
+    <string name="error">Error</string>
+    <string name="download_install_error">Download or install has finished unexpectedly!</string>
+    <string name="reboot_requiered">Reboot is requiered to apply. Would you like to reboot now?</string>
+    <string name="confirm">Confirm</string>
+    <string name="sure_remove">Are you sure you want to remove</string>
+    <string name="used_out_of">used out of</string>
+    <string name="unavailable">Unavailable</string>
+
 </resources>
