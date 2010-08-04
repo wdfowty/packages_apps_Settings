@@ -491,8 +491,8 @@
 	</PreferenceScreen>
 
 	<PreferenceScreen
-	   android:key="blink"
-	   android:title="Blink"
+	   android:key="trackball_alert"
+	   android:title="Trackball Alert"
 	   android:summary="@string/install_market">
 	</PreferenceScreen>
 
@@ -510,7 +510,7 @@
 
 	<PreferenceScreen
 	   android:key="handycalc"
-	   android:title="handyCakc scanner"
+	   android:title="handyCalc"
 	   android:summary="@string/install_market">
 	</PreferenceScreen>
 

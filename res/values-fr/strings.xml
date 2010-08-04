@@ -1304,4 +1304,9 @@
     <string name="used_out_of">utilisés sur</string>
     <string name="unavailable">Indisponible</string>
 
+<string name="low_class_sdcard">Avec une SDCard de faille classe, votre système pourrait devenir très lent...</string>
+    <string name="have_a_good_one">J\'en ai une bonne</string>
+    <string name="move_sdcard">Déplacement vers la SDCard...</string>
+    <string name="move_phone">Repatriement sur le mobile...</string>
+
 </resources>

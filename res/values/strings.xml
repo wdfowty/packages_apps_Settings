@@ -2746,4 +2746,9 @@ found in the list of installed applications.</string>
     <string name="used_out_of">used out of</string>
     <string name="unavailable">Unavailable</string>
 
+    <string name="low_class_sdcard">With low class SDCard, your phone might get really slow...</string>
+    <string name="have_a_good_one">I have a good one</string>
+    <string name="move_sdcard">Moving to SDCard...</string>
+    <string name="move_phone">Restoring to phone...</string>
+
 </resources>

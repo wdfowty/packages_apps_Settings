@@ -209,14 +209,14 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mTerminalPref;
     private static final String METAMORPH_PREF = "metamorph";
     private Preference mMetamorphPref;
-    private static final String BLINK_PREF = "blink";
-    private Preference mBlinkPref;
+    private static final String TRACKBALL_ALERT_PREF = "trackball_alert";
+    private Preference mTrackballAlertPref;
     private static final String PLAYER_PREF = "player";
     private Preference mPlayerPref;
     private static final String BARCODE_PREF = "barcode_scanner";
     private Preference mBarcodePref;
     private static final String HANDYCALC_PREF = "handycalc";
-    private Preference mHandyCakcPref;
+    private Preference mHandyCalcPref;
 
     private static final String BOOTANIM_PREF = "bootanim";
     private ListPreference mBootanimPref;
@@ -254,7 +254,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mData2sdPref;
     private static final String MEDIA2SD_PREF = "media2sd_opt";
     private CheckBoxPreference mMedia2sdPref;
-    private boolean extfsIsMounted = false;
+    private boolean extfsIsMounted = (fileExists("/system/sd") == true
+				      && fileExists("/dev/block/mmcblk0p2") == true);
 
     public ProgressDialog patience = null;
     final Handler mHandler = new Handler();
@@ -490,10 +491,10 @@ public class LeoParts extends PreferenceActivity
 		    return true;
 		}
 	    });
-	mBlinkPref = (Preference) prefSet.findPreference(BLINK_PREF);
-	findPreference(BLINK_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+	mTrackballAlertPref = (Preference) prefSet.findPreference(TRACKBALL_ALERT_PREF);
+	findPreference(TRACKBALL_ALERT_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
-		    Uri marketUri = Uri.parse("market://details?id=imoblife.blink");
+		    Uri marketUri = Uri.parse("market://search?q=trackball%20alert");
 		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
 		    startActivity(intent);
 		    return true;
@@ -517,7 +518,7 @@ public class LeoParts extends PreferenceActivity
 		    return true;
 		}
 	    });
-	mHandyCakcPref = (Preference) prefSet.findPreference(HANDYCALC_PREF);
+	mHandyCalcPref = (Preference) prefSet.findPreference(HANDYCALC_PREF);
 	findPreference(HANDYCALC_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    Uri marketUri = Uri.parse("market://details?id=org.mmin.handycalc");
@@ -587,7 +588,6 @@ public class LeoParts extends PreferenceActivity
 	mMedia2sdPref.setOnPreferenceChangeListener(this);
 	mMedia2sdPref.setEnabled(extfsIsMounted);
 
-	extfsIsMounted     = fileExists("/dev/block/mmcblk0p2");
 	mSystemSize        = (Preference) prefSet.findPreference(SYSTEM_PART_SIZE);
 	mDataSize          = (Preference) prefSet.findPreference(DATA_PART_SIZE);
 	mCacheSize         = (Preference) prefSet.findPreference(CACHE_PART_SIZE);
@@ -600,6 +600,7 @@ public class LeoParts extends PreferenceActivity
 	    .setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		    public boolean onPreferenceClick(Preference preference) {
 			SetupFSPartSize();
+			extfsIsMounted = (fileExists("/dev/block/mmcblk0p2") && fileExists("/system/sd"));
 			return true;
 		    }
 		});
@@ -724,6 +725,14 @@ public class LeoParts extends PreferenceActivity
 	}
 	else if (preference == mCpuLedPref)
 	    return installOrRemoveAddon(mCpuLedPref, "cpu_led.apk", false, "CPU Led", "com.britoso.cpustatusled");
+	else if (preference == mOldApp2sdPref)
+	    return activate2sd(mOldApp2sdPref, "a2sd");
+	else if (preference == mDalvik2sdPref)
+	    return activate2sd(mDalvik2sdPref, "dalvik2sd");
+	else if (preference == mData2sdPref)
+	    return activate2sd(mData2sdPref, "data2sd");
+	else if (preference == mMedia2sdPref)
+	    return activate2sd(mMedia2sdPref, "media2sd");
 
 	// always let the preference setting proceed.
 	return true;
@@ -1200,6 +1209,41 @@ public class LeoParts extends PreferenceActivity
      *  Methods for storage
      */
 
+    public boolean activate2sd(final CheckBoxPreference preference, final String script) {
+	boolean have = preference.isChecked();
+	if (!have) {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	    builder.setTitle(getResources().getString(R.string.warning))
+		.setMessage(getResources().getString(R.string.low_class_sdcard))
+		.setCancelable(false)
+		.setPositiveButton(getResources().getString(R.string.have_a_good_one),
+				   new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+			    dialog.cancel();
+			    String[] commands = {
+				script + " on"
+			    };
+			    sendshell(commands, false, getResources().getString(R.string.move_sdcard));
+			}
+		    })
+		.setNegativeButton(getResources().getString(R.string.cancel),
+				   new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+			    dialog.cancel();
+			    preference.setChecked(false);
+			}
+		    });
+	    AlertDialog alert = builder.create();
+	    alert.show();
+	} else {
+	    String[] commands = {
+		script + " off",
+	    };
+	    sendshell(commands, false, getResources().getString(R.string.move_phone));
+	}
+	return true;
+    }
+
     private String ObtainFSPartSize(String PartitionPath) {
 	String retstr;
 	File extraPath = new File(PartitionPath);
@@ -1214,16 +1258,12 @@ public class LeoParts extends PreferenceActivity
 
     private void SetupFSPartSize() {
 	try {
-	    mSystemSize.setSummary(ObtainFSPartSize    ("/system"));
-	    mDataSize.setSummary(ObtainFSPartSize      ("/data"));
-	    mCacheSize.setSummary(ObtainFSPartSize     ("/cache"));
-	    mSDCardFATSize.setSummary(ObtainFSPartSize ("/sdcard"));
-	    if (extfsIsMounted == true) {
-		if (fileExists("/system/sd/"))
-		    mSDCardEXTSize.setSummary(ObtainFSPartSize ("/system/sd"));
-		else
-		    mSDCardEXTSize.setEnabled(false);
-	    }
+	    mSystemSize.setSummary(ObtainFSPartSize        ("/system"));
+	    mDataSize.setSummary(ObtainFSPartSize          ("/data"));
+	    mCacheSize.setSummary(ObtainFSPartSize         ("/cache"));
+	    mSDCardFATSize.setSummary(ObtainFSPartSize     ("/sdcard"));
+	    if (extfsIsMounted == true)
+		mSDCardEXTSize.setSummary(ObtainFSPartSize ("/system/sd"));
 	    else
 		mSDCardEXTSize.setEnabled(false);
 	} catch (IllegalArgumentException e) {
