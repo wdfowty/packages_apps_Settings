@@ -88,7 +88,9 @@ public class LeoParts extends PreferenceActivity
     private static final String REMOUNT_RW = "mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system";
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
-    private static String REPO;
+    private static String REPO_ROM;
+    private static String REPO_ADDONS;
+    private static String REPO_PATCH;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -269,7 +271,9 @@ public class LeoParts extends PreferenceActivity
 	addPreferencesFromResource(R.xml.leo_parts);
 
 	PreferenceScreen prefSet = getPreferenceScreen();
-	REPO = getResources().getString(R.string.repo_url);
+	REPO_ROM = getResources().getString(R.string.repo_rom_url);
+	REPO_ADDONS = getResources().getString(R.string.repo_addons_url);
+	REPO_PATCH = getResources().getString(R.string.repo_patch_url);
 
 	// Checks
 	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))
@@ -298,7 +302,7 @@ public class LeoParts extends PreferenceActivity
 			Thread t = new Thread() {
 				public void run() {
 				    String[] commands = {
-					"busybox wget -q " + REPO + "version -O /data/local/tmp/version"
+					"busybox wget -q " + REPO_ROM + "version -O /data/local/tmp/version"
 				    };
 				    ShellInterface shell = new ShellInterface(commands);
 				    shell.start();
@@ -720,7 +724,7 @@ public class LeoParts extends PreferenceActivity
 	else if (preference == mBootanimPref) {
 	    String[] commands = {
 		REMOUNT_RW,
-		"busybox wget -q " + REPO + objValue.toString() + " -O /data/local/tmp/bootanimation.zip" +
+		"busybox wget -q " + REPO_ADDONS + objValue.toString() + " -O /data/local/tmp/bootanimation.zip" +
 		" && busybox mv /data/local/tmp/bootanimation.zip /system/media/bootanimation.zip",
 		REMOUNT_RO
 	    };
@@ -736,9 +740,9 @@ public class LeoParts extends PreferenceActivity
 		    return false;
 		}
 		String[] commands = {
-		    "busybox wget -q " + REPO + "clicker.apk -O /data/local/tmp/clicker.apk" +
+		    "busybox wget -q " + REPO_ADDONS + "clicker.apk -O /data/local/tmp/clicker.apk" +
 		    " && pm install -r /data/local/tmp/clicker.apk ; busybox rm -f /data/local/tmp/clicker.apk",
-		    "busybox wget -q " + REPO + "htc_ime.apk -O /data/local/tmp/htc_ime.apk" +
+		    "busybox wget -q " + REPO_ADDONS + "htc_ime.apk -O /data/local/tmp/htc_ime.apk" +
 		    " && pm install -r /data/local/tmp/htc_ime.apk ; busybox rm -f /data/local/tmp/htc_ime.apk"
 		};
 		sendshell(commands, false, getResources().getString(R.string.downloading_installing) + " HTC_IME...");
@@ -1101,6 +1105,35 @@ public class LeoParts extends PreferenceActivity
      *  Methods for updates and patches
      */
 
+    public boolean askToUpgrade(final String ui_current, final int latest, final String ui_latest, final String update) {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	builder.setTitle(getResources().getString(R.string.leo_updater))
+	    .setMessage(getResources().getString(R.string.rom_outdated)
+			.replaceFirst("%b%", ui_current)
+			.replaceFirst("%B%", ui_latest) + "\n"
+			+ getResources().getString(R.string.like_to_upgrade))
+	    .setCancelable(false)
+	    .setPositiveButton(getResources().getString(R.string.yeah),
+			       new DialogInterface.OnClickListener() {
+				   public void onClick(DialogInterface dialog, int id) {
+				       String url = REPO_ROM + update;
+				       Intent i = new Intent(Intent.ACTION_VIEW);
+				       i.setData(Uri.parse(url));
+				       startActivity(i);
+				       toast(getResources().getString(R.string.downloading_upgrade));
+				   }
+			       })
+	    .setNegativeButton(getResources().getString(R.string.not_now),
+			       new DialogInterface.OnClickListener() {
+				   public void onClick(DialogInterface dialog, int id) {
+				       dialog.cancel();
+				   }
+			       });
+	AlertDialog alert = builder.create();
+	alert.show();
+	return true;
+    }
+
     final Runnable mApplyPatch = new Runnable() {
 	    public void run() {
 		final int patch = PATCH;
@@ -1119,12 +1152,12 @@ public class LeoParts extends PreferenceActivity
     public boolean applyPatch(final int latest, final String ui_latest) {
 	PATCH = latest;
 	patience = ProgressDialog.show(LeoParts.this, "",
-		   getResources().getString(R.string.getting_patch) + latest + "...",
-		   true);
+				       getResources().getString(R.string.getting_patch) + latest + "...",
+				       true);
 	Thread t = new Thread() {
 		public void run() {
 		    String[] commands = {
-			"busybox wget -q " + REPO + "patch/patch-" + PATCH + " -O /data/local/patch" +
+			"busybox wget -q " + REPO_PATCH + "patch-" + PATCH + " -O /data/local/patch" +
 			" && busybox chmod 755 /data/local/patch"
 		    };
 		    ShellInterface shell = new ShellInterface(commands);
@@ -1156,17 +1189,17 @@ public class LeoParts extends PreferenceActivity
 	    .setCancelable(false)
 	    .setPositiveButton(getResources().getString(R.string.grab_it),
 			       new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
-			applyPatch(latest, ui_latest);
-		    }
-		})
+				   public void onClick(DialogInterface dialog, int id) {
+				       dialog.cancel();
+				       applyPatch(latest, ui_latest);
+				   }
+			       })
 	    .setNegativeButton(getResources().getString(R.string.dont_care),
 			       new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
-		    }
-		});
+				   public void onClick(DialogInterface dialog, int id) {
+				       dialog.cancel();
+				   }
+			       });
 	AlertDialog alert = builder.create();
 	alert.show();
     }
@@ -1179,22 +1212,23 @@ public class LeoParts extends PreferenceActivity
 		BufferedInputStream bis = null;
 		DataInputStream dis = null;
 		String build = getSystemValue(SYS_PROP_MOD_PATCH);
-		try {
-		    fis = new FileInputStream(file);
-		    bis = new BufferedInputStream(fis);
-		    dis = new DataInputStream(bis);
-		    while (dis.available() != 0) {
-			build = dis.readLine();
-			break ;
-		    }
-		    fis.close();
-		    bis.close();
-		    dis.close();
-		} catch (FileNotFoundException e) {
-		    e.printStackTrace();
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
+		build = "1200";
+		// try {
+		//     fis = new FileInputStream(file);
+		//     bis = new BufferedInputStream(fis);
+		//     dis = new DataInputStream(bis);
+		//     while (dis.available() != 0) {
+		// 	build = dis.readLine();
+		// 	break ;
+		//     }
+		//     fis.close();
+		//     bis.close();
+		//     dis.close();
+		// } catch (FileNotFoundException e) {
+		//     e.printStackTrace();
+		// } catch (IOException e) {
+		//     e.printStackTrace();
+		// }
 		// latest
 		final int latest = Integer.parseInt(removeChar(removeChar(build, '.'), 'p'));
 		final String ui_latest = build.charAt(0) + "." + build.charAt(1) + "." + build.charAt(2) + "-patch" + build.charAt(3);
@@ -1209,10 +1243,26 @@ public class LeoParts extends PreferenceActivity
 		    popup(getResources().getString(R.string.leo_updater),
 			  getResources().getString(R.string.rom_uptodate)
 			  .replaceFirst("%b%", ui_current));
-		else if (current/10 < latest/10)
-		    popup(getResources().getString(R.string.leo_updater),
-			  getResources().getString(R.string.rom_outdated)
-			  .replaceFirst("%b%", ui_current).replaceFirst("%B%", ui_latest));
+		else if (current/10 < latest/10) {
+		    final String update = getRomName() + "_"
+			+ (latest/1000) + "."
+			+ (latest/100) % 10 + "."
+			+ (latest/10) % 100 + "-noradio-signed.zip";
+		    if (fileExists("/sdcard/download/" + update)) {
+			toast(getResources().getString(R.string.will_flash));
+			// String commands[] = {
+			//     REMOUNT_RW,
+			//     "mkdir -p /cache/recovery",
+			//     "echo 'boot-recovery' > /cache/recovery/command",
+			//     "echo '--update_package=SDCARD:" + update + "' >> /cache/recovery/command",
+			//     REMOUNT_RO,
+			//     "reboot recovery"
+			// };
+			// sendshell(commands, false, getResources().getString(R.string.will_flash));
+		    }
+		    else
+		    	askToUpgrade(ui_current, latest, ui_latest, update);
+		}
 		else if (current < latest) {
 		    askToPatch(ui_current, latest, ui_latest);
 		}

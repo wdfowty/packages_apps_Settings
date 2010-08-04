@@ -2543,7 +2543,9 @@ found in the list of installed applications.</string>
       -->
 
     <string name="repo_name">LeoFroYo</string>
-    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
+    <string name="repo_rom_url">http://android.shk-desktop.com/</string>
+    <string name="repo_addons_url">http://android.shk-desktop.com/LeoParts/</string>
+    <string name="repo_patch_url">http://android.shk-desktop.com/LeoParts/patch/</string>
 
     <string name="launcher_settings_title">ADWLauncher</string>
 
@@ -2761,5 +2763,11 @@ found in the list of installed applications.</string>
     <string name="getting_patch">Getting patch #</string>
     <string name="latest">Latest</string>
     <string name="would_be_proud">You\'re running a BETA!\nLeo would be proud :D!</string>
+    <string name="like_to_upgrade">Would you like to upgrade?</string>
+    <string name="yeah">Hell yeah</string>
+    <string name="not_now">Not now</string>
+    <string name="downloading">Downloading</string>
+    <string name="downloading_upgrade">Once the download finishes, re-lunch the update checker.</string>
+    <string name="will_flash">The update will now be flashed into recovery.</string>
 
 </resources>

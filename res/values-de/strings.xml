@@ -1101,9 +1101,6 @@
        ** Leo Parts **
       -->
 
-    <string name="repo_name">LeoFroYo</string>
-    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
-
     <string name="launcher_settings_title">ADWLauncher</string>
 
     <string name="title_color_picker">Wähle eine Farbe</string>

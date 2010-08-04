@@ -1100,9 +1100,6 @@
        ** Leo Parts **
       -->
 
-    <string name="repo_name">LeoFroYo</string>
-    <string name="repo_url">http://android.shk-desktop.com/LeoParts/</string>
-
     <string name="launcher_settings_title">ADWLauncher</string>
 
     <string name="title_color_picker">Choisir une couleur</string>
@@ -1318,6 +1315,12 @@
     <string name="dont_care">Pas maintenant</string>
     <string name="getting_patch">Récupération du patche n°</string>
     <string name="latest">Dernière:</string>
-    <string name="would_be_proud">Vous utilisez une BETA!\nLeo serait fier :D!</string>
+    <string name="would_be_proud">Vous utilisez une BETA!\nLeo serait fier :D !</string>
+    <string name="like_to_upgrade">Voulez-vous installer la nouvelle ?</string>
+    <string name="yeah">Ah ça oui</string>
+    <string name="not_now">Pas maintenant</string>
+    <string name="downloading">Téléchargement de</string>
+    <string name="downloading_upgrade">Une fois le téléchargement terminé, relancez la vérification de mise à jour.</string>
+    <string name="will_flash">La mise à jour va être flashée en mode de récupération.</string>
 
 </resources>
