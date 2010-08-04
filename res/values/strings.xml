@@ -2751,4 +2751,15 @@ found in the list of installed applications.</string>
     <string name="move_sdcard">Moving to SDCard...</string>
     <string name="move_phone">Restoring to phone...</string>
 
+    <string name="check_latest_update">Checking for the latest ROM version and patches...</string>
+    <string name="leo_updater">Leo Updater</string>
+    <string name="rom_uptodate">You ROM (%b%) is up-to-date!</string>
+    <string name="rom_outdated">You ROM (%b%) is OUTDATED!\nA new version is available: %B%</string>
+    <string name="patch_available">You ROM (%b%) is up-to-date, but a new patch is available: %P%</string>
+    <string name="grab_it">Let\'s grab it</string>
+    <string name="dont_care">I don\'t care</string>
+    <string name="getting_patch">Getting patch #</string>
+    <string name="latest">Latest</string>
+    <string name="would_be_proud">You\'re running a BETA!\nLeo would be proud :D!</string>
+
 </resources>

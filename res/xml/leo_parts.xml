@@ -60,7 +60,6 @@
 
       </PreferenceCategory>
 
-      <!--
       <PreferenceCategory
 	 android:title="@string/updates">
 
@@ -71,7 +70,6 @@
 	</PreferenceScreen>
 
       </PreferenceCategory>
-      -->
 
     </PreferenceScreen>
 

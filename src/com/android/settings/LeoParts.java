@@ -290,8 +290,36 @@ public class LeoParts extends PreferenceActivity
 	setStringSummary(ROM_BOOTLOADER_RADIO_PREF, Build.BOOTLOADER + "  /  " + getSystemValue("gsm.version.baseband"));
 	String kernel = getFormattedKernelVersion();
 	findPreference(ROM_KERNEL_PREF).setSummary((kernel.equals("2.6.32.9\nandroid-build@apa26") ? "stock " : "") + kernel);
-	// mUpdatePref = (Preference) prefSet.findPreference(ROM_UPDATE_PREF);
-	// mUpdatePref.setEnabled(false);
+	mUpdatePref = (Preference) prefSet.findPreference(ROM_UPDATE_PREF);
+	findPreference(ROM_UPDATE_PREF)
+	    .setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		    public boolean onPreferenceClick(Preference preference) {
+			patience = ProgressDialog.show(LeoParts.this, "", getResources().getString(R.string.check_latest_update), true);
+			Thread t = new Thread() {
+				public void run() {
+				    String[] commands = {
+					"busybox wget -q " + REPO + "version -O /data/local/tmp/version"
+				    };
+				    ShellInterface shell = new ShellInterface(commands);
+				    shell.start();
+				    while (shell.isAlive())
+					{
+					    try {
+						Thread.sleep(500);
+					    }
+					    catch (InterruptedException e) {
+					    }
+					}
+				    if (shell.interrupted())
+					popup(getResources().getString(R.string.error), getResources().getString(R.string.download_install_error));
+				    else
+					mHandler.post(mBuildDownloaded);
+				}
+			    };
+			t.start();
+			return true;
+		    }
+		});
 
 	/**
 	 *  Quick commands
@@ -1070,6 +1098,131 @@ public class LeoParts extends PreferenceActivity
     }
 
     /**
+     *  Methods for updates and patches
+     */
+
+    final Runnable mApplyPatch = new Runnable() {
+	    public void run() {
+		final int patch = PATCH;
+		String[] commands = {
+		    "/data/local/patch",
+		    REMOUNT_RW,
+		    "busybox sed -i 's/ro.modversion=" + getSystemValue(SYS_PROP_MOD_PATCH) + "/ro.modversion=" + patch + "/' /system/build.prop",
+		    REMOUNT_RO,
+		    "busybox rm -f /data/local/patch"
+		};
+		sendshell(commands, true, "Applying patch #" + PATCH + "...");
+		setStringSummary(ROM_NAME_VERSION_PREF, getRomName() + "  /  " + getRomVersion() + "  /  patch" + (patch - Integer.parseInt(removeChar(getRomVersion(), '.')) * 10));
+	    }
+	};
+
+    public boolean applyPatch(final int latest, final String ui_latest) {
+	PATCH = latest;
+	patience = ProgressDialog.show(LeoParts.this, "",
+		   getResources().getString(R.string.getting_patch) + latest + "...",
+		   true);
+	Thread t = new Thread() {
+		public void run() {
+		    String[] commands = {
+			"busybox wget -q " + REPO + "patch/patch-" + PATCH + " -O /data/local/patch" +
+			" && busybox chmod 755 /data/local/patch"
+		    };
+		    ShellInterface shell = new ShellInterface(commands);
+		    shell.start();
+		    while (shell.isAlive())
+			{
+			    try {
+				Thread.sleep(500);
+			    }
+			    catch (InterruptedException e) {
+			    }
+			}
+		    patience.cancel();
+		    if (shell.interrupted())
+			popup(getResources().getString(R.string.error),
+			      getResources().getString(R.string.download_install_error));
+		    else
+			mHandler.post(mApplyPatch);
+		}
+	    };
+	t.start();
+	return true;
+    }
+
+    public void askToPatch(final String ui_current, final int latest, final String ui_latest) {
+	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	builder.setTitle(getResources().getString(R.string.leo_updater))
+	    .setMessage(getResources().getString(R.string.patch_available).replaceFirst("%b%", ui_current).replaceFirst("%P%", ui_latest))
+	    .setCancelable(false)
+	    .setPositiveButton(getResources().getString(R.string.grab_it),
+			       new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+			applyPatch(latest, ui_latest);
+		    }
+		})
+	    .setNegativeButton(getResources().getString(R.string.dont_care),
+			       new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int id) {
+			dialog.cancel();
+		    }
+		});
+	AlertDialog alert = builder.create();
+	alert.show();
+    }
+
+    final Runnable mBuildDownloaded = new Runnable() {
+	    public void run() {
+		patience.cancel();
+		File file = new File("/data/local/tmp/version");
+		FileInputStream fis = null;
+		BufferedInputStream bis = null;
+		DataInputStream dis = null;
+		String build = getSystemValue(SYS_PROP_MOD_PATCH);
+		try {
+		    fis = new FileInputStream(file);
+		    bis = new BufferedInputStream(fis);
+		    dis = new DataInputStream(bis);
+		    while (dis.available() != 0) {
+			build = dis.readLine();
+			break ;
+		    }
+		    fis.close();
+		    bis.close();
+		    dis.close();
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		// latest
+		final int latest = Integer.parseInt(removeChar(removeChar(build, '.'), 'p'));
+		final String ui_latest = build.charAt(0) + "." + build.charAt(1) + "." + build.charAt(2) + "-patch" + build.charAt(3);
+		setStringSummary(ROM_UPDATE_PREF, " " + getResources().getString(R.string.latest) + ": " + ui_latest);
+		// current
+		final int current = Integer.parseInt(removeChar(getRomVersion(), '.') + getRomPatch());
+		final String ui_current = getRomVersion() + "-patch" + getRomPatch();
+		// check
+		Log.i(TAG, "latest: " + ui_latest + " / " + latest);
+		Log.i(TAG, "current: " + ui_current + " / " + current);
+		if (current == latest)
+		    popup(getResources().getString(R.string.leo_updater),
+			  getResources().getString(R.string.rom_uptodate)
+			  .replaceFirst("%b%", ui_current));
+		else if (current/10 < latest/10)
+		    popup(getResources().getString(R.string.leo_updater),
+			  getResources().getString(R.string.rom_outdated)
+			  .replaceFirst("%b%", ui_current).replaceFirst("%B%", ui_latest));
+		else if (current < latest) {
+		    askToPatch(ui_current, latest, ui_latest);
+		}
+		else
+		    popup(getResources().getString(R.string.leo_updater),
+			  getResources().getString(R.string.would_be_proud));
+	    }
+	};
+
+    /**
      *  Methods for popups
      */
 
@@ -1104,17 +1257,17 @@ public class LeoParts extends PreferenceActivity
 	    .setCancelable(false)
 	    .setPositiveButton(getResources().getString(R.string.yes),
 			       new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			String[] commands = { "reboot" };
-			sendshell(commands, false, getResources().getString(R.string.rebooting));
-		    }
-		})
+				   public void onClick(DialogInterface dialog, int id) {
+				       String[] commands = { "reboot" };
+				       sendshell(commands, false, getResources().getString(R.string.rebooting));
+				   }
+			       })
 	    .setNegativeButton(getResources().getString(R.string.no),
 			       new DialogInterface.OnClickListener() {
-		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
-		    }
-		});
+				   public void onClick(DialogInterface dialog, int id) {
+				       dialog.cancel();
+				   }
+			       });
 	AlertDialog alert = builder.create();
 	alert.show();
     }
@@ -1218,21 +1371,21 @@ public class LeoParts extends PreferenceActivity
 		.setCancelable(false)
 		.setPositiveButton(getResources().getString(R.string.have_a_good_one),
 				   new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-			    dialog.cancel();
-			    String[] commands = {
-				script + " on"
-			    };
-			    sendshell(commands, false, getResources().getString(R.string.move_sdcard));
-			}
-		    })
+				       public void onClick(DialogInterface dialog, int id) {
+					   dialog.cancel();
+					   String[] commands = {
+					       script + " on"
+					   };
+					   sendshell(commands, false, getResources().getString(R.string.move_sdcard));
+				       }
+				   })
 		.setNegativeButton(getResources().getString(R.string.cancel),
 				   new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int id) {
-			    dialog.cancel();
-			    preference.setChecked(false);
-			}
-		    });
+				       public void onClick(DialogInterface dialog, int id) {
+					   dialog.cancel();
+					   preference.setChecked(false);
+				       }
+				   });
 	    AlertDialog alert = builder.create();
 	    alert.show();
 	} else {
@@ -1274,6 +1427,14 @@ public class LeoParts extends PreferenceActivity
     /**
      *  Methods for files and formats
      */
+
+    public static String removeChar(String s, char c) {
+	String r = "";
+	for (int i = 0; i < s.length(); i ++)
+	    if (s.charAt(i) != c)
+		r += s.charAt(i);
+	return r;
+    }
 
     public boolean fileExists(String filename) {
 	File f = new File(filename);

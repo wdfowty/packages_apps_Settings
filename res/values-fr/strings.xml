@@ -1304,9 +1304,20 @@
     <string name="used_out_of">utilisés sur</string>
     <string name="unavailable">Indisponible</string>
 
-<string name="low_class_sdcard">Avec une SDCard de faille classe, votre système pourrait devenir très lent...</string>
+    <string name="low_class_sdcard">Avec une SDCard de faille classe, votre système pourrait devenir très lent...</string>
     <string name="have_a_good_one">J\'en ai une bonne</string>
     <string name="move_sdcard">Déplacement vers la SDCard...</string>
     <string name="move_phone">Repatriement sur le mobile...</string>
+
+    <string name="check_latest_update">Vérification de la dernière version et des derniers patches...</string>
+    <string name="leo_updater">MAJ de Leo</string>
+    <string name="rom_uptodate">Votre ROM (%b%) est à jour!</string>
+    <string name="rom_outdated">Votre ROM (%b%) n\'est PAS à jour!!\nUne nouvelle version est disponible: %B%</string>
+    <string name="patch_available">Votre ROM (%b%) est à jour, mais il existe un nouveau patche: %P%</string>
+    <string name="grab_it">Je le prends</string>
+    <string name="dont_care">Pas maintenant</string>
+    <string name="getting_patch">Récupération du patche n°</string>
+    <string name="latest">Dernière:</string>
+    <string name="would_be_proud">Vous utilisez une BETA!\nLeo serait fier :D!</string>
 
 </resources>

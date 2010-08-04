@@ -1290,8 +1290,6 @@
     <string name="rebooting">Neustarten...</string>
     <string name="remounting">Remounting...</string>
     <string name="fixing_permissions">Behebe Probleme...</string>
-    <string name="hide_clock_off"> Uhr Symbol ist sichtbar</string>
-    <string name="wysie_colors_summary">Ändere die Farben des Textes in der Status Bar</string>
     <string name="fixing_market">Erzwinge Synchronisation des Markets...</string>
     <string name="activating_ui_sounds">Aktiviere UI Töne...</string>
     <string name="deactivating_ui_sounds">Deaktiviere UI Töne...</string>
