@@ -1228,20 +1228,20 @@
     <string name="battery_percent_off"> Batterie Prozentanzeige ist AUS</string>
     <string name="hide_clock_title">Uhr Symbol verstecken</string>
     <string name="hide_clock_on"> Uhr Symbol ist versteckt</string>
-    <string name="hide_clock_off"> uhr Symbol ist sichtbar</string>
+    <string name="hide_clock_off"> Uhr Symbol ist sichtbar</string>
     <string name="hide_ampm_title">Verstecke AM/PM in der Uhr-Anzeige</string>
     <string name="hide_ampm_on"> AM/PM ist versteckt</string>
     <string name="hide_ampm_off"> AM/PM ist sichtbar</string>
     <string name="wysie_colors_title">Wysie\'s Farben</string>
-    <string name="wysie_colors_summary">Ändere die Farbe des Textes in der Status Bar</string>
+    <string name="wysie_colors_summary">Ändere die Farben des Textes in der Status Bar</string>
     <string name="lockscreen">Lockscreen</string>
     <string name="rotation">Orientierung</string>
     <string name="rotation_90">90 grad</string>
     <string name="rotation_180">180 grad</string>
     <string name="rotation_270">270 grad</string>
     <string name="other">Anderes</string>
-    <string name="power_prompt_title">Power prompt</string>
-    <string name="power_prompt_summary"> Change whether there is a prompt after choosing shutdown or reboot</string>
+    <string name="power_prompt_title">"Power" Eingabeaufforderung</string>
+    <string name="power_prompt_summary"> Zeigt eine Eingabeaufforderung nach dem Wählen von Herunterfahren und Neustarten</string>
 
     <string name="apps_addons_title">Apps &amp; Addons</string>
     <string name="apps_addons_summary">Verbessern die Benutzerfreundlichkeit</string>
@@ -1289,7 +1289,9 @@
     <string name="shuting_down">Herunterfahren...</string>
     <string name="rebooting">Neustarten...</string>
     <string name="remounting">Remounting...</string>
-    <string name="fixing_permissions">Fixing persmissions...</string>
+    <string name="fixing_permissions">Behebe Probleme...</string>
+    <string name="hide_clock_off"> Uhr Symbol ist sichtbar</string>
+    <string name="wysie_colors_summary">Ändere die Farben des Textes in der Status Bar</string>
     <string name="fixing_market">Erzwinge Synchronisation des Markets...</string>
     <string name="activating_ui_sounds">Aktiviere UI Töne...</string>
     <string name="deactivating_ui_sounds">Deaktiviere UI Töne...</string>
