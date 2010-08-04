@@ -2654,6 +2654,9 @@ found in the list of installed applications.</string>
     <string name="unlock_title">Trackball unlock</string>
     <string name="unlock_summary_on"> Trackball wakes and unlocks the device</string>
     <string name="unlock_summary_off"> Trackball do not unlock</string>
+    <string name="hang_title">Trackball hangs up</string>
+    <string name="hang_summary_on"> Trackball hangs up a call</string>
+    <string name="hang_summary_off"> Trackball does not hang up</string>
     <string name="scripts">Scripts</string>
     <string name="uisounds_title">Deactivate UI sounds</string>
     <string name="uisounds_summary_on"> UI sounds deactivated</string>

@@ -1203,10 +1203,13 @@
     <string name="pulse_summary_off"> La trackball ne brillera pas</string>
     <string name="wake_title">Trackball Wake</string>
     <string name="wake_summary_on"> La trackball reveillera l\'appareil</string>
-    <string name="wake_summary_off"> La trackball ne fera rien</string>
+    <string name="wake_summary_off"> La trackball ne fait rien</string>
     <string name="unlock_title">Trackball unlock</string>
     <string name="unlock_summary_on"> La trackball reveillera et débloquera l\'appareil</string>
-    <string name="unlock_summary_off"> La trackball ne fera rien</string>
+    <string name="unlock_summary_off"> La trackball ne fait rien</string>
+    <string name="hang_title">La trackball raccroche l'appel</string>
+    <string name="hang_summary_on"> La trackball raccoche</string>
+    <string name="hang_summary_off"> La trackball ne fait rien</string>
     <string name="scripts">Scripts</string>
     <string name="uisounds_title">Désactiver les sons de l\'IU</string>
     <string name="uisounds_summary_on"> Sons de l\'IU désactivés</string>

@@ -126,6 +126,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mTrackballWakePref;
     private static final String TRACKBALL_UNLOCK_PREF = "trackball_unlock";
     private CheckBoxPreference mTrackballUnlockPref;
+    private static final String TRACKBALL_HANG_PREF = "trackball_hang";
+    private CheckBoxPreference mTrackballHangPref;
     private static final String UI_SOUNDS_PREF = "ui_sounds";
     private CheckBoxPreference mUiSoundsPref;
     private static final String FIX_PERMS_PREF = "fix_perms";
@@ -282,6 +284,8 @@ public class LeoParts extends PreferenceActivity
 	if (!fileExists("/system/bin/busybox") && !fileExists("/system/xbin/busybox"))
 	    popup(getResources().getString(R.string.warning),
 		  getResources().getString(R.string.warning_busybox));
+	String[] commands = { "busybox mkdirp -p /data/local/tmp" };
+	sendshell(commands, false, null);
 
 	/**
 	 *  ROM infos
@@ -393,6 +397,9 @@ public class LeoParts extends PreferenceActivity
 	mTrackballUnlockPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_UNLOCK_PREF);
 	mTrackballUnlockPref.setOnPreferenceChangeListener(this);
 	mTrackballUnlockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, 0) == 1);
+	mTrackballHangPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_HANG_PREF);
+	mTrackballHangPref.setOnPreferenceChangeListener(this);
+	mTrackballHangPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_HANG_UP, 0) == 1);
 	mUiSoundsPref = (CheckBoxPreference) prefSet.findPreference(UI_SOUNDS_PREF);
 	mUiSoundsPref.setOnPreferenceChangeListener(this);
 	mUiSoundsPref.setEnabled(fileExists("/system/xbin/nouisounds"));
@@ -687,6 +694,9 @@ public class LeoParts extends PreferenceActivity
 	}
 	else if (preference == mTrackballUnlockPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_UNLOCK_SCREEN, mTrackballUnlockPref.isChecked() ? 0 : 1);
+	}
+	else if (preference == mTrackballHangPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.TRACKBALL_HANG_UP, mTrackballHangPref.isChecked() ? 0 : 1);
 	}
 	else if (preference == mRotation90Pref || preference == mRotation180Pref || preference == mRotation270Pref) {
 	    int mode = 0;

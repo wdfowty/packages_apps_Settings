@@ -170,6 +170,12 @@
 	   android:summaryOff="@string/unlock_summary_off"
 	   android:dependency="trackball_wake" />
 
+	<CheckBoxPreference
+	   android:key="trackball_hang"
+	   android:title="@string/hang_title"
+	   android:summaryOn="@string/hang_summary_on"
+	   android:summaryOff="@string/hang_summary_off" />
+
       </PreferenceCategory>
 
       <PreferenceCategory
