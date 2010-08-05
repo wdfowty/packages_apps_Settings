@@ -217,6 +217,12 @@
 	   android:summaryOff="@string/battery_percent_off" />
 
 	<CheckBoxPreference
+	   android:key="h_icon"
+	   android:title="@string/h_icon_title"
+	   android:summaryOn="@string/h_icon_on"
+	   android:summaryOff="@string/h_icon_off" />
+
+	<CheckBoxPreference
 	   android:key="hide_clock"
 	   android:title="@string/hide_clock_title"
 	   android:summaryOn="@string/hide_clock_on"

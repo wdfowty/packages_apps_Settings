@@ -2773,5 +2773,8 @@ found in the list of installed applications.</string>
     <string name="will_flash">The update will now be flashed into recovery.</string>
     <string name="calc_md5">Checking the MD5 checksum...</string>
     <string name="bad_md5">Bad MD5 checksum. Please re-download the update.</string>
+    <string name="h_icon_title">3G+H icon</string>
+    <string name="h_icon_on"> H icon is displayed</string>
+    <string name="h_icon_off"> Only 3G icon is displayed</string>
 
 </resources>

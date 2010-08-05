@@ -138,6 +138,8 @@ public class LeoParts extends PreferenceActivity
     // User Interface
     private static final String BATTERY_PERCENT_PREF = "battery_percent";
     private CheckBoxPreference mBatteryPercentPref;
+    private static final String H_ICON_PREF = "h_icon";
+    private CheckBoxPreference mHIconPref;
     private static final String HIDE_CLOCK_PREF = "hide_clock";
     private CheckBoxPreference mHideClockPref;
     private static final String AM_PM_PREF = "am_pm";
@@ -430,6 +432,9 @@ public class LeoParts extends PreferenceActivity
 	mBatteryPercentPref = (CheckBoxPreference) prefSet.findPreference(BATTERY_PERCENT_PREF);
 	mBatteryPercentPref.setOnPreferenceChangeListener(this);
 	mBatteryPercentPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, 0) == 1);
+	mHIconPref = (CheckBoxPreference) prefSet.findPreference(H_ICON_PREF);
+	mHIconPref.setOnPreferenceChangeListener(this);
+	mHIconPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_H_ICON, 0) == 1);
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
 	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
@@ -668,6 +673,10 @@ public class LeoParts extends PreferenceActivity
 	}
 	else if (preference == mBatteryPercentPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.BATTERY_PERCENTAGE_STATUS_ICON, mBatteryPercentPref.isChecked() ? 0 : 1);
+	    toast(getResources().getString(R.string.should_reboot));
+	}
+	else if (preference == mHIconPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_H_ICON, mHIconPref.isChecked() ? 0 : 1);
 	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mHideClockPref) {
