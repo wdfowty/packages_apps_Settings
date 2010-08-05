@@ -1301,4 +1301,32 @@
     <string name="used_out_of">kullanýlýyor. Toplam</string>
     <string name="unavailable">Eriþilemiyor</string>
 
+    <string name="hang_title">Trackball ile cevaplama</string>
+    <string name="hang_summary_on"> Trackball aramayý cevaplar</string>
+    <string name="hang_summary_off"> Trackball aramayý cevaplamaz</string>
+
+    <string name="low_class_sdcard">Düþük sýnýf bir SD kart ile telefonunuz yavaþlayabilir...</string>
+    <string name="have_a_good_one">Benim kartým iyi</string>
+    <string name="move_sdcard">SD karta taþýnýyor...</string>
+    <string name="move_phone">Telefona geri taþýnýyor...</string>
+
+    <string name="check_latest_update">En güncel ROM versiyonu ve yama aranýyor...</string>
+    <string name="leo_updater">Leo Güncelleyici</string>
+    <string name="rom_uptodate">ROMunuz (%b%) güncel!</string>
+    <string name="rom_outdated">ROMunuz(%b%) güncel DEÐÝL!\nA yeni versiyon var: %B%</string>
+    <string name="patch_available">ROMunuz (%b%) güncel, ancak bir yama mevcut: %P%</string>
+    <string name="grab_it">Ýndir</string>
+    <string name="dont_care">Umrumda deðil</string>
+    <string name="getting_patch">Yama alýnýyor #</string>
+    <string name="latest">Güncel</string>
+    <string name="would_be_proud">Bir BETA kullanýyorsunuz!\nLeo gurur duyuyor olmalý :D!</string>
+    <string name="like_to_upgrade">Yükseltmek ister misiniz?</string>
+    <string name="yeah">Kesinlikle</string>
+    <string name="not_now">Þimdi deðil</string>
+    <string name="downloading">Ýndiriliyor</string>
+    <string name="downloading_upgrade">Ýndirme bitince tekrar güncelleme kontrolü yapýn.</string>
+    <string name="will_flash">Güncelleme recoveryden yüklenecek.</string>
+    <string name="calc_md5">MD5 boyutu kontrol ediliyor...</string>
+    <string name="bad_md5">Kötü MD5 boyutu. Lütfen güncellemeyi yeniden indirin.</string>
+
 </resources>

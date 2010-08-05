@@ -1143,18 +1143,18 @@
     <string name="title_spn_label_color">Eigene SPN Farbe</string>
 
     <string name="title_notifications_sb">Status Bar Nachrichten</string>
-    <string name="title_notifications_color_tweaks">Nachrichten Farben</string>
-    <string name="summary_notifications_color_tweaks">Nachrichten Ticker, anstehende Nachrichten, letzte Nachrichten, keine Nachrichten, etc.</string>
-    <string name="title_notifications_ticker_color">Nachrichten Ticker Farbe</string>
-    <string name="title_notifications_count_color">Nachrichten Zähler Farbe</string>
-    <string name="title_no_notifications_color">Keine Nachrichten Titel Farbe</string>
-    <string name="title_clear_button_label_color">Clear notifications label color</string>
-    <string name="title_ongoing_notifications_color">Anstehende Nachrichten Titel Farbe</string>
-    <string name="title_latest_notifications_color">Letzte Nachrichten Titel Farbe</string>
-    <string name="title_notifications_items">Elemente Nachrichten</string>
-    <string name="title_notifications_items_title">Elemente Titel Farbe</string>
-    <string name="title_notifications_items_text">Elemente Text Farbe</string>
-    <string name="title_notifications_items_time">Elemente Zeit Farbe</string>
+    <string name="title_notifications_color_tweaks">Farben der Benachrichtigungen</string>
+    <string name="summary_notifications_color_tweaks">Ticker, dauerhafte Benachrichtigung, letzte Benachrichtigung, keine Benachrichtigungen, etc.</string>
+    <string name="title_notifications_ticker_color">Benachrichtigungsticker</string>
+    <string name="title_notifications_count_color">Anzahl der Benachrichtigungen</string>
+    <string name="title_no_notifications_color">Keine Benachrichtigungen</string>
+    <string name="title_clear_button_label_color">Löschen-Schaltfläche</string>
+    <string name="title_ongoing_notifications_color">Dauerhaft e Benachrichtigungen</string>
+    <string name="title_latest_notifications_color">Letzte Benachrichtigung</string>
+    <string name="title_notifications_items">Nachrichten Elemente</string>
+    <string name="title_notifications_items_title">Titelelemen t</string>
+    <string name="title_notifications_items_text">Textelement</string>
+    <string name="title_notifications_items_time">Zeitelement</string>
 
     <string name="lockscreen_settings_title">Lockscreen Einstellungen</string>
     <string name="pref_lockscreen_music_controls_title">Lockscreen Musik Bedienung</string>
@@ -1202,10 +1202,10 @@
     <string name="pulse_title">Trackball leuchtet wenn das Display an ist</string>
     <string name="pulse_summary_on"> Trackball leuchtet</string>
     <string name="pulse_summary_off"> Trackball leuchtet nicht</string>
-    <string name="wake_title">Trackball Aufwachen</string>
+    <string name="wake_title">Trackball-Aufwachen</string>
     <string name="wake_summary_on"> Trackball weckt das Gerät auf</string>
     <string name="wake_summary_off"> Trackball tut nichts</string>
-    <string name="unlock_title">Trackball Entsperren</string>
+    <string name="unlock_title">Trackball-Entsperren</string>
     <string name="unlock_summary_on"> Trackball weckt das Gerät auf und entsperrt es</string>
     <string name="unlock_summary_off"> Trackball entsperrt nicht</string>
     <string name="scripts">Skripte</string>
@@ -1301,5 +1301,33 @@
     <string name="sure_remove">Bist du dir sicher das du es entfernen willst?</string>
     <string name="used_out_of">verwendet von</string>
     <string name="unavailable">Unerreichbar</string>
+
+    <string name="hang_title">Trackball-Auflegen</string>
+    <string name="hang_summary_on"> Trackball beendet das Gespräch hangs up a call</string>
+    <string name="hang_summary_off"> Trackball beendet das Gespräch nicht</string>
+
+    <string name="low_class_sdcard">Mit einer langsamen SDKarte (class) kann das Gerät verlangsamt warden…</string>
+    <string name="have_a_good_one">Ich habe eine gute!</string>
+    <string name="move_sdcard">Verschiebe auf die SDKarte...</string>
+    <string name="move_phone">Verschiebe auf das Gerät...</string>
+
+    <string name="check_latest_update">Suche nach den neusten Updates und Patches...</string>
+    <string name="leo_updater">Leo Updater</string>
+    <string name="rom_uptodate">Deine ROM (%b%) ist aktuell!</string>
+    <string name="rom_outdated">Deine ROM (%b%) ist ALT\nA es gibt eine neue Version: %B%</string>
+    <string name="patch_available">Deine ROM (%b%) ist aktuell,aber es gibt einen neuen Patch %P%</string>
+    <string name="grab_it">Hol es!</string>
+    <string name="dont_care">Jetzt nicht!</string>
+    <string name="getting_patch">Hole Patch #</string>
+    <string name="latest">Aktuell</string>
+    <string name="would_be_proud">Die verwendest eine BETA!\n Leo freut sich :D !</string>
+    <string name="like_to_upgrade">Willst du aktualisieren?</string>
+    <string name="yeah">Hell yeah!</string>
+    <string name="not_now">Nicht jetzt!</string>
+    <string name="downloading">Downloading..</string>
+    <string name="downloading_upgrade">Wenn der download fertig ist, starte den Updater noch einmal</string>
+    <string name="will_flash">Das Update wird jetzt in der Recovery geflasht.</string>
+    <string name="calc_md5">Überprüfe MD5 Checksumme...</string>
+    <string name="bad_md5"> MD5 Checksummen-Fehler. Bitte downloade das Update nochmal</string>
 
 </resources>
