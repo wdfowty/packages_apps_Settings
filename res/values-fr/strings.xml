@@ -1327,5 +1327,8 @@
     <string name="will_flash">La mise à jour va être flashée en mode de récupération.</string>
     <string name="calc_md5">Calcul de la somme MD5...</string>
     <string name="bad_md5">Mauvaise somme MD5. Veuillez re-télécharger la mise à jour.</string>
+    <string name="h_icon_title">Icones 3G+H</string>
+    <string name="h_icon_on"> Icone H affiché</string>
+    <string name="h_icon_off"> Seul l\'icone 3G est affiché</string>
 
 </resources>
