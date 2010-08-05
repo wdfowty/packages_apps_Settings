@@ -2772,5 +2772,7 @@ found in the list of installed applications.</string>
     <string name="downloading">Downloading</string>
     <string name="downloading_upgrade">Once the download finishes, re-lunch the update checker.</string>
     <string name="will_flash">The update will now be flashed into recovery.</string>
+    <string name="calc_md5">Checking the MD5 checksum...</string>
+    <string name="bad_md5">Bad MD5 checksum. Please re-download the update.</string>
 
 </resources>

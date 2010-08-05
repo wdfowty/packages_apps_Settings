@@ -264,6 +264,7 @@ public class LeoParts extends PreferenceActivity
     public ProgressDialog patience = null;
     final Handler mHandler = new Handler();
     private int PATCH = 0;
+    private String UPDATE;
 
     private IWindowManager mWindowManager;
 
@@ -743,7 +744,7 @@ public class LeoParts extends PreferenceActivity
 	else if (preference == mHtcImePref) {
 	    if (mHtcImePref.isChecked() == false) {
 		if (Settings.Secure.getInt(getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 0) {
-		    toast(getResources().getString(R.string.third_part_apps));
+		    toastLong(getResources().getString(R.string.third_part_apps));
 		    Intent intent = new Intent();
 		    intent.setAction(Settings.ACTION_APPLICATION_SETTINGS);
 		    startActivity(intent);
@@ -1126,11 +1127,16 @@ public class LeoParts extends PreferenceActivity
 	    .setPositiveButton(getResources().getString(R.string.yeah),
 			       new DialogInterface.OnClickListener() {
 				   public void onClick(DialogInterface dialog, int id) {
+				       toastLong(getResources().getString(R.string.downloading_upgrade));
 				       String url = REPO_ROM + update;
+				       String[] commands = {
+					   "busybox wget -q " + url + ".md5" +
+					   " -O /data/local/tmp/" + update + ".md5"
+				       };
+				       sendshell(commands, false, null);
 				       Intent i = new Intent(Intent.ACTION_VIEW);
 				       i.setData(Uri.parse(url));
 				       startActivity(i);
-				       toast(getResources().getString(R.string.downloading_upgrade));
 				   }
 			       })
 	    .setNegativeButton(getResources().getString(R.string.not_now),
@@ -1214,6 +1220,90 @@ public class LeoParts extends PreferenceActivity
 	alert.show();
     }
 
+    private void GoodMd5() {
+	String commands[] = {
+		"busybox mv /sdcard/download/" + UPDATE + " /sdcard/" + UPDATE,
+		REMOUNT_RW,
+		"mkdir -p /cache/recovery",
+		"echo 'boot-recovery' > /cache/recovery/command",
+		"echo '--update_package=SDCARD:" + UPDATE + "' >> /cache/recovery/command",
+		REMOUNT_RO,
+		"reboot recovery"
+	};
+	sendshell(commands, false, getResources().getString(R.string.will_flash));
+    };
+
+    private void BadMd5() {
+	String commands[] = {
+	    REMOUNT_RW,
+	    "busybox rm -f /sdcard/download/" + UPDATE,
+	    "busybox rm -f /data/local/tmp/" + UPDATE + ".md5",
+	    "busybox rm -f /data/local/tmp/leofroyo.md5",
+	    REMOUNT_RO
+	};
+	sendshell(commands, false, getResources().getString(R.string.bad_md5));
+    }
+
+    final Runnable mCheckMd5 = new Runnable() {
+	    public void run() {
+		if (fileExists("/data/local/tmp/leofroyo.md5"))
+		    GoodMd5();
+		else
+		    BadMd5();
+	    }
+	};
+
+    final Runnable mFlashUpgrade = new Runnable() {
+	    public void run() {
+		Thread t = new Thread() {
+			public void run() {
+			    String commands[] = {
+				"busybox rm -f /cache/recovery/command",
+				"cmp /data/local/tmp/" + UPDATE + ".md5 /data/local/tmp/leofroyo.md5 || rm /data/local/tmp/leofroyo.md5"
+			    };
+			    ShellInterface shell = new ShellInterface(commands);
+			    shell.start();
+			    while (shell.isAlive()) {
+				try {
+				    Thread.sleep(500);
+				}
+				catch (InterruptedException e) {
+				}
+			    }
+			    if (shell.interrupted())
+				BadMd5();
+			    else
+				mHandler.post(mCheckMd5);
+			}
+		    };
+		toastLong(getResources().getString(R.string.calc_md5) + " 2/2");
+		t.start();
+	    }
+	};
+
+    private void prepareUpgrade(final String update) {
+	Thread t = new Thread() {
+		public void run() {
+		    String commands[] = { "cd /sdcard/download && md5sum " + update + " > /data/local/tmp/leofroyo.md5" };
+		    ShellInterface shell = new ShellInterface(commands);
+		    shell.start();
+		    while (shell.isAlive()) {
+			try {
+			    Thread.sleep(500);
+			}
+			catch (InterruptedException e) {
+			}
+		    }
+		    if (shell.interrupted())
+			BadMd5();
+		    else
+			mHandler.post(mFlashUpgrade);
+		}
+	    };
+	toastLong(getResources().getString(R.string.calc_md5) + " 1/2");
+	t.start();
+    }
+
     final Runnable mBuildDownloaded = new Runnable() {
 	    public void run() {
 		patience.cancel();
@@ -1254,24 +1344,14 @@ public class LeoParts extends PreferenceActivity
 			  getResources().getString(R.string.rom_uptodate)
 			  .replaceFirst("%b%", ui_current));
 		else if (current/10 < latest/10) {
-		    final String update = getRomName() + "_"
+		    UPDATE = getRomName() + "_"
 			+ (latest/1000) + "."
 			+ (latest/100) % 10 + "."
-			+ (latest/10) % 100 + "-noradio-signed.zip";
-		    if (fileExists("/sdcard/download/" + update)) {
-			toast(getResources().getString(R.string.will_flash));
-			// String commands[] = {
-			//     REMOUNT_RW,
-			//     "mkdir -p /cache/recovery",
-			//     "echo 'boot-recovery' > /cache/recovery/command",
-			//     "echo '--update_package=SDCARD:" + update + "' >> /cache/recovery/command",
-			//     REMOUNT_RO,
-			//     "reboot recovery"
-			// };
-			// sendshell(commands, false, getResources().getString(R.string.will_flash));
-		    }
+			+ (latest/10) % 10 + "-noradio-signed.zip";
+		    if (fileExists("/data/local/tmp/" + UPDATE + ".md5"))
+			prepareUpgrade(UPDATE);
 		    else
-		    	askToUpgrade(ui_current, latest, ui_latest, update);
+		    	askToUpgrade(ui_current, latest, ui_latest, UPDATE);
 		}
 		else if (current < latest) {
 		    askToPatch(ui_current, latest, ui_latest);
@@ -1288,6 +1368,11 @@ public class LeoParts extends PreferenceActivity
 
     public void toast(final CharSequence message) {
 	Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+	toast.show();
+    }
+
+    public void toastLong(final CharSequence message) {
+	Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
 	toast.show();
     }
 

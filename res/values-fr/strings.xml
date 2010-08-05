@@ -1207,7 +1207,7 @@
     <string name="unlock_title">Trackball unlock</string>
     <string name="unlock_summary_on"> La trackball reveillera et débloquera l\'appareil</string>
     <string name="unlock_summary_off"> La trackball ne fait rien</string>
-    <string name="hang_title">La trackball raccroche l'appel</string>
+    <string name="hang_title">La trackball raccroche l\'appel</string>
     <string name="hang_summary_on"> La trackball raccoche</string>
     <string name="hang_summary_off"> La trackball ne fait rien</string>
     <string name="scripts">Scripts</string>
@@ -1325,5 +1325,7 @@
     <string name="downloading">Téléchargement de</string>
     <string name="downloading_upgrade">Une fois le téléchargement terminé, relancez la vérification de mise à jour.</string>
     <string name="will_flash">La mise à jour va être flashée en mode de récupération.</string>
+    <string name="calc_md5">Calcul de la somme MD5...</string>
+    <string name="bad_md5">Mauvaise somme MD5. Veuillez re-télécharger la mise à jour.</string>
 
 </resources>
