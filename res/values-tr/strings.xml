@@ -1095,4 +1095,210 @@
     <string name="sound_category_calls_title" msgid="3688531959256239012">"Gelen çağrılar"</string>
     <string name="sound_category_notification_title" msgid="3502115998790286943">"Bildirimler"</string>
     <string name="sound_category_feedback_title" msgid="4399742321363475393">"Geri bildirim"</string>
+
+    <!--
+       ** Leo Parts **
+      -->
+
+    <string name="launcher_settings_title">ADWLauncher</string>
+
+    <string name="title_color_picker">Renk seçin</string>
+    <string name="msg_color_picker">Onaylamak için merkezdeki renge dokunun.\nÝptal etmek için geriye basýn.</string>
+
+    <string name="bc_title">Pil ve Saat</string>
+    <string name="bc_summary">Pil ve Saat ayarlarý</string>
+
+    <string name="battery_title">Pil</string>
+    <string name="pref_battery_percentage_title">Pil yüzdesi</string>
+    <string name="pref_battery_percentage_summary">Durum çubuðunda gösterilen pil yüzdesi</string>
+    <string name="battery_status_color_title">Pil yüzdesi rengi</string>
+
+    <string name="clock_title">Saat</string>
+    <string name="title_show_clock">Saati göster</string>
+    <string name="title_clock_color">Saat rengi</string>
+
+    <string name="dp_title">Tarih ve operatör</string>
+    <string name="dp_summary">Tarih ve operatör ayarlarý</string>
+
+    <string name="date_title">Tarih</string>
+    <string name="title_date_color">Tarih rengi</string>
+
+    <string name="plmn_title">PLMN operatör ismi</string>
+    <string name="title_show_plmn_ls">PLMN operatörünü göster(açýlýþ ekraný)</string>
+    <string name="summary_on_show_plmn_ls">PLMN opearatörü açýlýþ ekranýnda gösteriliyor</string>
+    <string name="summary_off_show_plmn_ls">PLMN opearatörü açýlýþ ekranýnda gösterilmiyor</string>
+    <string name="title_show_plmn_sb">PLMN operatörünü göster (durum çubuðu)</string>
+    <string name="summary_on_show_plmn_sb">PLMN opearatörü durum çubuðunda gösteriliyor</string>
+    <string name="summary_off_show_plmn_sb">PLMN opearatörü durum çubuðunda gösterilmiyor</string>
+    <string name="title_plmn_label_color">PLMN operatörü yazý rengi</string>
+
+    <string name="spn_title">SPN operatör metni ayarlarý</string>
+    <string name="title_show_spn_ls">SPN operatörünü göster(açýlýþ ekraný)</string>
+    <string name="summary_on_show_spn_ls">SPN opearatörü açýlýþ ekranýnda gösteriliyor</string>
+    <string name="summary_off_show_spn_ls">SPN opearatörü açýlýþ ekranýnda gösterilmiyor</string>
+    <string name="title_show_spn_sb">SPN operatörünü göster (durum çubuðu)</string>
+    <string name="summary_on_show_spn_sb">SPN opearatörü durum çubuðunda gösteriliyor</string>
+    <string name="summary_off_show_spn_sb">SPN opearatörü durum çubuðunda gösterilmiyor</string>
+    <string name="title_spn_label_color">SPN operatörü yazý rengi</string>
+
+    <string name="title_notifications_sb">Durum çubuðu bildirimleri</string>
+    <string name="title_notifications_color_tweaks">Bildirim renkleri</string>
+    <string name="summary_notifications_color_tweaks">Bildirim seçici, mevcut bildirimler, güncel bildirimler, bildirimleri temizle, vs.</string>
+    <string name="title_notifications_ticker_color">Bildirim seçici rengi</string>
+    <string name="title_notifications_count_color">Bildirim sayýsý rengi</string>
+    <string name="title_no_notifications_color">Bildirim yok yazýsý rengi</string>
+    <string name="title_clear_button_label_color">Bildirimleri temizle yazýsý rengi</string>
+    <string name="title_ongoing_notifications_color">Mevcut bildirimler yazýsý rengi</string>
+    <string name="title_latest_notifications_color">Güncel bildirimler yazýsý rengi</string>
+    <string name="title_notifications_items">Madde Bildirimleri</string>
+    <string name="title_notifications_items_title">Madde baþlýk rengi</string>
+    <string name="title_notifications_items_text">Madde yazý rengi</string>
+    <string name="title_notifications_items_time">Madde zaman rengi</string>
+
+    <string name="lockscreen_settings_title">Kilit ekraný ayarlarý</string>
+    <string name="pref_lockscreen_music_controls_title">Kilit ekraný müzik ayarlarý</string>
+    <string name="pref_lockscreen_music_controls_summary">Kilit ekranýnda müzik kontrollerini görüntüle</string>
+    <string name="pref_lockscreen_always_music_controls_title">Müzik kontrollerini her zaman görüntüle</string>
+    <string name="pref_lockscreen_always_music_controls_summary">Müzik çalsa da çalmasa da kotrolleri görüntüler</string>
+
+    <string name="software">Yazýlým</string>
+
+    <string name="rom_infos_title">ROM bilgileri</string>
+    <string name="rom_infos_summary">ROM adý, yapýlandýrma ve sistem versiyonu.</string>
+    <string name="infos">Bilgiler</string>
+    <string name="device">Cihaz</string>
+    <string name="name_version">Ýsim / Versiyon / Yama</string>
+    <string name="system_build">Sistem / Yapýlandýrma / Parmakizi</string>
+    <string name="kernel">Kernel</string>
+    <string name="bootloader_radio">Bootloader / Radio</string>
+    <string name="updates">Güncellemeler</string>
+    <string name="updates_title">Güncellemeleri denetle</string>
+    <string name="updates_summary"> Denetlemek için týklayýn</string>
+
+    <string name="quick_commands_title">Hýzlý komutlar</string>
+    <string name="quick_commands_summary">Yeniden baþlatma &amp; okuma/yazma komutlarý</string>
+    <string name="shutdown_title">Kapat</string>
+    <string name="shutdown_summary"> Cihazý normal þekilde kapatýr</string>
+    <string name="reboot_title">Yeniden baþlat</string>
+    <string name="reboot_summary"> Cihazý normal þekilde yeniden baþlat</string>
+    <string name="reboot_recovery_title">Recovery modunda baþlat</string>
+    <string name="reboot_recovery_summary"> Cihazý recovery modunda baþlatýr</string>
+    <string name="reboot_bootloader_title">Bootloader modunda baþlat</string>
+    <string name="reboot_bootloader_summary"> Cihazý bootloader modunda baþlatýr</string>
+    <string name="remount_sys"> /system klasörünü kullanýma aç</string>
+    <string name="remount_rw_title">Okuma-yazma</string>
+    <string name="remount_rw_summary"> /system klasörünü okuma-yazma yetkisiyle kullanýma aç</string>
+    <string name="remount_ro_title">Salt okunur</string>
+    <string name="remount_ro_summary"> /system klasörünü salt okunur olarak kullanýma aç</string>
+
+    <string name="tweaks_title">Ayarlar</string>
+    <string name="tweaks_summary">Geliþmiþ ayarlar</string>
+    <string name="stock">Stok</string>
+    <string name="stock_a2sd_title">Stok App2SD</string>
+    <string name="stock_a2sd_summary"> Uygulamalarýn kurulacaðý yeri seçin</string>
+    <string name="select_option">Bir seçeneði iþaretleyin</string>
+    <string name="trackball">Trackball</string>
+    <string name="pulse_title">Ekran açýkken yanmaya devam et</string>
+    <string name="pulse_summary_on"> Trackball yanacak</string>
+    <string name="pulse_summary_off"> Trackball yanmayacak</string>
+    <string name="wake_title">Trackball Uyandýrma</string>
+    <string name="wake_summary_on"> Trackball cihazý uyandýrýr</string>
+    <string name="wake_summary_off"> Trackball birþey yapmaz</string>
+    <string name="unlock_title">Trackball kilit açma</string>
+    <string name="unlock_summary_on"> Trackball cihazý uyandýrýr ve kilidi açar</string>
+    <string name="unlock_summary_off"> Trackball kilidi açmaz</string>
+    <string name="scripts">Scriptler</string>
+    <string name="uisounds_title">UI seslerini devredýþý býrak</string>
+    <string name="uisounds_summary_on"> UI sesleri devredýþý</string>
+    <string name="uisounds_summary_off"> UI sesleri aktif</string>
+    <string name="fixperms_title">Yetkileri düzelt</string>
+    <string name="fixperms_summary"> Garip kapanlamarý çözebilir</string>
+    <string name="fixmarket_title">Marketi senkronizasyona zorla</string>
+    <string name="fixmarket_summary"> Marketi uygulamalarý senkronize etmeye zorlar</string>
+
+    <string name="ui_title">Kullanýcý arabirimi</string>
+    <string name="ui_summary">Arabirimin sizin istediklerinizi yapmasýný saðlayýn</string>
+    <string name="status_bar">Durum çubuðu</string>
+    <string name="battery_percent_title">Pil yüzdesi</string>
+    <string name="battery_percent_on"> Pil yüzdesi AÇIK</string>
+    <string name="battery_percent_off"> Pil yüzdesi KAPALI</string>
+    <string name="hide_clock_title">Saati gizle</string>
+    <string name="hide_clock_on"> Saat gizli</string>
+    <string name="hide_clock_off"> Saat görünür</string>
+    <string name="hide_ampm_title">Saatte AM/PM\'i gizle</string>
+    <string name="hide_ampm_on"> AM/PM gizli</string>
+    <string name="hide_ampm_off"> AM/PM görünür</string>
+    <string name="wysie_colors_title">Wysie\'nin renkleri</string>
+    <string name="wysie_colors_summary">Durum çubuðu yazýlarýnýn rengini deðiþtir</string>
+    <string name="lockscreen">Kilit ekraný</string>
+    <string name="rotation">Döndürme</string>
+    <string name="rotation_90">90 derece</string>
+    <string name="rotation_180">180 derece</string>
+    <string name="rotation_270">270 derece</string>
+    <string name="other">Diðer</string>
+    <string name="power_prompt_title">Güç kontrolü</string>
+    <string name="power_prompt_summary"> Kapama ya da yeniden baþlatma durumlarýnda deðitirin</string>
+
+    <string name="apps_addons_title">Uygulamalar &amp; Eklentiler</string>
+    <string name="apps_addons_summary">Kullanýcý deneyimini geliþtirin</string>
+    <string name="stock_apps_title">Stok uygulamalar</string>
+    <string name="stock_apps_summary">Sadece kaldýrabileceðiniz stok uygulamalar</string>
+    <!-- apps? installed/removed -->
+    <string name="addons">Eklentiler</string>
+    <string name="bootanimation_title">Açýlýþ animasyonu</string>
+    <string name="bootanimation_summary"> Açýlýþ animasyonunu deðiþtirin</string>
+    <!-- apps? installed/removed -->
+    <string name="install_market"> Marketten yükleme</string>
+    <string name="about_title">Hakkýnda</string>
+    <string name="about_summary">Kullandýðýnýz geliþmiþ ayarlar hakkýnda</string>
+    <string name="about_version">Versiyon</string>
+    <string name="about_author">Yazar</string>
+    <string name="about_donate">Baðýþ yap</string>
+    <string name="donate"> PayPal ile baðýþ yap</string>
+    <string name="thanks_title">Özel teþekkürler</string>
+    <string name="about_addons"> Uygulama ve eklentiler benim deðildir\n Takdir yazarlarýna aittir</string>
+    <string name="about_sources">Kaynaklar</string>
+
+    <string name="hardware">Donaným</string>
+
+    <string name="data_storage_title">Veri depolama ayarlarý</string>
+    <string name="data_storage_summary">Depolama, App2SD, Dalvik-Cache &amp; fazlasý</string>
+    <string name="storage_sizes">Depolama boyutu</string>
+    <string name="refresh_storage">Depolama verilerini güncelle</string>
+    <string name="a2sd_dalvik">App2SD / Dalvik-Cache</string>
+    <string name="a2sd_title">Eski App2SD</string>
+    <string name="a2sd_summary_on"> Eski App2SD açýk</string>
+    <string name="a2sd_summary_off"> Eski App2SD kapalý</string>
+    <string name="dalvik_title">Dalvik-Cache\'i SDCard\'a taþý</string>
+    <string name="dalvik_summary_on"> Dalvik-Cache SDCard\'da</string>
+    <string name="dalvik_summary_off"> Dalvik-Cache /data\'da</string>
+    <string name="data_title">Data\'yý SDCard\'a taþý</string>
+    <string name="data_summary_on"> Data SDCard\'da</string>
+    <string name="data_summary_off"> Data /system\'de</string>
+    <string name="media_title">Medya\'yý SDCard\'a taþý</string>
+    <string name="media_summary_on"> System/media SDCard\'da</string>
+    <string name="media_summary_off"> System/media /system\'de</string>
+
+    <string name="warning">Uyarý</string>
+    <string name="warning_root">Sanýrým root eriþiminiz yok!</string>
+    <string name="warning_busybox">Sanýrým busybox kurulu deðil!</string>
+    <string name="shuting_down">Kapatýlýyor...</string>
+    <string name="rebooting">Yeniden baþlatýlýyor...</string>
+    <string name="remounting">Sistem kullanýma açýlýyor...</string>
+    <string name="fixing_permissions">Yetkiler düzeltiliyor...</string>
+    <string name="fixing_market">Market senkronizeye zorlanýyor...</string>
+    <string name="activating_ui_sounds">UI sesleri açýlýyor...</string>
+    <string name="deactivating_ui_sounds">UI sesleri kapatýlýyor...</string>
+    <string name="should_reboot">Deðiþikliklerin etki göstermesi için telefonunuzu yeniden baþlatýn.</string>
+    <string name="downloading_installing">Ýndiriliyor ve yükleniyor</string>
+    <string name="third_part_apps">Üçündü þahýs uygulamarýný aktif etmelisiniz</string>
+    <string name="removing">Kaldýrýlýyor</string>
+    <string name="error">Hata</string>
+    <string name="download_install_error">Ýndirme ve yükleme beklenmeyen þekilde bitti!</string>
+    <string name="reboot_requiered">Yeniden baþlatma gerekli. Yeniden baþlatýlsýn mý?</string>
+    <string name="confirm">Onayla</string>
+    <string name="sure_remove">Kaldýrmak istediðinizden emin misiniz?</string>
+    <string name="used_out_of">kullanýlýyor. Toplam</string>
+    <string name="unavailable">Eriþilemiyor</string>
+
 </resources>

@@ -739,7 +739,7 @@ public class LeoParts extends PreferenceActivity
 		" && busybox mv /data/local/tmp/bootanimation.zip /system/media/bootanimation.zip",
 		REMOUNT_RO
 	    };
-	    sendshell(commands, true, getResources().getString(R.string.downloading_installing) + " " + objValue.toString().substring(0, objValue.toString().indexOf('-')) + "...");
+	    sendshell(commands, true, getResources().getString(R.string.downloading_installing) + "bootanimation.zip...");
 	}
 	else if (preference == mHtcImePref) {
 	    if (mHtcImePref.isChecked() == false) {
@@ -1142,7 +1142,6 @@ public class LeoParts extends PreferenceActivity
 	    .setNegativeButton(getResources().getString(R.string.not_now),
 			       new DialogInterface.OnClickListener() {
 				   public void onClick(DialogInterface dialog, int id) {
-				       dialog.cancel();
 				   }
 			       });
 	AlertDialog alert = builder.create();
@@ -1206,14 +1205,12 @@ public class LeoParts extends PreferenceActivity
 	    .setPositiveButton(getResources().getString(R.string.grab_it),
 			       new DialogInterface.OnClickListener() {
 				   public void onClick(DialogInterface dialog, int id) {
-				       dialog.cancel();
 				       applyPatch(latest, ui_latest);
 				   }
 			       })
 	    .setNegativeButton(getResources().getString(R.string.dont_care),
 			       new DialogInterface.OnClickListener() {
 				   public void onClick(DialogInterface dialog, int id) {
-				       dialog.cancel();
 				   }
 			       });
 	AlertDialog alert = builder.create();
@@ -1383,7 +1380,6 @@ public class LeoParts extends PreferenceActivity
 	    .setCancelable(false)
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
 		    }
 		});
 	AlertDialog alert = builder.create();
@@ -1409,7 +1405,6 @@ public class LeoParts extends PreferenceActivity
 	    .setNegativeButton(getResources().getString(R.string.no),
 			       new DialogInterface.OnClickListener() {
 				   public void onClick(DialogInterface dialog, int id) {
-				       dialog.cancel();
 				   }
 			       });
 	AlertDialog alert = builder.create();
@@ -1427,7 +1422,6 @@ public class LeoParts extends PreferenceActivity
 	    .setCancelable(false)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
 			String[] commands = {
 			    REMOUNT_RW,
 			    "busybox rm -f /system/app/" + apk1,
@@ -1440,7 +1434,6 @@ public class LeoParts extends PreferenceActivity
 		})
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
 			preference.setChecked(true);
 		    }
 		});
@@ -1456,7 +1449,6 @@ public class LeoParts extends PreferenceActivity
 	    .setCancelable(false)
 	    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
 			String[] commands = {
 			    REMOUNT_RW,
 			    "busybox rm -f /system/app/" + apk1,
@@ -1468,7 +1460,6 @@ public class LeoParts extends PreferenceActivity
 		})
 	    .setNegativeButton("No", new DialogInterface.OnClickListener() {
 		    public void onClick(DialogInterface dialog, int id) {
-			dialog.cancel();
 			preference.setChecked(true);
 		    }
 		});
@@ -1516,7 +1507,6 @@ public class LeoParts extends PreferenceActivity
 		.setPositiveButton(getResources().getString(R.string.have_a_good_one),
 				   new DialogInterface.OnClickListener() {
 				       public void onClick(DialogInterface dialog, int id) {
-					   dialog.cancel();
 					   String[] commands = {
 					       script + " on"
 					   };
@@ -1526,7 +1516,6 @@ public class LeoParts extends PreferenceActivity
 		.setNegativeButton(getResources().getString(R.string.cancel),
 				   new DialogInterface.OnClickListener() {
 				       public void onClick(DialogInterface dialog, int id) {
-					   dialog.cancel();
 					   preference.setChecked(false);
 				       }
 				   });
