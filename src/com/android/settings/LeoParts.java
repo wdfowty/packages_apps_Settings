@@ -1312,23 +1312,22 @@ public class LeoParts extends PreferenceActivity
 		BufferedInputStream bis = null;
 		DataInputStream dis = null;
 		String build = getSystemValue(SYS_PROP_MOD_PATCH);
-		build = "1200";
-		// try {
-		//     fis = new FileInputStream(file);
-		//     bis = new BufferedInputStream(fis);
-		//     dis = new DataInputStream(bis);
-		//     while (dis.available() != 0) {
-		// 	build = dis.readLine();
-		// 	break ;
-		//     }
-		//     fis.close();
-		//     bis.close();
-		//     dis.close();
-		// } catch (FileNotFoundException e) {
-		//     e.printStackTrace();
-		// } catch (IOException e) {
-		//     e.printStackTrace();
-		// }
+		try {
+		    fis = new FileInputStream(file);
+		    bis = new BufferedInputStream(fis);
+		    dis = new DataInputStream(bis);
+		    while (dis.available() != 0) {
+			build = dis.readLine();
+			break ;
+		    }
+		    fis.close();
+		    bis.close();
+		    dis.close();
+		} catch (FileNotFoundException e) {
+		    e.printStackTrace();
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
 		// latest
 		final int latest = Integer.parseInt(removeChar(removeChar(build, '.'), 'p'));
 		final String ui_latest = build.charAt(0) + "." + build.charAt(1) + "." + build.charAt(2) + "-patch" + build.charAt(3);
