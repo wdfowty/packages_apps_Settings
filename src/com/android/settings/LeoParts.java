@@ -620,7 +620,7 @@ public class LeoParts extends PreferenceActivity
 	mAboutSources = (Preference) prefSet.findPreference(ABOUT_SOURCES);
 	findPreference(ABOUT_SOURCES).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
-		    String url = "http://github.com/leonnib4/development_apps_Settings";
+		    String url = "http://github.com/leonnib4/packages_apps_Settings";
 		    Intent i = new Intent(Intent.ACTION_VIEW);
 		    i.setData(Uri.parse(url));
 		    startActivity(i);

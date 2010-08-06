@@ -553,7 +553,7 @@
       <PreferenceScreen
 	 android:key="about_thanks"
 	 android:title="@string/thanks_title"
-	 android:summary=" britoso, Jr33, crimsondr\n Cyanogen, Wysie, jeagoss, kmobs, ctso\n XDA community and... You">
+	 android:summary=" XDA: britoso, Jr33, crimsondr\n CM team: Cyanogen, Wysie, jeagoss, kmobs, ctso\n Google, XDA community and... You">
       </PreferenceScreen>
 
       <PreferenceScreen
