@@ -261,17 +261,6 @@ public class LeoParts extends PreferenceActivity
     private static final String MEDIA2SD_PREF = "media2sd_opt";
     private CheckBoxPreference mMedia2sdPref;
     private boolean extfsIsMounted = false;
-    if (fileExists("/system/sd") == true) {
-	Log.i(TAG, "a2sd: ext partition found");
-	if (fileExists("/dev/block/mmcblk0p2") == true) {
-	    Log.i(TAG, "a2sd: ext partition mouted");
-	    extfsIsMounted = true;
-	} else {
-	    Log.i(TAG, "a2sd: ext partition not mounted");
-	}
-    } else {
-	Log.i(TAG, "a2sd: ext partition not found");
-    }
 
     public ProgressDialog patience = null;
     final Handler mHandler = new Handler();
@@ -290,13 +279,27 @@ public class LeoParts extends PreferenceActivity
 	REPO_ADDONS = getResources().getString(R.string.repo_addons_url);
 	REPO_PATCH = getResources().getString(R.string.repo_patch_url);
 
-	// Checks
+	// root check
 	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))
 	    popup(getResources().getString(R.string.warning ),
 		  getResources().getString(R.string.warning_root));
+	// busybox check
 	if (!fileExists("/system/bin/busybox") && !fileExists("/system/xbin/busybox"))
 	    popup(getResources().getString(R.string.warning),
 		  getResources().getString(R.string.warning_busybox));
+	// a2sd check
+	if (fileExists("/system/sd") == true) {
+	    Log.i(TAG, "a2sd: ext partition found");
+	    if (fileExists("/dev/block/mmcblk0p2") == true) {
+		Log.i(TAG, "a2sd: ext partition mouted");
+		extfsIsMounted = true;
+	    } else {
+		Log.i(TAG, "a2sd: ext partition not mounted");
+	    }
+	} else {
+	    Log.i(TAG, "a2sd: ext partition not found");
+	}
+	// request root access and ensure the dir exists
 	String[] commands = { "busybox mkdirp -p /data/local/tmp" };
 	sendshell(commands, false, null);
 
