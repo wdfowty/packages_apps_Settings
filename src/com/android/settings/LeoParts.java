@@ -260,8 +260,18 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mData2sdPref;
     private static final String MEDIA2SD_PREF = "media2sd_opt";
     private CheckBoxPreference mMedia2sdPref;
-    private boolean extfsIsMounted = (fileExists("/system/sd") == true
-				      && fileExists("/dev/block/mmcblk0p2") == true);
+    private boolean extfsIsMounted = false;
+    if (fileExists("/system/sd") == true) {
+	Log.i(TAG, "a2sd: ext partition found");
+	if (fileExists("/dev/block/mmcblk0p2") == true) {
+	    Log.i(TAG, "a2sd: ext partition mouted");
+	    extfsIsMounted = true;
+	} else {
+	    Log.i(TAG, "a2sd: ext partition not mounted");
+	}
+    } else {
+	Log.i(TAG, "a2sd: ext partition not found");
+    }
 
     public ProgressDialog patience = null;
     final Handler mHandler = new Handler();
