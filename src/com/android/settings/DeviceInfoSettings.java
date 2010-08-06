@@ -80,7 +80,7 @@ public class DeviceInfoSettings extends PreferenceActivity {
 	Utils.updatePreferenceToSpecificActivityOrRemove(this, parentPreference, KEY_CONTRIBUTORS,
 		Utils.UPDATE_PREFERENCE_FLAG_SET_TITLE_TO_MATCHING_ACTIVITY);
 
-	findPreference("build_number").setSummary(Build.ID);
+	findPreference("build_number").setSummary(Build.DISPLAY);
     }
 
     private void removePreferenceIfPropertyMissing(PreferenceGroup preferenceGroup,

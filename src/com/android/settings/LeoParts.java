@@ -40,6 +40,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StatFs;
 import android.os.Environment;
+import android.os.IBinder;
+import android.os.Parcel;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -186,6 +188,8 @@ public class LeoParts extends PreferenceActivity
     private static final String ROTATION_270_PREF = "rotation_270";
     private CheckBoxPreference mRotation270Pref;
 
+    private static final String RENDER_EFFECT_PREF = "pref_render_effect";
+    private ListPreference mRenderEffectPref;
     private static final String POWER_PROMPT_PREF = "power_prompt";
     private CheckBoxPreference mPowerPromptPref;
 
@@ -489,6 +493,9 @@ public class LeoParts extends PreferenceActivity
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
+	mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
+	mRenderEffectPref.setOnPreferenceChangeListener(this);
+	updateFlingerOptions();
 	mPowerPromptPref = (CheckBoxPreference) prefSet.findPreference(POWER_PROMPT_PREF);
 	mPowerPromptPref.setOnPreferenceChangeListener(this);
 	mPowerPromptPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, 1) == 1);
@@ -734,6 +741,8 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
 	    toast(getResources().getString(R.string.should_reboot));
 	}
+	else if (preference == mRenderEffectPref)
+	    writeRenderEffect(Integer.valueOf(objValue.toString()));
 	else if (preference == mPowerPromptPref)
 	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 0 : 1);
 	else if (preference == mCalculatorPref)
@@ -1132,6 +1141,46 @@ public class LeoParts extends PreferenceActivity
 	    };
 	t.start();
 	return true;
+    }
+
+    /**
+     *  Methods for render effects
+     */
+
+    private void updateFlingerOptions() {
+        try {
+            IBinder flinger = ServiceManager.getService("SurfaceFlinger");
+            if (flinger != null) {
+                Parcel data = Parcel.obtain();
+                Parcel reply = Parcel.obtain();
+                data.writeInterfaceToken("android.ui.ISurfaceComposer");
+                flinger.transact(1010, data, reply, 0);
+                int v;
+                v = reply.readInt();
+                v = reply.readInt();
+                v = reply.readInt();
+                v = reply.readInt();
+                v = reply.readInt();
+                mRenderEffectPref.setValue(String.valueOf(v));
+                reply.recycle();
+                data.recycle();
+            }
+        } catch (RemoteException ex) {
+        }
+    }
+
+    private void writeRenderEffect(int id) {
+        try {
+            IBinder flinger = ServiceManager.getService("SurfaceFlinger");
+            if (flinger != null) {
+                Parcel data = Parcel.obtain();
+                data.writeInterfaceToken("android.ui.ISurfaceComposer");
+                data.writeInt(id);
+                flinger.transact(1014, data, null, 0);
+                data.recycle();
+            }
+        } catch (RemoteException ex) {
+        }
     }
 
     /**

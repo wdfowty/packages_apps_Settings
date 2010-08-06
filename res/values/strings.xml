@@ -2777,4 +2777,7 @@ found in the list of installed applications.</string>
     <string name="h_icon_on"> H icon is displayed</string>
     <string name="h_icon_off"> Only 3G icon is displayed</string>
 
+    <string name="pref_render_effect_title">Render effect</string>
+    <string name="pref_render_effect_summary">Change what colors are used to draw the screen (potential battery savings)</string>
+
 </resources>
