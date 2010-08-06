@@ -477,6 +477,8 @@ public class LeoParts extends PreferenceActivity
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
 	mPowerPromptPref = (CheckBoxPreference) prefSet.findPreference(POWER_PROMPT_PREF);
+	mPowerPromptPref.setOnPreferenceChangeListener(this);
+	mPowerPromptPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, 1) == 1);
 
 	/**
 	 *  Apps & Addons
@@ -719,10 +721,8 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
 	    toast(getResources().getString(R.string.should_reboot));
 	}
-	else if (preference == mPowerPromptPref) {
-	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 1 : 0);
-	    toast(getResources().getString(R.string.should_reboot));
-	}
+	else if (preference == mPowerPromptPref)
+	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 0 : 1);
 	else if (preference == mCalculatorPref)
 	    return removeSystemApp(mCalculatorPref, "Calculator", "Calculator.apk");
 	else if (preference == mCarHomePref)
