@@ -229,6 +229,12 @@
 	   android:summaryOff="@string/hide_clock_off" />
 
 	<CheckBoxPreference
+           android:key="show_status_dbm"
+           android:title="@string/title_show_dbm"
+	   android:summaryOn="@string/show_dbm_on"
+	   android:summaryOff="@string/show_dbm_off" />
+
+	<CheckBoxPreference
 	   android:key="am_pm"
 	   android:title="@string/hide_ampm_title"
 	   android:summaryOn="@string/hide_ampm_on"
@@ -239,7 +245,7 @@
 	   android:summary="@string/wysie_colors_summary">
 
 	  <PreferenceCategory
-	     android:title="@string/battery_percent_title">
+	     android:title="@string/status_bar_content_title">
 
 	    <Preference
 	       android:key="battery_status_color_title"
@@ -247,30 +253,21 @@
 	       android:defaultValue="-1"
 	       android:dependency="battery_percent" />
 
-	  </PreferenceCategory>
-
-	  <PreferenceCategory
-	     android:title="Clock">
-
 	    <Preference
 	       android:key="clock_color"
 	       android:title="@string/title_clock_color"
 	       android:defaultValue="-16777216" />
 
-	  </PreferenceCategory>
-
-	  <PreferenceCategory
-	     android:title="Date">
+	    <Preference
+	       android:key="dbm_color"
+               android:title="@string/title_dbm_color"
+               android:defaultValue="-16777216"
+               android:dependency="show_status_dbm" />
 
 	    <Preference
 	       android:key="date_color"
 	       android:title="@string/title_date_color"
 	       android:defaultValue="-16777216" />
-
-	  </PreferenceCategory>
-
-	  <PreferenceCategory
-	     android:title="Carrier">
 
 	    <Preference
 	       android:key="plmn_label_color"

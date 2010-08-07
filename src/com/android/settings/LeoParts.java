@@ -144,6 +144,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mHIconPref;
     private static final String HIDE_CLOCK_PREF = "hide_clock";
     private CheckBoxPreference mHideClockPref;
+    private static final String SHOW_STATUS_DBM = "show_status_dbm";
+    private CheckBoxPreference mShowDbmPref;
     private static final String AM_PM_PREF = "am_pm";
     private CheckBoxPreference mAmPmPref;
 
@@ -151,6 +153,8 @@ public class LeoParts extends PreferenceActivity
     private Preference mBatteryPercentColorPreference;
     private static final String UI_CLOCK_COLOR = "clock_color";
     private Preference mClockColorPref;
+    private static final String UI_DBM_COLOR = "dbm_color";
+    private Preference mDbmColorPref;
     private static final String UI_DATE_COLOR = "date_color";
     private Preference mDateColorPref;
     private static final String UI_PLMN_LABEL_COLOR = "plmn_label_color";
@@ -455,6 +459,9 @@ public class LeoParts extends PreferenceActivity
 	mHideClockPref = (CheckBoxPreference) prefSet.findPreference(HIDE_CLOCK_PREF);
 	mHideClockPref.setOnPreferenceChangeListener(this);
 	mHideClockPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, 1) == 0);
+	mShowDbmPref = (CheckBoxPreference) prefSet.findPreference(SHOW_STATUS_DBM);
+	mShowDbmPref.setOnPreferenceChangeListener(this);
+	mShowDbmPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_STATUS_DBM, 0) == 1);
 	mAmPmPref = (CheckBoxPreference) prefSet.findPreference(AM_PM_PREF);
 	mAmPmPref.setOnPreferenceChangeListener(this);
 	mAmPmPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.SHOW_TWELVE_HOUR_CLOCK_PERIOD, 1) == 0);
@@ -469,6 +476,7 @@ public class LeoParts extends PreferenceActivity
 	mBatteryPercentColorPreference = prefSet.findPreference(UI_BATTERY_PERCENT_COLOR);
 	mClockColorPref = prefSet.findPreference(UI_CLOCK_COLOR);
 	mClockColorPref.setEnabled(mHideClockPref.isChecked() ? false : true);
+	mDbmColorPref = prefSet.findPreference(UI_DBM_COLOR);
 	mDateColorPref = prefSet.findPreference(UI_DATE_COLOR);
 	mPlmnLabelColorPref = prefSet.findPreference(UI_PLMN_LABEL_COLOR);
 	mSpnLabelColorPref = prefSet.findPreference(UI_SPN_LABEL_COLOR);
@@ -705,6 +713,10 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_CLOCK, mHideClockPref.isChecked() ? 1 : 0);
 	    toast(getResources().getString(R.string.should_reboot));
 	}
+	else if (preference == mShowDbmPref) {
+	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_STATUS_DBM, mShowDbmPref.isChecked() ? 0 : 1);
+	    toast(getResources().getString(R.string.should_reboot));
+	}
 	else if (preference == mAmPmPref) {
 	    Settings.System.putInt(getContentResolver(), Settings.System.SHOW_TWELVE_HOUR_CLOCK_PERIOD, mAmPmPref.isChecked() ? 1 : 0);
 	    toast(getResources().getString(R.string.should_reboot));
@@ -830,7 +842,11 @@ public class LeoParts extends PreferenceActivity
 	    ColorPickerDialog cp = new ColorPickerDialog(this, mClockFontColorListener, readClockFontColor());
 	    cp.show();
 	}
-	if (preference == mDateColorPref) {
+	else if (preference == mDbmColorPref) {
+	    ColorPickerDialog cp = new ColorPickerDialog(this, mDbmColorListener, readDbmColor());
+	    cp.show();
+	}
+	else if (preference == mDateColorPref) {
 	    ColorPickerDialog cp = new ColorPickerDialog(this, mDateFontColorListener, readDateFontColor());
 	    cp.show();
 	}
@@ -1099,6 +1115,22 @@ public class LeoParts extends PreferenceActivity
     private int readNotifItemTimeColor() {
 	try {
 	    return Settings.System.getInt(getContentResolver(), Settings.System.NOTIF_ITEM_TIME_COLOR);
+	}
+	catch (SettingNotFoundException e) {
+	    return -16777216;
+	}
+    }
+
+    ColorPickerDialog.OnColorChangedListener mDbmColorListener = new ColorPickerDialog.OnColorChangedListener() {
+	    public void colorChanged(int color) {
+		Settings.System.putInt(getContentResolver(), Settings.System.DBM_COLOR, color);
+		toast(getResources().getString(R.string.should_reboot));
+	    }
+	};
+
+    private int readDbmColor() {
+	try {
+	    return Settings.System.getInt(getContentResolver(), Settings.System.DBM_COLOR);
 	}
 	catch (SettingNotFoundException e) {
 	    return -16777216;

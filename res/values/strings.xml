@@ -2779,5 +2779,10 @@ found in the list of installed applications.</string>
 
     <string name="pref_render_effect_title">Render effect</string>
     <string name="pref_render_effect_summary">Change what colors are used to draw the screen (potential battery savings)</string>
+    <string name="status_bar_content_title">Status bar elements</string>
+    <string name="title_show_dbm">Show dBm</string>
+    <string name="show_dbm_on">Signal strength displayed in the status bar</string>
+    <string name="show_dbm_off">Signal strength not displayed in the status bar</string>
+    <string name="title_dbm_color">dBm color</string>
 
 </resources>
