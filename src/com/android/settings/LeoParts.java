@@ -653,15 +653,19 @@ public class LeoParts extends PreferenceActivity
 	mOldApp2sdPref     = (CheckBoxPreference) prefSet.findPreference(OLD_APP2SD_PREF);
 	mOldApp2sdPref.setOnPreferenceChangeListener(this);
 	mOldApp2sdPref.setEnabled(extfsIsMounted);
+	mOldApp2sdPref.setChecked(fileExists("/system/sd/app"));
 	mDalvik2sdPref     = (CheckBoxPreference) prefSet.findPreference(DALVIK2SD_PREF);
 	mDalvik2sdPref.setOnPreferenceChangeListener(this);
 	mDalvik2sdPref.setEnabled(extfsIsMounted);
+	mDalvik2sdPref.setChecked(fileExists("/system/sd/dalvik-cache"));
 	mData2sdPref       = (CheckBoxPreference) prefSet.findPreference(DATA2SD_PREF);
 	mData2sdPref.setOnPreferenceChangeListener(this);
 	mData2sdPref.setEnabled(extfsIsMounted);
+	mData2sdPref.setChecked(fileExists("/system/sd/data"));
 	mMedia2sdPref      = (CheckBoxPreference) prefSet.findPreference(MEDIA2SD_PREF);
 	mMedia2sdPref.setOnPreferenceChangeListener(this);
 	mMedia2sdPref.setEnabled(extfsIsMounted);
+	mMedia2sdPref.setChecked(fileExists("/system/sd/media"));
 
 	mSystemSize        = (Preference) prefSet.findPreference(SYSTEM_PART_SIZE);
 	mDataSize          = (Preference) prefSet.findPreference(DATA_PART_SIZE);
@@ -676,6 +680,10 @@ public class LeoParts extends PreferenceActivity
 		    public boolean onPreferenceClick(Preference preference) {
 			SetupFSPartSize();
 			extfsIsMounted = (fileExists("/dev/block/mmcblk0p2") && fileExists("/system/sd"));
+			mOldApp2sdPref.setChecked(fileExists("/system/sd/app"));
+			mDalvik2sdPref.setChecked(fileExists("/system/sd/dalvik-cache"));
+			mData2sdPref.setChecked(fileExists("/system/sd/data"));
+			mMedia2sdPref.setChecked(fileExists("/system/sd/media"));
 			return true;
 		    }
 		});

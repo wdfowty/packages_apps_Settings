@@ -1257,9 +1257,9 @@
     <string name="about_version">Version</string>
     <string name="about_author">Auteur</string>
     <string name="about_donate">Donations</string>
-    <string name="donate"> Donner via PayPal</string>
+    <string name="donate">Donner via PayPal</string>
     <string name="thanks_title">Remerciements à</string>
-    <string name="about_addons"> Les applications ne sont pas les miennes.\n Les remerciements vont à leurs auteurs.</string>
+    <string name="about_addons">Les applications ne sont pas les miennes.\nLes remerciements vont à leurs auteurs.</string>
     <string name="about_sources">Sources</string>
 
     <string name="hardware">Matériel</string>
@@ -1330,5 +1330,16 @@
     <string name="h_icon_title">Icones 3G+H</string>
     <string name="h_icon_on"> Icone H affiché</string>
     <string name="h_icon_off"> Seul l\'icone 3G est affiché</string>
+
+    <string name="pref_render_effect_title">Effet de rendu</string>
+    <string name="pref_render_effect_summary">Changer la couleur utilisée pour dessiner l\'écran (peut sauver de la batterie)</string>
+    <string name="status_bar_content_title">Elements de la barre de status</string>
+    <string name="title_show_dbm">Afficher les dBm</string>
+    <string name="show_dbm_on">La puissance du signal est affichée dans la barre de status</string>
+    <string name="show_dbm_off">La puissance du signal n\'est pas affichée dans la barre de status</string>
+    <string name="title_dbm_color">Couleurs des dBm</string>
+
+    <string name="about_disclamer_title">Disclamer</string>
+    <string name="about_disclamer_summary">LeoParts ne peut être responsable de ce qui arriverait à votre appareil, vous l\'êtes.</string>
 
 </resources>

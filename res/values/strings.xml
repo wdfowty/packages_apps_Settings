@@ -2703,9 +2703,9 @@ found in the list of installed applications.</string>
     <string name="about_version">Version</string>
     <string name="about_author">Author</string>
     <string name="about_donate">Donate</string>
-    <string name="donate"> Donate via PayPal</string>
+    <string name="donate">Donate via PayPal</string>
     <string name="thanks_title">Special thanks to</string>
-    <string name="about_addons"> Apps and Adons are not mine\n Credits go to their authors</string>
+    <string name="about_addons">Apps and Adons are not mine\nCredits go to their authors</string>
     <string name="about_sources">Sources</string>
 
     <string name="hardware">Hardware</string>
@@ -2759,13 +2759,13 @@ found in the list of installed applications.</string>
     <string name="leo_updater">Leo Updater</string>
     <string name="rom_uptodate">You ROM (%b%) is up-to-date!</string>
     <string name="rom_outdated">You ROM (%b%) is OUTDATED!\nA new version is available: %B%</string>
-    <string name="patch_available">You ROM (%b%) is up-to-date, but a new patch is available: %P%</string>
+    <string name="patch_available">You ROM (%b%) is up-to-date, but a new patch is available: %P%\n\nThis patch could  use a lot of data. Prefer WiFi over Mobile network.</string>
     <string name="grab_it">Let\'s grab it</string>
     <string name="dont_care">I don\'t care</string>
     <string name="getting_patch">Getting patch #</string>
     <string name="latest">Latest</string>
     <string name="would_be_proud">You\'re running a BETA!\nLeo would be proud :D!</string>
-    <string name="like_to_upgrade">Would you like to upgrade?</string>
+    <string name="like_to_upgrade">Would you like to upgrade?\n\nThis will download and flash the new ROM. Be sure to nanbackup before, this updater cannot be responsable or what you do with your phone.\n\nThis will also use an important amount of data (~70MB), so prefere WiFi over Mobile network.</string>
     <string name="yeah">Hell yeah</string>
     <string name="not_now">Not now</string>
     <string name="downloading">Downloading</string>
@@ -2784,5 +2784,8 @@ found in the list of installed applications.</string>
     <string name="show_dbm_on">Signal strength displayed in the status bar</string>
     <string name="show_dbm_off">Signal strength not displayed in the status bar</string>
     <string name="title_dbm_color">dBm color</string>
+
+    <string name="about_disclamer_title">Disclamer</string>
+    <string name="about_disclamer_summary">LeoParts cannot be reponsable for bad things appening to your device, you are.</string>
 
 </resources>

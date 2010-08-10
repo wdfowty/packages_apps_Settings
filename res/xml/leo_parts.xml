@@ -540,13 +540,13 @@
       <PreferenceScreen
 	 android:key="about_version"
 	 android:title="@string/about_version"
-	 android:summary=" Settings / Leo Parts v7.0">
+	 android:summary="Settings / Leo Parts v7.0">
       </PreferenceScreen>
 
       <PreferenceScreen
 	 android:key="about_author"
 	 android:title="@string/about_author"
-	 android:summary=" leonnib4 @ xda-developers.com">
+	 android:summary="leonnib4 @ xda-developers.com">
       </PreferenceScreen>
 
       <PreferenceScreen
@@ -558,11 +558,11 @@
       <PreferenceScreen
 	 android:key="about_thanks"
 	 android:title="@string/thanks_title"
-	 android:summary=" XDA: britoso, Jr33, crimsondr\n CM team: Cyanogen, Wysie, jeagoss, kmobs, ctso\n Google, XDA community and... You">
+	 android:summary="britoso, Jr33, crimsondr, Cyanogen, Wysie, jeagoss, kmobs, ctso, Google, XDA community and... You">
       </PreferenceScreen>
 
       <PreferenceScreen
-	 android:key="about_addond"
+	 android:key="about_addons"
 	 android:title="@string/addons"
 	 android:summary="@string/about_addons">
       </PreferenceScreen>
@@ -570,7 +570,13 @@
       <PreferenceScreen
 	 android:key="about_sources"
 	 android:title="@string/about_sources"
-	 android:summary=" http://github.com/leonnib4/">
+	 android:summary="http://github.com/leonnib4/">
+      </PreferenceScreen>
+
+      <PreferenceScreen
+	 android:key="about_disclamer"
+	 android:title="@string/about_disclamer_title"
+	 android:summary="@string/about_disclamer_summary">
       </PreferenceScreen>
 
     </PreferenceScreen>

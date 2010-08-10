@@ -1141,7 +1141,7 @@
     <string name="summary_off_show_spn_sb">SPN opearatörü durum çubuðunda gösterilmiyor</string>
     <string name="title_spn_label_color">SPN operatörü yazý rengi</string>
 
-    <string name="title_notifications_sb">Durum çubuðu bildirimleri</string>
+     <string name="title_notifications_sb">Durum çubuðu bildirimleri</string>
     <string name="title_notifications_color_tweaks">Bildirim renkleri</string>
     <string name="summary_notifications_color_tweaks">Bildirim seçici, mevcut bildirimler, güncel bildirimler, bildirimleri temizle, vs.</string>
     <string name="title_notifications_ticker_color">Bildirim seçici rengi</string>
@@ -1191,6 +1191,7 @@
     <string name="remount_ro_title">Salt okunur</string>
     <string name="remount_ro_summary"> /system klasörünü salt okunur olarak kullanýma aç</string>
 
+
     <string name="tweaks_title">Ayarlar</string>
     <string name="tweaks_summary">Geliþmiþ ayarlar</string>
     <string name="stock">Stok</string>
@@ -1207,6 +1208,9 @@
     <string name="unlock_title">Trackball kilit açma</string>
     <string name="unlock_summary_on"> Trackball cihazý uyandýrýr ve kilidi açar</string>
     <string name="unlock_summary_off"> Trackball kilidi açmaz</string>
+    <string name="hang_title">Trackball ile kapatma</string>
+    <string name="hang_summary_on"> Trackball bir görüþmeyi sonlandýrýr</string>
+    <string name="hang_summary_off"> Trackball görüþmeyi sonlandýrmaz</string>
     <string name="scripts">Scriptler</string>
     <string name="uisounds_title">UI seslerini devredýþý býrak</string>
     <string name="uisounds_summary_on"> UI sesleri devredýþý</string>
@@ -1301,26 +1305,23 @@
     <string name="used_out_of">kullanýlýyor. Toplam</string>
     <string name="unavailable">Eriþilemiyor</string>
 
-    <string name="hang_title">Trackball ile cevaplama</string>
-    <string name="hang_summary_on"> Trackball aramayý cevaplar</string>
-    <string name="hang_summary_off"> Trackball aramayý cevaplamaz</string>
 
     <string name="low_class_sdcard">Düþük sýnýf bir SD kart ile telefonunuz yavaþlayabilir...</string>
     <string name="have_a_good_one">Benim kartým iyi</string>
     <string name="move_sdcard">SD karta taþýnýyor...</string>
     <string name="move_phone">Telefona geri taþýnýyor...</string>
 
-    <string name="check_latest_update">En güncel ROM versiyonu ve yama aranýyor...</string>
+   <string name="check_latest_update">En güncel ROM versiyonu ve yama aranýyor...</string>
     <string name="leo_updater">Leo Güncelleyici</string>
     <string name="rom_uptodate">ROMunuz (%b%) güncel!</string>
     <string name="rom_outdated">ROMunuz(%b%) güncel DEÐÝL!\nA yeni versiyon var: %B%</string>
-    <string name="patch_available">ROMunuz (%b%) güncel, ancak bir yama mevcut: %P%</string>
+    <string name="patch_available">ROMunuz (%b%) güncel, ancak bir yama mevcut: %P% Bu yama büyük miktarda data indirebilir, WiFi baðlantýsý önerilir.</string>
     <string name="grab_it">Ýndir</string>
     <string name="dont_care">Umrumda deðil</string>
     <string name="getting_patch">Yama alýnýyor #</string>
     <string name="latest">Güncel</string>
     <string name="would_be_proud">Bir BETA kullanýyorsunuz!\nLeo gurur duyuyor olmalý :D!</string>
-    <string name="like_to_upgrade">Yükseltmek ister misiniz?</string>
+    <string name="like_to_upgrade">Yükseltmek istiyor musunuz?\n\nYeni ROM indirilip kurulacak. Önce nandroid yedek aldýðýnýzdan emin olun.\n\nBu iþlem yüklü miktarda veri transferi yapacaktýr (~70MB), WiFi baðlantýsý önerilir.</string>
     <string name="yeah">Kesinlikle</string>
     <string name="not_now">Þimdi deðil</string>
     <string name="downloading">Ýndiriliyor</string>
@@ -1328,5 +1329,20 @@
     <string name="will_flash">Güncelleme recoveryden yüklenecek.</string>
     <string name="calc_md5">MD5 boyutu kontrol ediliyor...</string>
     <string name="bad_md5">Kötü MD5 boyutu. Lütfen güncellemeyi yeniden indirin.</string>
+    <string name="h_icon_title">3G+H simgesi</string>
+    <string name="h_icon_on"> H simgesi gösteriliyor</string>
+    <string name="h_icon_off"> Sadece 3G simgesi gösteriliyor</string>
+
+    <string name="pref_render_effect_title">Ekran renkleri</string>
+    <string name="pref_render_effect_summary">Ekranda kullanýlan renkleri deðiþtirin (pil ömrünü uzatabilir)</string>
+    <string name="status_bar_content_title">Durum çubuðu elemanlarý</string>
+    <string name="title_show_dbm">dBm\'i göster</string>
+    <string name="show_dbm_on">Sinyal seviyesi durum çubuðunda görünür</string>
+    <string name="show_dbm_off">Sinyal seviyesi durum çubuðunda görünmez</string>
+    <string name="title_dbm_color">dBm rengi</string>
+
+    <string name="about_disclamer_title">Açýklama</string>
+    <string name="about_disclamer_summary">Cihazýnýzýn baþýnýza gelebilecek herhangi bir olumsuzluktan LeoParts deðil siz sorumlusunuz.</string>
 
 </resources>
+

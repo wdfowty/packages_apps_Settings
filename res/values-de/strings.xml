@@ -1152,13 +1152,13 @@
     <string name="title_ongoing_notifications_color">Dauerhaft e Benachrichtigungen</string>
     <string name="title_latest_notifications_color">Letzte Benachrichtigung</string>
     <string name="title_notifications_items">Nachrichten Elemente</string>
-    <string name="title_notifications_items_title">Titelelemen t</string>
+    <string name="title_notifications_items_title">Titelelement</string>
     <string name="title_notifications_items_text">Textelement</string>
     <string name="title_notifications_items_time">Zeitelement</string>
 
     <string name="lockscreen_settings_title">Lockscreen Einstellungen</string>
     <string name="pref_lockscreen_music_controls_title">Lockscreen Musik Bedienung</string>
-    <string name="pref_lockscreen_music_controls_summary">Zeige Musik Bedienung auf dem Lockscreen</string>
+    <string name="pref_lockscreen_music_controls_summary">Zeige Musik Bedienung in dem dem Lockscreen</string>
     <string name="pref_lockscreen_always_music_controls_title">Bedienung der Musik immer anzei anzeigen</string>
     <string name="pref_lockscreen_always_music_controls_summary">Bedienung der Musik anzeigen, auch wenn keine Musik läuft</string>
 
@@ -1208,12 +1208,15 @@
     <string name="unlock_title">Trackball-Entsperren</string>
     <string name="unlock_summary_on"> Trackball weckt das Gerät auf und entsperrt es</string>
     <string name="unlock_summary_off"> Trackball entsperrt nicht</string>
+    <string name="hang_title">Trackball-Auflegenup</string>
+    <string name="hang_summary_on"> Trackball beendet das Gespräch</string>
+    <string name="hang_summary_off"> Trackball does not hang up</string>
     <string name="scripts">Skripte</string>
     <string name="uisounds_title">Deaktivieren der UI Töne</string>
     <string name="uisounds_summary_on"> UI Töne deaktiviert</string>
     <string name="uisounds_summary_off"> UI Töne aktiviert</string>
     <string name="fixperms_title">Fix permissions</string>
-    <string name="fixperms_summary">Kann wirre "schließen erzwingen" Probleme lösen</string>
+    <string name="fixperms_summary">Kann wirre "Schließen Erzwingen" Probleme lösen</string>
     <string name="fixmarket_title">Zwinge den Market zu einer neue Synchronisation</string>
     <string name="fixmarket_summary">Zwingt den Market die Apps neu zu synchronisieren</string>
 
@@ -1302,11 +1305,7 @@
     <string name="used_out_of">verwendet von</string>
     <string name="unavailable">Unerreichbar</string>
 
-    <string name="hang_title">Trackball-Auflegen</string>
-    <string name="hang_summary_on"> Trackball beendet das Gespräch hangs up a call</string>
-    <string name="hang_summary_off"> Trackball beendet das Gespräch nicht</string>
-
-    <string name="low_class_sdcard">Mit einer langsamen SDKarte (class) kann das Gerät verlangsamt warden…</string>
+    <string name="low_class_sdcard">Mit einer langsamen SDKarte (class) kann das Gerät verlangsamt wardenâŠ</string>
     <string name="have_a_good_one">Ich habe eine gute!</string>
     <string name="move_sdcard">Verschiebe auf die SDKarte...</string>
     <string name="move_phone">Verschiebe auf das Gerät...</string>
@@ -1315,19 +1314,35 @@
     <string name="leo_updater">Leo Updater</string>
     <string name="rom_uptodate">Deine ROM (%b%) ist aktuell!</string>
     <string name="rom_outdated">Deine ROM (%b%) ist ALT\nA es gibt eine neue Version: %B%</string>
-    <string name="patch_available">Deine ROM (%b%) ist aktuell,aber es gibt einen neuen Patch %P%</string>
+    <string name="patch_available">Deine ROM (%b%) ist aktuell,aber es gibt einen neuen Patch %P%\n\nDieser Patch ist öcglicherwiese groß. Nutze besser Wifi statt mobiles 
+.</string>
     <string name="grab_it">Hol es!</string>
     <string name="dont_care">Jetzt nicht!</string>
     <string name="getting_patch">Hole Patch #</string>
     <string name="latest">Aktuell</string>
-    <string name="would_be_proud">Die verwendest eine BETA!\n Leo freut sich :D !</string>
-    <string name="like_to_upgrade">Willst du aktualisieren?</string>
-    <string name="yeah">Hell yeah!</string>
+    <string name="would_be_proud">Die verwendest eine BETA!\n Leo freut sich !</string>
+    <string name="like_to_upgrade"> \n\n\ Eine neue ROM wird herunter geladen. Gehe sicher das du ein nandbackup hast.\n\Es könnte eine große Datenmenge anfallen (~70MB), Nutze lieber Wifi statt dein mobiles Netzwerk </string>
+    <string name="yeah">Hell yeah</string>
     <string name="not_now">Nicht jetzt!</string>
-    <string name="downloading">Downloading..</string>
+    <string name="downloading">Downloading</string>
     <string name="downloading_upgrade">Wenn der download fertig ist, starte den Updater noch einmal</string>
     <string name="will_flash">Das Update wird jetzt in der Recovery geflasht.</string>
     <string name="calc_md5">Überprüfe MD5 Checksumme...</string>
-    <string name="bad_md5"> MD5 Checksummen-Fehler. Bitte downloade das Update nochmal</string>
+    <string name="bad_md5"> MD5 Checksummen Fehler bitte lade das Update neu</string>
+    <string name="h_icon_title">3G+H Icon</string>
+    <string name="h_icon_on"> H Icon wird gezeigt</string>
+    <string name="h_icon_off"> Nur das 3G Icon wird gezeigt</string>
+
+    <string name="pref_render_effect_title">Render effect</string>
+    <string name="pref_render_effect_summary">Ändere die Farben die zum Darstellen verwendet warden (Möglicherweise Batterie ersparniss!)</string>
+    <string name="status_bar_content_title">Status Bar Elemente</string>
+    <string name="title_show_dbm">Zeige dBm</string>
+    <string name="show_dbm_on">Signalstärker wird in der Status Bar angezeigt</string>
+    <string name="show_dbm_off">Signalstärke wird nicht in der Status Bar angezeigt</string>
+    <string name="title_dbm_color">dBm color</string>
+
+    <string name="about_disclamer_title">Disclamer</string>
+    <string name="about_disclamer_summary">LeoParts ist nicht verantwortlich für Zwischenfälle mit deinem Gerät, du bist es!</string>
 
 </resources>
+
