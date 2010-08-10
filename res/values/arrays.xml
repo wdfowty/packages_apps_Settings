@@ -459,8 +459,6 @@
       <item>Salmon</item>
       <item>Fuscia</item>
       <item>Calibrated</item>
-      <item>Calibrated Low Red</item>
-      <item>Calibrated Cool</item>
     </string-array>
 
     <string-array name="values_render_effect">
@@ -472,8 +470,6 @@
       <item>5</item>
       <item>6</item>
       <item>7</item>
-      <item>8</item>
-      <item>9</item>
     </string-array>
 
 </resources>
