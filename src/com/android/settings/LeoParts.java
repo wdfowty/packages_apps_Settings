@@ -783,6 +783,10 @@ public class LeoParts extends PreferenceActivity
 	    return removeSystemApp(mTwitterPref, "Twitter", "Twitter.apk");
 	else if (preference == mYouTubePref)
 	    return removeSystemApp(mYouTubePref, "YouTube", "YouTube.apk");
+	else if (preference == mFileManagerPref)
+	    return removeSystemApp(mFileManagerPref, "FileManager", "FileManager.apk");
+	else if (preference == mTerminalPref)
+	    return removeSystemApp(mTerminalPref, "Terminal", "Terminal.apk");
 	else if (preference == mBootanimPref) {
 	    String[] commands = {
 		REMOUNT_RW,
@@ -827,6 +831,8 @@ public class LeoParts extends PreferenceActivity
 	    return activate2sd(mData2sdPref, "data2sd");
 	else if (preference == mMedia2sdPref)
 	    return activate2sd(mMedia2sdPref, "media2sd");
+	else
+	    Log.e(TAG, "PreferenceChange: This element have no defined action!");
 
 	// always let the preference setting proceed.
 	return true;
@@ -902,6 +908,8 @@ public class LeoParts extends PreferenceActivity
 	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifItemTimeColorListener, readNotifItemTimeColor());
 	    cp.show();
 	}
+	else
+	    Log.e(TAG, "TreeClick: This element have no defined action!");
 	return true;
     }
 
