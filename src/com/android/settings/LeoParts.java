@@ -90,6 +90,7 @@ public class LeoParts extends PreferenceActivity
     private static final String REMOUNT_RW = "mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system";
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
+    private static final String VERSION_FILE = "version-beta";
     private static String REPO_ROM;
     private static String REPO_ADDONS;
     private static String REPO_PATCH;
@@ -330,7 +331,7 @@ public class LeoParts extends PreferenceActivity
 			Thread t = new Thread() {
 				public void run() {
 				    String[] commands = {
-					"busybox wget -q " + REPO_ROM + "version -O /data/local/tmp/version"
+					"busybox wget -q " + REPO_ROM + VERSION_FILE + " -O /data/local/tmp/version"
 				    };
 				    ShellInterface shell = new ShellInterface(commands);
 				    shell.start();
@@ -1270,16 +1271,22 @@ public class LeoParts extends PreferenceActivity
 
     final Runnable mApplyPatch = new Runnable() {
 	    public void run() {
-		final int patch = PATCH;
-		String[] commands = {
-		    "/data/local/patch",
-		    REMOUNT_RW,
-		    "busybox sed -i 's/ro.modversion=" + getSystemValue(SYS_PROP_MOD_PATCH) + "/ro.modversion=" + patch + "/' /system/build.prop",
-		    REMOUNT_RO,
-		    "busybox rm -f /data/local/patch"
-		};
-		sendshell(commands, true, "Applying patch #" + PATCH + "...");
-		setStringSummary(ROM_NAME_VERSION_PREF, getRomName() + "  /  " + getRomVersion() + "  /  patch" + (patch - Integer.parseInt(removeChar(getRomVersion(), '.')) * 10));
+		if (fileExists("/data/local/patch")) {
+		    final int patch = PATCH;
+		    String[] commands = {
+			"/data/local/patch",
+			REMOUNT_RW,
+			"busybox sed -i 's/ro.modversion=" + getSystemValue(SYS_PROP_MOD_PATCH) + "/ro.modversion=" + patch + "/' /system/build.prop",
+			REMOUNT_RO,
+			"busybox rm -f /data/local/patch"
+		    };
+		    sendshell(commands, true, "Applying patch #" + PATCH + "...");
+		    setStringSummary(ROM_NAME_VERSION_PREF, getRomName() + "  /  " + getRomVersion() + "  /  patch" + (patch - Integer.parseInt(removeChar(getRomVersion(), '.')) * 10));
+		} else {
+		    popup(getResources().getString(R.string.error),
+			  getResources().getString(R.string.download_install_error));
+		}
+
 	    }
 	};
 
