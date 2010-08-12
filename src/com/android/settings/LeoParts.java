@@ -90,10 +90,10 @@ public class LeoParts extends PreferenceActivity
     private static final String REMOUNT_RW = "mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system";
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
-    private static final String VERSION_FILE = "version-beta";
     private static String REPO_ROM;
     private static String REPO_ADDONS;
     private static String REPO_PATCH;
+    private static String VERSION_FILE;
 
     private final Configuration mCurConfig = new Configuration();
 
@@ -287,6 +287,7 @@ public class LeoParts extends PreferenceActivity
 	REPO_ROM = getResources().getString(R.string.repo_rom_url);
 	REPO_ADDONS = getResources().getString(R.string.repo_addons_url);
 	REPO_PATCH = getResources().getString(R.string.repo_patch_url);
+	VERSION_FILE = getResources().getString(R.string.version_file);
 
 	// root check
 	if (!fileExists("/system/bin/su")      && !fileExists("/system/xbin/su"))
@@ -1273,10 +1274,11 @@ public class LeoParts extends PreferenceActivity
 	    public void run() {
 		if (fileExists("/data/local/patch")) {
 		    final int patch = PATCH;
+		    toastLong(getResources().getString(R.string.settings_close));
 		    String[] commands = {
-			"/data/local/patch",
+			"/system/bin/logwrapper /data/local/patch",
 			REMOUNT_RW,
-			"busybox sed -i 's/ro.modversion=" + getSystemValue(SYS_PROP_MOD_PATCH) + "/ro.modversion=" + patch + "/' /system/build.prop",
+			"busybox sed -i 's/ro.modpatch=" + getSystemValue(SYS_PROP_MOD_PATCH) + "/ro.modpatch=" + patch + "/' /system/build.prop",
 			REMOUNT_RO,
 			"busybox rm -f /data/local/patch"
 		    };

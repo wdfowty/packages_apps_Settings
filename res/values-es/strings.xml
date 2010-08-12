@@ -1095,4 +1095,252 @@
     <string name="sound_category_calls_title" msgid="3688531959256239012">"Llamadas entrantes"</string>
     <string name="sound_category_notification_title" msgid="3502115998790286943">"Notificaciones"</string>
     <string name="sound_category_feedback_title" msgid="4399742321363475393">"Respuesta del teléfono"</string>
+
+    <!--
+        ** Leo Parts **
+      -->
+
+    <string name="launcher_settings_title">ADWLauncher</string>
+
+    <string name="title_color_picker">Elija un Color</string>
+    <string name="msg_color_picker">Confirme al tocar el centro.\nOprima atrás para cancelar.</string>
+
+    <string name="bc_title">Bateria y Reloj</string>
+    <string name="bc_summary">Modificaciones a bacteria y reloj</string>
+
+    <string name="battery_title">Bateria</string>
+    <string name="pref_battery_percentage_title">Porcentaje de Bateria</string>
+    <string name="pref_battery_percentage_summary">Mostrar porcentaje de bateria en barra de status</string>
+    <string name="battery_status_color_title">Color de porcentaje de bateria</string>
+
+    <string name="clock_title">Reloj</string>
+    <string name="title_show_clock">Mostrar reloj</string>
+    <string name="title_clock_color">Color de reloj</string>
+
+    <string name="dp_title">Fecha y proveedor</string>
+    <string name="dp_summary">Modificaciones a fecha y proveedor</string>
+
+    <string name="date_title">Fecha</string>
+    <string name="title_date_color">Color de fecha</string>
+
+    <string name="plmn_title">Clave PLMN de proveedor</string>
+    <string name="title_show_plmn_ls">Mostrar PLMN (Pantalla de seguridad)</string>
+    <string name="summary_on_show_plmn_ls">Clave PLMN es mostrada en pantalla segura</string>
+    <string name="summary_off_show_plmn_ls">Clave PLMN no es mostrada en pantalla segura</string>
+    <string name="title_show_plmn_sb">Mostrar PLMN (barra de status)</string>
+    <string name="summary_on_show_plmn_sb"> Clave PLMN es mostrada en pantalla segura</string>
+    <string name="summary_off_show_plmn_sb"> Clave PLMN no es mostrada en pantalla segura</string>
+    <string name="title_plmn_label_color">Color de fuente PMLN</string>
+
+    <string name="spn_title">Configuracion para red SPN</string>
+    <string name="title_show_spn_ls">Mostrar SPN (pantalla segura)</string>
+    <string name="summary_on_show_spn_ls">Registro SPN es mostrado en pantalla segura</string>
+    <string name="summary_off_show_spn_ls">Registro SPN no es mostrado en pantalla segura </string>
+    <string name="title_show_spn_sb">Mostrar SPN (barra de status)</string>
+    <string name="summary_on_show_spn_sb">Registro SPN es mostrado en barra de status</string>
+    <string name="summary_off_show_spn_sb">Registro SPN no es mostrado en barra de status </string>
+    <string name="title_spn_label_color">Color de Registro SPN</string>
+
+    <string name="title_notifications_sb">Notificaciones de barra de status</string>
+    <string name="title_notifications_color_tweaks">Color de notificaciones</string>
+    <string name="summary_notifications_color_tweaks">Alertas de notificaciones, notificaciones activas, ultimas notificaciones, borrar notificaciones, etc.</string>
+    <string name="title_notifications_ticker_color">Color de alerta de notificaciones</string>
+    <string name="title_notifications_count_color">Color de numero de alertas de notificaciones</string>
+    <string name="title_no_notifications_color">Sin color de titulo de notificaciones</string>
+    <string name="title_clear_button_label_color">Borrar color de titulo de notificaciones</string>
+    <string name="title_ongoing_notifications_color">Color de titulo de notificaciones activas</string>
+    <string name="title_latest_notifications_color">Color de titulo de ulimas notificaciones</string>
+    <string name="title_notifications_items">Notificacion de articulos</string>
+    <string name="title_notifications_items_title">Color de titulo de articulos</string>
+    <string name="title_notifications_items_text">Color de texto de articulos</string>
+    <string name="title_notifications_items_time">Color de hora de articulos</string>
+
+    <string name="lockscreen_settings_title">Configuracion de pagina segura</string>
+    <string name="pref_lockscreen_music_controls_title">Controles de musica en pantalla segura</string>
+    <string name="pref_lockscreen_music_controls_summary">Mostrar controles de musica en pagina segura</string>
+    <string name="pref_lockscreen_always_music_controls_title">Siempre mostrar controles en pagina segura</string>
+    <string name="pref_lockscreen_always_music_controls_summary">Siempre mostrar controles de musica en pantalla segura con musica o sin musica</string>
+
+    <string name="software">Software</string>
+
+    <string name="rom_infos_title">Informacion de ROM</string>
+    <string name="rom_infos_summary">Nombre de Rom, version de sistema y armador</string>
+    <string name="infos">Infos</string>
+    <string name="device">Unidad</string>
+    <string name="name_version">Nombre / Version / Parche</string>
+    <string name="system_build">Sistema / Armador / Huella Digital</string>
+    <string name="kernel">Kernel</string>
+    <string name="bootloader_radio">Bootloader / Radio</string>
+    <string name="updates">Updates</string>
+    <string name="updates_title">Checar versiones mas nuevas</string>
+    <string name="updates_summary">Haga click para checar</string>
+
+    <string name="quick_commands_title">Comandos rapidos</string>
+    <string name="quick_commands_summary">Reiniciar &amp; Comandos para remontar</string>
+    <string name="shutdown_title">Apagar</string>
+    <string name="shutdown_summary"> Apagado normal</string>
+    <string name="reboot_title">Reiniciar</string>
+    <string name="reboot_summary"> Reinicio normal</string>
+    <string name="reboot_recovery_title">Reiniciar recuperacion</string>
+    <string name="reboot_recovery_summary">Reiniciar en modo de recuperacion</string>
+    <string name="reboot_bootloader_title">Reiniciar gestor de arranque</string>
+    <string name="reboot_bootloader_summary">Reiniciar en gestor de arranque</string>
+    <string name="remount_sys">Remontar /system</string>
+    <string name="remount_rw_title">Leer-Escribir</string>
+    <string name="remount_rw_summary">Remontar /system con permisos L-E </string>
+    <string name="remount_ro_title">Solo leer</string>
+    <string name="remount_ro_summary">Remontar /system con permisos de solo leers</string>
+
+    <string name="tweaks_title">Modificaciones</string>
+    <string name="tweaks_summary">Modificaciones avanzadas</string>
+    <string name="stock">De fabrica</string>
+    <string name="stock_a2sd_title">App2SD de fabrica</string>
+    <string name="stock_a2sd_summary">Elegir donde instalar aplicaciones</string>
+    <string name="select_option">Seleccionar una opcion</string>
+    <string name="trackball">Esfera de notificaciones</string>
+    <string name="pulse_title">Pulsar cuando pantalla este encendida</string>
+    <string name="pulse_summary_on">Esfera con pulso</string>
+    <string name="pulse_summary_off">Esfera no pulsarae</string>
+    <string name="wake_title">Despertar con esfera</string>
+    <string name="wake_summary_on">Esfera despierta unidad</string>
+    <string name="wake_summary_off">Esfera no hace nada</string>
+    <string name="unlock_title">Esfera activa unidad</string>
+    <string name="unlock_summary_on">Esfera despiera y active unidad</string>
+    <string name="unlock_summary_off">Esfera no activa</string>
+    <string name="hang_title">Esfera termina llamada</string>
+    <string name="hang_summary_on">Esfera cuelga llamada</string>
+    <string name="hang_summary_off">Esfera no cuelga llamada</string>
+    <string name="scripts">Scripts</string>
+    <string name="uisounds_title">Desactivar sonidos UI</string>
+    <string name="uisounds_summary_on">Sonidos UI desactivados</string>
+    <string name="uisounds_summary_off">Sonidos UI activados</string>
+    <string name="fixperms_title">Arreglar permisos</string>
+    <string name="fixperms_summary">Puede ayudar con cierre de aplicaciones</string>
+    <string name="fixmarket_title">Forzar resincronizacion con mercado</string>
+    <string name="fixmarket_summary">Forzar al Mercado a resincronizar aplicaciones</string>
+
+    <string name="ui_title">Interfase de usuario</string>
+    <string name="ui_summary">Sumario de interfase</string>
+    <string name="status_bar">Barra de status</string>
+    <string name="battery_percent_title">Porcentaje de bateria</string>
+    <string name="battery_percent_on">Porcentaje de bateria activada</string>
+    <string name="battery_percent_off">Porcentaje de bateria desactivada</string>
+    <string name="hide_clock_title">Esconder reloj</string>
+    <string name="hide_clock_on"> Reloj escondido</string>
+    <string name="hide_clock_off"> Reloj visible</string>
+    <string name="hide_ampm_title">Esconder AM/PM en reloj</string>
+    <string name="hide_ampm_on"> AM/PM esta escondido</string>
+    <string name="hide_ampm_off"> AM/PM esta visible</string>
+    <string name="wysie_colors_title">Colores Wysie\'s</string>
+    <string name="wysie_colors_summary">Cambiar los colores en barra de status</string>
+    <string name="lockscreen">Pantalla Segura</string>
+    <string name="rotation">Rotacion</string>
+    <string name="rotation_90">90 grados</string>
+    <string name="rotation_180">180 grados</string>
+    <string name="rotation_270">270 grados</string>
+    <string name="other">Otros</string>
+    <string name="power_prompt_title">Alerta de Apagado</string>
+    <string name="power_prompt_summary"> Cambiar si es que hay una alerta al apagar o reiniciar</string>
+
+    <string name="apps_addons_title">Aplicaciones &amp; adicionales</string>
+    <string name="apps_addons_summary">Aumentar experiencia de usuario</string>
+    <string name="stock_apps_title">Aplicaciones de fabrica</string>
+    <string name="stock_apps_summary">Aplicaciones de fabrica que (solo) se pueden remover</string>
+    <!-- apps? installed/removed -->
+    <string name="addons">Adicionales</string>
+    <string name="bootanimation_title">Animacion de arranque</string>
+    <string name="bootanimation_summary"> Cambiar animacion de arranque</string>
+    <!-- apps? installed/removed -->
+    <string name="install_market"> Instalar del mercado</string>
+    <string name="about_title">Sobre</string>
+    <string name="about_summary">Respecto a modificaciones</string>
+    <string name="about_version">Version</string>
+    <string name="about_author">Autor</string>
+    <string name="about_donate">Donar</string>
+    <string name="donate">Donar via PayPal</string>
+    <string name="thanks_title">Gracias a</string>
+    <string name="about_addons">Las aplicaciones y adiciones no son creadas por mi, y el credito va a los armadores</string>
+    <string name="about_sources">Fuentes</string>
+
+    <string name="hardware">Equipo</string>
+
+    <string name="data_storage_title">Opciones de almacenamiento</string>
+    <string name="data_storage_summary">Almacenaje, App2SD, Dalvik-Cache &amp; mas</string>
+    <string name="storage_sizes">Tamano de almacenamiento</string>
+    <string name="refresh_storage">Refrescar datos de almacenaje</string>
+    <string name="a2sd_dalvik">App2SD / Dalvik-Cache</string>
+    <string name="a2sd_title">Viejo App2SD</string>
+    <string name="a2sd_summary_on"> Viejo App2SD activado</string>
+    <string name="a2sd_summary_off"> Viejo App2SD desactivado</string>
+    <string name="dalvik_title">Dalvik-Cache en SDCard</string>
+    <string name="dalvik_summary_on"> Dalvik-Cache en SDCard</string>
+    <string name="dalvik_summary_off"> Dalvik-Cache en /data</string>
+    <string name="data_title">Informacion en SDCard</string>
+    <string name="data_summary_on"> Informacion en SDCard</string>
+    <string name="data_summary_off"> Informacion en /system</string>
+    <string name="media_title">Medios en SDCard</string>
+    <string name="media_summary_on"> System/media en SDCard</string>
+    <string name="media_summary_off"> System/media en /system</string>
+
+    <string name="warning">Advertencia</string>
+    <string name="warning_root">No tiene permisos de raiz</string>
+    <string name="warning_busybox">No tiene busybox instalado</string>
+    <string name="shuting_down">Apagando...</string>
+    <string name="rebooting">Reiniciando...</string>
+    <string name="remounting">Remontando...</string>
+    <string name="fixing_permissions">Arreglando permisos...</string>
+    <string name="fixing_market">Forzando Mercado a resincronizar...</string>
+    <string name="activating_ui_sounds">Activar sonidos UI...</string>
+    <string name="deactivating_ui_sounds">Desactivar sonidos UI...</string>
+    <string name="should_reboot">Tiene que reiniciar para que los cambios se activen</string>
+    <string name="downloading_installing">Bajando he instalando</string>
+    <string name="third_part_apps">Tiene que activar aplicaciones de terceros</string>
+    <string name="removing">Removiendo</string>
+    <string name="error">Error</string>
+    <string name="download_install_error">Baja he isntalacion a sido terminada inesperadamente!</string>
+    <string name="reboot_requiered">Reinicio necesario.  Quier reiniciar ahora?</string>
+    <string name="confirm">Confirma</string>
+    <string name="sure_remove">Esta seguro que quiere remover?</string>
+    <string name="used_out_of">Usados de</string>
+    <string name="unavailable">No disponibles</string>
+
+    <string name="low_class_sdcard">Con una tarjeta SDCard de baja clase, su teléfono podría volverse lento...</string>
+    <string name="have_a_good_one">Tengo una rapida</string>
+    <string name="move_sdcard">Moviendo a SDCard...</string>
+    <string name="move_phone">Restaurando la unidad...</string>
+
+    <string name="check_latest_update">Checando por ultima version de ROM y parches...</string>
+    <string name="leo_updater">Actualizador de Leo</string>
+    <string name="rom_uptodate">Su Rom (%b%) esta al corriente!</string>
+    <string name="rom_outdated">Su ROM (%b%) is OUTDATED!\nA new version is available: %B%</string>
+    <string name="patch_available">You ROM (%b%) es anticuado, pero un Nuevo parche esta disponible: %P%\n\nEste parche podria necesitar mucha transferencia. Prefiere WiFi sobre red mobil?.</string>
+    <string name="grab_it">Vamos a actualizar</string>
+    <string name="dont_care">No me importa</string>
+    <string name="getting_patch">Bajando parche #</string>
+    <string name="latest">Mas Actuales</string>
+    <string name="would_be_proud">Usted esta actualizado. Leo esta orgullozo!</string>
+    <string name="like_to_upgrade">Le gustaria actualizar?\n\nEsto bajara he instalara el ROMM. No se olvide de hacer un nanbackup antes de proseguir.\n\nEste parche podria necesitar mucha transferencia. Prefiere WiFi sobre red mobil?</string>
+    <string name="yeah">Claro que si!</string>
+    <string name="not_now">Ahora no</string>
+    <string name="downloading">Bajando</string>
+    <string name="downloading_upgrade">Cuando temine de bajar, no olvidar de reiniciar el actualizador de version.</string>
+    <string name="will_flash">Esta descarga sera bajada y reiniciara el sistema.</string>
+    <string name="calc_md5">Checando el MD5 checksum...</string>
+    <string name="bad_md5">MD5 checksum incorrecto. Favor de bajar la actualizacion de nuevo.</string>
+    <string name="h_icon_title">Icono 3G+H</string>
+    <string name="h_icon_on"> Mostrar icono H</string>
+    <string name="h_icon_off"> Solo el icono 3G sera mostrado</string>
+
+    <string name="pref_render_effect_title">Efectos de rendimiento</string>
+    <string name="pref_render_effect_summary">Cambiar los colores que son usados para mostrar la pantalla (Podria ayudar con vida de la bateria)</string>
+    <string name="status_bar_content_title">Elementos de barra de status</string>
+    <string name="title_show_dbm">Mostrar dBm</string>
+    <string name="show_dbm_on">Fuerza de señal es mostrada en la barra de status</string>
+    <string name="show_dbm_off">Fuerza de señal no es mostrada en la barra de status </string>
+    <string name="title_dbm_color">Color dBm</string>
+
+    <string name="about_disclamer_title">Informacion importante</string>
+    <string name="about_disclamer_summary">Leoparts no es responsable de cualquier daño causado a la unidad</string>
+
 </resources>
+

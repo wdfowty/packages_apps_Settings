@@ -2545,6 +2545,7 @@ found in the list of installed applications.</string>
     <string name="repo_rom_url">http://android.shk-desktop.com/</string>
     <string name="repo_addons_url">http://android.shk-desktop.com/LeoParts/</string>
     <string name="repo_patch_url">http://android.shk-desktop.com/LeoParts/patch/</string>
+    <string name="version_file">version</string>
 
     <string name="launcher_settings_title">ADWLauncher</string>
 
@@ -2787,5 +2788,7 @@ found in the list of installed applications.</string>
 
     <string name="about_disclamer_title">Disclamer</string>
     <string name="about_disclamer_summary">LeoParts cannot be reponsable for bad things appening to your device, you are.</string>
+
+    <string name="settings_close">Settings might close by itself. If so, reboot manually for the patch to take effect.</string>
 
 </resources>
