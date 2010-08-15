@@ -55,6 +55,8 @@ import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
 import android.view.IWindowManager;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.text.format.Formatter;
 import android.widget.Toast;
 
@@ -90,6 +92,7 @@ public class LeoParts extends PreferenceActivity
     private static final String REMOUNT_RW = "mount -o rw,remount -t yaffs2 /dev/block/mtdblock3 /system";
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
+    private static final String ADB_PORT = "5555";
     private static String REPO_ROM;
     private static String REPO_ADDONS;
     private static String REPO_PATCH;
@@ -121,6 +124,8 @@ public class LeoParts extends PreferenceActivity
     private Preference mRemountROPref;
 
     // Tweaks
+    private static final String ADB_WIFI_PREF = "adb_wifi";
+    private CheckBoxPreference mAdbWifiPref;
     private static final String APP2SD_PREF = "app2sd";
     private ListPreference mApp2sdPref;
     private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
@@ -424,6 +429,8 @@ public class LeoParts extends PreferenceActivity
 	 *  Tweaks
 	 */
 
+	mAdbWifiPref = (CheckBoxPreference) prefSet.findPreference(ADB_WIFI_PREF);
+	mAdbWifiPref.setOnPreferenceChangeListener(this);
 	mApp2sdPref = (ListPreference) prefSet.findPreference(APP2SD_PREF);
 	mApp2sdPref.setOnPreferenceChangeListener(this);
 	mPulseScreenOnPref = (CheckBoxPreference) prefSet.findPreference(PULSE_SCREEN_ON_PREF);
@@ -722,11 +729,43 @@ public class LeoParts extends PreferenceActivity
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-	if (preference == mApp2sdPref) {
+	if (preference == mAdbWifiPref) {
+	    boolean have = mAdbWifiPref.isChecked();
+	    if (!have) {
+		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+		String ipAddress = null;
+		if (wifiInfo != null) {
+		    long addr = wifiInfo.getIpAddress();
+		    if (addr != 0) {
+			// handle negative values whe first octet > 127
+			if (addr < 0) addr += 0x100000000L;
+			ipAddress = String.format("%d.%d.%d.%d", addr & 0xFF, (addr >> 8) & 0xFF, (addr >> 16) & 0xFF, (addr >> 24) & 0xFF);
+		    }
+		}
+		String[] commands = {
+		    "setprop service.adb.tcp.port " + ADB_PORT,
+		    "stop adbd",
+		    "start adbd"
+		};
+		sendshell(commands, false,
+			  getResources().getString(R.string.adb_instructions_on)
+			  .replaceFirst("%ip%", ipAddress)
+			  .replaceFirst("%P%", ADB_PORT));
+	    } else {
+		String[] commands = {
+		    "setprop service.adb.tcp.port -1",
+		    "stop adbd",
+		    "start adbd"
+		};
+		sendshell(commands, false, getResources().getString(R.string.adb_instructions_off));
+	    }
+	}
+	else if (preference == mApp2sdPref) {
 	    String[] commands = {
 		"pm setInstallLocation " + objValue
 	    };
-	    sendshell(commands, false, "Activating stock app2sd...");
+	    sendshell(commands, false, getResources().getString(R.string.activate_stock_a2sd));
 	}
 	else if (preference == mUiSoundsPref) {
 	    String[] commands = { "nouisounds" };

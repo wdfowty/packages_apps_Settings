@@ -2799,7 +2799,14 @@ found in the list of installed applications.</string>
     <string name="recent_apps_num_title">Number of recent apps</string>
     <string name="recent_apps_num_summary">Number of recent apps to display on long press home</string>
 
-    <string name="adb_wifi_title">ADB Wireless</string>
-    <string name="adb_wifi_summary">Starts the adb daemon for wireless access</string>
+    <string name="adb_wifi_title">ADB wireless mode</string>
+    <string name="adb_wifi_summary_on">ADB daemon started in wireless mode</string>
+    <string name="adb_wifi_summary_off">ADB daemon started in usb mode</string>
+    <string name="activate_stock_a2sd">Activating stock app2sd...</string>
+    <string name="adb_wifi_on">Starting ADB in wireless mode...</string>
+    <string name="adb_wifi_off">Starting ADB in usb mode...</string>
+    <string name="instructions">Instructions</string>
+    <string name="adb_instructions_on">Your computer and device must be on the same network.\n\nYou also have to start adb in wireless mode from your computer, run:\n$ adb connect %ip%:%P%</string>
+    <string name="adb_instructions_off">You must plug the usb to get adb access from your computer.\n\nYou also have to restart adb in usb mode from your computer, run:\n$ adb usb</string>
 
 </resources>

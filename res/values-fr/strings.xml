@@ -1352,7 +1352,14 @@
     <string name="recent_apps_num_title">Nombre d\'applications récentes</string>
     <string name="recent_apps_num_summary">Nombre d\'applications à afficher lors de la pression longue sur la Maison</string>
 
-    <string name="adb_wifi_title">ADB Sans-fil</string>
-    <string name="adb_wifi_summary">Démarre le service ADB en mode sans-fil</string>
+    <string name="adb_wifi_title">ADB en mode sans-fil</string>
+    <string name="adb_wifi_summary_on">ADB est démarré en mode sans-fil</string>
+    <string name="adb_wifi_summary_off">ADB est démarré en mode usb</string>
+    <string name="activate_stock_a2sd">Activation de l\'app2sd d\'origine...</string>
+    <string name="adb_wifi_on">Démarrage du service ADB en mode sans-fil...</string>
+    <string name="adb_wifi_off">Démarrage du service ADB en mode usb...</string>
+    <string name="instructions">Instructions</string>
+    <string name="adb_instructions_on">Votre ordinateur et votre périphérique doivent être sur le même réseau.\n\n Vous devez aussi démarrer adb en mode sans-fil depuis votre ordinateur, lancez:\n$ adb tcpip %p%</string>
+    <string name="adb_instructions_off">Vous devez brancher l\'usb pour avoir adb depuis votre ordinateur.\n\nVous devez aussi redémarrer adb sur votre ordinateur en mode usb, lancez:\n$ adb usb</string>
 
 </resources>

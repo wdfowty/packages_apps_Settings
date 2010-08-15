@@ -137,11 +137,11 @@
       <PreferenceCategory
 	 android:title="@string/stock">
 
-	<PreferenceScreen
+	<CheckBoxPreference
 	   android:key="adb_wifi"
 	   android:title="@string/adb_wifi_title"
-	   android:summary="@string/adb_wifi_summary">
-	</PreferenceScreen>
+	   android:summaryOn="@string/adb_wifi_summary_on"
+	   android:summaryOff="@string/adb_wifi_summary_off" />
 
 	<ListPreference
 	   android:key="app2sd"
