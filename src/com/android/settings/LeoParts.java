@@ -193,6 +193,8 @@ public class LeoParts extends PreferenceActivity
     private static final String ROTATION_270_PREF = "rotation_270";
     private CheckBoxPreference mRotation270Pref;
 
+    private static final String RECENT_APPS_NUM_PREF= "pref_recent_apps_num";
+    private ListPreference mRecentAppsNumPref;
     private static final String RENDER_EFFECT_PREF = "pref_render_effect";
     private ListPreference mRenderEffectPref;
     private static final String POWER_PROMPT_PREF = "power_prompt";
@@ -513,6 +515,14 @@ public class LeoParts extends PreferenceActivity
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
+	mRecentAppsNumPref = (ListPreference) prefSet.findPreference(RECENT_APPS_NUM_PREF);
+	mRecentAppsNumPref.setOnPreferenceChangeListener(this);
+	try {
+	    int value = Settings.System.getInt(getContentResolver(), Settings.System.RECENT_APPS_NUMBER);
+	    mRecentAppsNumPref.setValue(Integer.toString(value));
+	} catch (SettingNotFoundException e) {
+	    mRecentAppsNumPref.setValue("8");
+	}
 	mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
 	mRenderEffectPref.setOnPreferenceChangeListener(this);
 	updateFlingerOptions();
@@ -848,6 +858,13 @@ public class LeoParts extends PreferenceActivity
 	    return activate2sd(mMedia2sdPref, "media2sd");
 	else if (preference == mSwapPref)
 	    return activate2sd(mSwapPref, "compcache");
+	else if (preference == mRecentAppsNumPref) {
+	    try {
+		int value = Integer.parseInt(objValue.toString());
+		Settings.System.putInt(getContentResolver(), Settings.System.RECENT_APPS_NUMBER, value);
+	    } catch (NumberFormatException e) {
+	    }
+	}
 	else
 	    Log.e(TAG, "PreferenceChange: This element have no defined action!");
 

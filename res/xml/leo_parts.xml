@@ -137,6 +137,12 @@
       <PreferenceCategory
 	 android:title="@string/stock">
 
+	<PreferenceScreen
+	   android:key="adb_wifi"
+	   android:title="@string/adb_wifi_title"
+	   android:summary="@string/adb_wifi_summary">
+	</PreferenceScreen>
+
 	<ListPreference
 	   android:key="app2sd"
 	   android:title="@string/stock_a2sd_title"
@@ -175,6 +181,24 @@
 	   android:title="@string/hang_title"
 	   android:summaryOn="@string/hang_summary_on"
 	   android:summaryOff="@string/hang_summary_off" />
+
+      </PreferenceCategory>
+
+      <PreferenceCategory
+	 android:title="@string/recent_apps">
+
+	<CheckBoxPreference
+           android:key="pref_show_recent_apps_title"
+           android:title="@string/recent_apps_show_title"
+           android:defaultValue="true" />
+
+	<ListPreference
+           android:key="pref_recent_apps_num"
+           android:title="@string/recent_apps_num_title"
+           android:summary="@string/recent_apps_num_summary"
+           android:entries="@array/entries_recent_apps_num"
+           android:entryValues="@array/entries_recent_apps_num"
+           android:dialogTitle="@string/select_option" />
 
       </PreferenceCategory>
 

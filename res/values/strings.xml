@@ -2794,4 +2794,12 @@ found in the list of installed applications.</string>
     <string name="compcache_summary_on">SWAP is used</string>
     <string name="compcache_summary_off">SWAP is not used</string>
 
+    <string name="recent_apps">Recent apps</string>
+    <string name="recent_apps_show_title">Show recent apps title</string>
+    <string name="recent_apps_num_title">Number of recent apps</string>
+    <string name="recent_apps_num_summary">Number of recent apps to display on long press home</string>
+
+    <string name="adb_wifi_title">ADB Wireless</string>
+    <string name="adb_wifi_summary">Starts the adb daemon for wireless access</string>
+
 </resources>
