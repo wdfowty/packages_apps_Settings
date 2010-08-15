@@ -269,7 +269,10 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mData2sdPref;
     private static final String MEDIA2SD_PREF = "media2sd_opt";
     private CheckBoxPreference mMedia2sdPref;
+    private static final String SWAP_PREF = "compcache_opt";
+    private CheckBoxPreference mSwapPref;
     private boolean extfsIsMounted = false;
+    private boolean swapfsIsMounted = false;
 
     public ProgressDialog patience = null;
     final Handler mHandler = new Handler();
@@ -308,6 +311,13 @@ public class LeoParts extends PreferenceActivity
 	    }
 	} else {
 	    Log.i(TAG, "a2sd: ext partition not found");
+	}
+	// swap check
+	if (fileExists("/dev/block/ramzswap0") == true) {
+	    Log.i(TAG, "swap: swap partition mouted");
+	    swapfsIsMounted = true;
+	} else {
+	    Log.i(TAG, "swap: swap partition not mounted");
 	}
 	// request root access and ensure the dir exists
 	String[] commands = { "busybox mkdirp -p /data/local/tmp" };
@@ -668,6 +678,10 @@ public class LeoParts extends PreferenceActivity
 	mMedia2sdPref.setOnPreferenceChangeListener(this);
 	mMedia2sdPref.setEnabled(extfsIsMounted);
 	mMedia2sdPref.setChecked(fileExists("/system/sd/media"));
+	mSwapPref      = (CheckBoxPreference) prefSet.findPreference(SWAP_PREF);
+	mSwapPref.setOnPreferenceChangeListener(this);
+	mSwapPref.setEnabled(swapfsIsMounted);
+	// mSwapPref.setChecked(?); // HowTo know?
 
 	mSystemSize        = (Preference) prefSet.findPreference(SYSTEM_PART_SIZE);
 	mDataSize          = (Preference) prefSet.findPreference(DATA_PART_SIZE);
@@ -761,7 +775,6 @@ public class LeoParts extends PreferenceActivity
 	    if (preference == mRotation180Pref) mode += 2;
 	    if (preference == mRotation270Pref) mode += 4;
 	    Settings.System.putInt(getContentResolver(), Settings.System.ACCELEROMETER_ROTATION_MODE, mode);
-	    toast(getResources().getString(R.string.should_reboot));
 	}
 	else if (preference == mRenderEffectPref)
 	    writeRenderEffect(Integer.valueOf(objValue.toString()));
@@ -833,6 +846,8 @@ public class LeoParts extends PreferenceActivity
 	    return activate2sd(mData2sdPref, "data2sd");
 	else if (preference == mMedia2sdPref)
 	    return activate2sd(mMedia2sdPref, "media2sd");
+	else if (preference == mSwapPref)
+	    return activate2sd(mSwapPref, "compcache");
 	else
 	    Log.e(TAG, "PreferenceChange: This element have no defined action!");
 

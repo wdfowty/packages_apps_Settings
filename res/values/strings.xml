@@ -2790,5 +2790,8 @@ found in the list of installed applications.</string>
     <string name="about_disclamer_summary">LeoParts cannot be reponsable for bad things appening to your device, you are.</string>
 
     <string name="settings_close">Settings might close by itself. If so, reboot manually for the patch to take effect.</string>
+    <string name="compcache_title">Activate SWAP</string>
+    <string name="compcache_summary_on">SWAP is used</string>
+    <string name="compcache_summary_off">SWAP is not used</string>
 
 </resources>

@@ -660,6 +660,12 @@
 
       </PreferenceCategory>
 
+      <CheckBoxPreference
+	 android:key="compcache_opt"
+	 android:title="@string/compcache_title"
+	 android:summaryOn="@string/compcache_summary_on"
+	 android:summaryOff="@string/compcache_summary_off"/>
+
     </PreferenceScreen>
 
   </PreferenceCategory>

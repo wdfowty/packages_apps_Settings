@@ -1343,5 +1343,8 @@
     <string name="about_disclamer_summary">LeoParts ne peut être responsable de ce qui arriverait à votre appareil, vous l\'êtes.</string>
 
     <string name="settings_close">Paramêtres pourrait se fermer tout seul. Si tel est le cas, redémarrez manuellement afin d\'appliquer le correctif.</string>
+    <string name="compcache_title">Activer la SWAP</string>
+    <string name="compcache_summary_on">La SWAP est activée</string>
+    <string name="compcache_summary_off">La SWAP est désactivée</string>
 
 </resources>
