@@ -1348,7 +1348,7 @@
     <string name="compcache_summary_off">La SWAP est désactivée</string>
 
     <string name="recent_apps">Applications récentes</string>
-    <string name="recent_apps_show_title">Afficher le titre des applications récentes</string>
+    <string name="recent_apps_show_title">Masquer le titre des applications récentes</string>
     <string name="recent_apps_num_title">Nombre d\'applications récentes</string>
     <string name="recent_apps_num_summary">Nombre d\'applications à afficher lors de la pression longue sur la Maison</string>
 

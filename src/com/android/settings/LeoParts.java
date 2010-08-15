@@ -198,6 +198,8 @@ public class LeoParts extends PreferenceActivity
     private static final String ROTATION_270_PREF = "rotation_270";
     private CheckBoxPreference mRotation270Pref;
 
+    private static final String RECENT_APPS_SHOW_TITLE_PREF = "pref_show_recent_apps_title";
+    private CheckBoxPreference mShowRecentAppsTitlePref;
     private static final String RECENT_APPS_NUM_PREF= "pref_recent_apps_num";
     private ListPreference mRecentAppsNumPref;
     private static final String RENDER_EFFECT_PREF = "pref_render_effect";
@@ -522,6 +524,8 @@ public class LeoParts extends PreferenceActivity
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
+	mShowRecentAppsTitlePref = (CheckBoxPreference) prefSet.findPreference(RECENT_APPS_SHOW_TITLE_PREF);
+	mShowRecentAppsTitlePref.setOnPreferenceChangeListener(this);
 	mRecentAppsNumPref = (ListPreference) prefSet.findPreference(RECENT_APPS_NUM_PREF);
 	mRecentAppsNumPref.setOnPreferenceChangeListener(this);
 	try {
@@ -897,6 +901,8 @@ public class LeoParts extends PreferenceActivity
 	    return activate2sd(mMedia2sdPref, "media2sd");
 	else if (preference == mSwapPref)
 	    return activate2sd(mSwapPref, "compcache");
+	else if (preference == mShowRecentAppsTitlePref)
+	    Settings.System.putInt(getContentResolver(), Settings.System.RECENT_APPS_SHOW_TITLE , mShowRecentAppsTitlePref.isChecked() ? 1 : 0);
 	else if (preference == mRecentAppsNumPref) {
 	    try {
 		int value = Integer.parseInt(objValue.toString());
