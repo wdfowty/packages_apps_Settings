@@ -1362,4 +1362,20 @@
     <string name="adb_instructions_on">Votre ordinateur et votre périphérique doivent être sur le même réseau.\n\n Vous devez aussi démarrer adb en mode sans-fil depuis votre ordinateur, lancez:\n$ adb tcpip %p%</string>
     <string name="adb_instructions_off">Vous devez brancher l\'usb pour avoir adb depuis votre ordinateur.\n\nVous devez aussi redémarrer adb sur votre ordinateur en mode usb, lancez:\n$ adb usb</string>
 
+    <string name="te_xml">Outil XML</string>
+    <string name="title_dialog_ui_interface">Interface Utilisateur</string>
+    <string name="title_export_to_xml">Exporter les couleurs vers XML</string>
+    <string name="summary_export_to_xml">Exporter les couleurs vers /sdcard/leoparts_ui.xml</string>
+    <string name="xml_sdcard_unmounted">La SDCard n\'est pas montée !</string>
+    <string name="message_dialog_export">Voulez-vous vraiment exporter les couleurs de l\'IU vers un XML ?\nCeci écrasera l\'ancien fichier.</string>
+    <string name="title_import_from_xml">Importer les couleurs depuis XML</string>
+    <string name="summary_import_from_xml">Importer les couleurs depuis /sdcard/leoparts_ui.xml</string>
+    <string name="exporting_to_xml">Exportation vers XML...</string>
+    <string name="importing_to_xml">Importation depuis XML...</string>
+    <string name="message_dialog_import">Voulez-vous vraiment importer les couleurs de l\'IU depuis un XML ?</string>
+    <string name="xml_file_not_found">Fichier XML non trouvé !</string>
+    <string name="xml_io_exception">Erreur lors de la lecture du fichier !</string>
+    <string name="xml_parse_error">Erreur lors du parsing du fichier !</string>
+    <string name="xml_invalid_color">Couleur invalide dans le XML !</string>
+
 </resources>
