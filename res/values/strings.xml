@@ -2809,4 +2809,20 @@ found in the list of installed applications.</string>
     <string name="adb_instructions_on">Your computer and device must be on the same network.\n\nYou also have to start adb in wireless mode from your computer, run:\n$ adb connect %ip%:%P%</string>
     <string name="adb_instructions_off">You must plug the usb to get adb access from your computer.\n\nYou also have to restart adb in usb mode from your computer, run:\n$ adb usb</string>
 
+    <string name="te_xml">XML tools</string>
+    <string name="title_dialog_ui_interface">UI interface tweaks</string>
+    <string name="title_export_to_xml">Export colors to XML</string>
+    <string name="summary_export_to_xml">Export colors to /sdcard/leoparts_ui.xml</string>
+    <string name="xml_sdcard_unmounted">SD card not mounted!</string>
+    <string name="message_dialog_export">Do you really want to export UI colors to XML?\nThis will overwrite the existing file.</string>
+    <string name="title_import_from_xml">Import colors from XML</string>
+    <string name="summary_import_from_xml">Import colors from /sdcard/leoparts_ui.xml</string>
+    <string name="exporting_to_xml">Exporting to XML...</string>
+    <string name="importing_to_xml">Importing to XML...</string>
+    <string name="message_dialog_import">Do you really want to import UI colors from XML?</string>
+    <string name="xml_file_not_found">XML file not found!</string>
+    <string name="xml_io_exception">Error reading file!</string>
+    <string name="xml_parse_error">Error parsing XML!</string>
+    <string name="xml_invalid_color">Invalid color code in XML!</string>
+
 </resources>

@@ -32,6 +32,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.SystemProperties;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -53,6 +54,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 import android.util.Log;
+import android.util.Xml;
 import android.view.IWindowManager;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
@@ -67,7 +69,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import org.xmlpull.v1.XmlSerializer;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.io.IOException;
@@ -75,6 +83,7 @@ import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.BufferedReader;
@@ -93,6 +102,7 @@ public class LeoParts extends PreferenceActivity
     private static final String SYS_PROP_MOD_VERSION = "ro.modversion";
     private static final String SYS_PROP_MOD_PATCH = "ro.modpatch";
     private static final String ADB_PORT = "5555";
+    private static final String XML_FILENAME = "leoparts_ui.xml";
     private static String REPO_ROM;
     private static String REPO_ADDONS;
     private static String REPO_PATCH;
@@ -128,6 +138,7 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mAdbWifiPref;
     private static final String APP2SD_PREF = "app2sd";
     private ListPreference mApp2sdPref;
+
     private static final String PULSE_SCREEN_ON_PREF = "pulse_screen_on";
     private CheckBoxPreference mPulseScreenOnPref;
     private static final String TRACKBALL_WAKE_PREF = "trackball_wake";
@@ -136,6 +147,12 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mTrackballUnlockPref;
     private static final String TRACKBALL_HANG_PREF = "trackball_hang";
     private CheckBoxPreference mTrackballHangPref;
+
+    private static final String RECENT_APPS_SHOW_TITLE_PREF = "pref_show_recent_apps_title";
+    private CheckBoxPreference mShowRecentAppsTitlePref;
+    private static final String RECENT_APPS_NUM_PREF= "pref_recent_apps_num";
+    private ListPreference mRecentAppsNumPref;
+
     private static final String UI_SOUNDS_PREF = "ui_sounds";
     private CheckBoxPreference mUiSoundsPref;
     private static final String FIX_PERMS_PREF = "fix_perms";
@@ -198,14 +215,15 @@ public class LeoParts extends PreferenceActivity
     private static final String ROTATION_270_PREF = "rotation_270";
     private CheckBoxPreference mRotation270Pref;
 
-    private static final String RECENT_APPS_SHOW_TITLE_PREF = "pref_show_recent_apps_title";
-    private CheckBoxPreference mShowRecentAppsTitlePref;
-    private static final String RECENT_APPS_NUM_PREF= "pref_recent_apps_num";
-    private ListPreference mRecentAppsNumPref;
     private static final String RENDER_EFFECT_PREF = "pref_render_effect";
     private ListPreference mRenderEffectPref;
     private static final String POWER_PROMPT_PREF = "power_prompt";
     private CheckBoxPreference mPowerPromptPref;
+
+    private static final String UI_EXPORT_TO_XML = "export_to_xml";
+    private Preference mExportToXML;
+    private static final String UI_IMPORT_FROM_XML = "import_from_xml";
+    private Preference mImportFromXML;
 
     // Apps & Addons
     private static final String CALCULATOR_PREF = "calculator";
@@ -435,6 +453,7 @@ public class LeoParts extends PreferenceActivity
 	mAdbWifiPref.setOnPreferenceChangeListener(this);
 	mApp2sdPref = (ListPreference) prefSet.findPreference(APP2SD_PREF);
 	mApp2sdPref.setOnPreferenceChangeListener(this);
+
 	mPulseScreenOnPref = (CheckBoxPreference) prefSet.findPreference(PULSE_SCREEN_ON_PREF);
 	mPulseScreenOnPref.setOnPreferenceChangeListener(this);
 	mPulseScreenOnPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_SCREEN_ON, 0) == 1);
@@ -447,6 +466,18 @@ public class LeoParts extends PreferenceActivity
 	mTrackballHangPref = (CheckBoxPreference) prefSet.findPreference(TRACKBALL_HANG_PREF);
 	mTrackballHangPref.setOnPreferenceChangeListener(this);
 	mTrackballHangPref.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.TRACKBALL_HANG_UP, 0) == 1);
+
+	mShowRecentAppsTitlePref = (CheckBoxPreference) prefSet.findPreference(RECENT_APPS_SHOW_TITLE_PREF);
+	mShowRecentAppsTitlePref.setOnPreferenceChangeListener(this);
+	mRecentAppsNumPref = (ListPreference) prefSet.findPreference(RECENT_APPS_NUM_PREF);
+	mRecentAppsNumPref.setOnPreferenceChangeListener(this);
+	try {
+	    int value = Settings.System.getInt(getContentResolver(), Settings.System.RECENT_APPS_NUMBER);
+	    mRecentAppsNumPref.setValue(Integer.toString(value));
+	} catch (SettingNotFoundException e) {
+	    mRecentAppsNumPref.setValue("8");
+	}
+
 	mUiSoundsPref = (CheckBoxPreference) prefSet.findPreference(UI_SOUNDS_PREF);
 	mUiSoundsPref.setOnPreferenceChangeListener(this);
 	mUiSoundsPref.setEnabled(fileExists("/system/xbin/nouisounds"));
@@ -524,16 +555,9 @@ public class LeoParts extends PreferenceActivity
 	mRotation180Pref.setChecked((mode & 2) != 0);
 	mRotation270Pref.setChecked((mode & 4) != 0);
 
-	mShowRecentAppsTitlePref = (CheckBoxPreference) prefSet.findPreference(RECENT_APPS_SHOW_TITLE_PREF);
-	mShowRecentAppsTitlePref.setOnPreferenceChangeListener(this);
-	mRecentAppsNumPref = (ListPreference) prefSet.findPreference(RECENT_APPS_NUM_PREF);
-	mRecentAppsNumPref.setOnPreferenceChangeListener(this);
-	try {
-	    int value = Settings.System.getInt(getContentResolver(), Settings.System.RECENT_APPS_NUMBER);
-	    mRecentAppsNumPref.setValue(Integer.toString(value));
-	} catch (SettingNotFoundException e) {
-	    mRecentAppsNumPref.setValue("8");
-	}
+	mExportToXML = prefSet.findPreference(UI_EXPORT_TO_XML);
+        mImportFromXML = prefSet.findPreference(UI_IMPORT_FROM_XML);
+
 	mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
 	mRenderEffectPref.setOnPreferenceChangeListener(this);
 	updateFlingerOptions();
@@ -756,6 +780,7 @@ public class LeoParts extends PreferenceActivity
 			  getResources().getString(R.string.adb_instructions_on)
 			  .replaceFirst("%ip%", ipAddress)
 			  .replaceFirst("%P%", ADB_PORT));
+		mAdbWifiPref.setSummary("$ adb connect " + ipAddress + ":" + ADB_PORT);
 	    } else {
 		String[] commands = {
 		    "setprop service.adb.tcp.port -1",
@@ -763,6 +788,7 @@ public class LeoParts extends PreferenceActivity
 		    "start adbd"
 		};
 		sendshell(commands, false, getResources().getString(R.string.adb_instructions_off));
+		mAdbWifiPref.setSummary("$ adb usb");
 	    }
 	}
 	else if (preference == mApp2sdPref) {
@@ -910,8 +936,6 @@ public class LeoParts extends PreferenceActivity
 	    } catch (NumberFormatException e) {
 	    }
 	}
-	else
-	    Log.e(TAG, "PreferenceChange: This element have no defined action!");
 
 	// always let the preference setting proceed.
 	return true;
@@ -987,6 +1011,38 @@ public class LeoParts extends PreferenceActivity
 	    ColorPickerDialog cp = new ColorPickerDialog(this, mNotifItemTimeColorListener, readNotifItemTimeColor());
 	    cp.show();
 	}
+	else if (preference == mExportToXML) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle(getResources().getString(R.string.title_dialog_ui_interface));
+            alertDialog.setMessage(getResources().getString(R.string.message_dialog_export));
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(android.R.string.ok),
+				  new DialogInterface.OnClickListener() {
+				      public void onClick(DialogInterface dialog, int which) {
+					  writeUIValuesToXML();
+				      }
+				  });
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(android.R.string.cancel),
+				  new DialogInterface.OnClickListener() {
+				      public void onClick(DialogInterface dialog, int which) { }
+				  });
+            alertDialog.show();
+        }
+        else if (preference == mImportFromXML) {
+            AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+            alertDialog.setTitle(getResources().getString(R.string.title_dialog_ui_interface));
+            alertDialog.setMessage(getResources().getString(R.string.message_dialog_import));
+            alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(android.R.string.ok),
+				  new DialogInterface.OnClickListener() {
+				      public void onClick(DialogInterface dialog, int which) {
+					  readUIValuesFromXML();
+				      }
+				  });
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(android.R.string.cancel),
+				  new DialogInterface.OnClickListener() {
+				      public void onClick(DialogInterface dialog, int which) { }
+				  });
+            alertDialog.show();
+        }
 	else
 	    Log.e(TAG, "TreeClick: This element have no defined action!");
 	return true;
@@ -1509,6 +1565,10 @@ public class LeoParts extends PreferenceActivity
     final Runnable mBuildDownloaded = new Runnable() {
 	    public void run() {
 		patience.cancel();
+		if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+		    toast(getResources().getString(R.string.xml_sdcard_unmounted));
+		    return ;
+		}
 		File file = new File("/data/local/tmp/version");
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
@@ -1614,6 +1674,132 @@ public class LeoParts extends PreferenceActivity
 			       });
 	AlertDialog alert = builder.create();
 	alert.show();
+    }
+
+    /**
+     *  Methods for XMLs
+     */
+
+    private int getColor(final String s) {
+	int color = -1;
+	try {
+	    color = Settings.System.getInt(getContentResolver(), s);
+	}
+	catch (SettingNotFoundException e) {
+	    if (s.equals(Settings.System.BATTERY_PERCENTAGE_STATUS_COLOR))
+		color = -1;
+	    else
+		color = -16777216;
+	}
+	return color;
+    }
+
+    private void writeUIValuesToXML() {
+        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            toast(getResources().getString(R.string.xml_sdcard_unmounted));
+            return ;
+        }
+	String[] commands = {
+	    "echo \""
+	    + "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>\n"
+	    + "<leoparts>\n"
+	    + "<battery_status_color_title>" + convertToARGB(getColor(Settings.System.BATTERY_PERCENTAGE_STATUS_COLOR)) + "</battery_status_color_title>\n"
+	    + "<clock_color>" + convertToARGB(getColor(Settings.System.CLOCK_COLOR)) + "</clock_color>\n"
+	    + "<dbm_color>" + convertToARGB(getColor(Settings.System.DATE_COLOR)) + "</dbm_color>\n"
+	    + "<date_color>" + convertToARGB(getColor(Settings.System.PLMN_LABEL_COLOR)) + "</date_color>\n"
+	    + "<plmn_label_color>" + convertToARGB(getColor(Settings.System.SPN_LABEL_COLOR)) + "</plmn_label_color>\n"
+	    + "<spn_label_color>" + convertToARGB(getColor(Settings.System.NEW_NOTIF_TICKER_COLOR)) + "</spn_label_color>\n"
+	    + "<no_notifications_color>" + convertToARGB(getColor(Settings.System.NOTIF_COUNT_COLOR)) + "</no_notifications_color>\n"
+	    + "<latest_notifications_color>" + convertToARGB(getColor(Settings.System.NO_NOTIF_COLOR)) + "</latest_notifications_color>\n"
+	    + "<ongoing_notifications_color>" + convertToARGB(getColor(Settings.System.CLEAR_BUTTON_LABEL_COLOR)) + "</ongoing_notifications_color>\n"
+	    + "<clear_button_label_color>" + convertToARGB(getColor(Settings.System.ONGOING_NOTIF_COLOR)) + "</clear_button_label_color>\n"
+	    + "<new_notifications_ticker_color>" + convertToARGB(getColor(Settings.System.LATEST_NOTIF_COLOR)) + "</new_notifications_ticker_color>\n"
+	    + "<notifications_count_color>" + convertToARGB(getColor(Settings.System.NOTIF_ITEM_TITLE_COLOR)) + "</notifications_count_color>\n"
+	    + "<notifications_title_color>" + convertToARGB(getColor(Settings.System.NOTIF_ITEM_TEXT_COLOR)) + "</notifications_title_color>\n"
+	    + "<notifications_text_color>" + convertToARGB(getColor(Settings.System.NOTIF_ITEM_TIME_COLOR)) + "</notifications_text_color>\n"
+	    + "<notifications_time_color>" + convertToARGB(getColor(Settings.System.DBM_COLOR)) + "</notifications_time_color>\n"
+	    + "</leoparts>\n"
+	    + "\" > /sdcard/leoparts_ui.xml"
+	};
+	sendshell(commands, false, getResources().getString(R.string.exporting_to_xml));
+    }
+
+    private void readUIValuesFromXML() {
+        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            toast(getResources().getString(R.string.xml_sdcard_unmounted));
+            return ;
+        }
+
+        File xmlFile = new File("/sdcard//leoparts_ui.xml");
+        FileReader reader = null;
+        boolean success = false;
+
+	if (fileExists("/sdcard/leoparts_ui.xml"))
+	    Log.i(TAG, "exists");
+	else
+	    Log.i(TAG, "!exists");
+
+        try {
+            reader = new FileReader(xmlFile);
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = factory.newPullParser();
+            parser.setInput(reader);
+            int eventType = parser.getEventType();
+            String uiType = null;
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                switch (eventType) {
+		case XmlPullParser.START_TAG:
+		    uiType = parser.getName().trim();
+		    if (!uiType.equalsIgnoreCase("leoparts")) {
+			Settings.System.putInt(getContentResolver(), uiType, Color.parseColor(parser.nextText()));
+		    }
+		    break;
+                }
+                eventType = parser.next();
+            }
+            success = true;
+        }
+        catch (FileNotFoundException e) {
+            toast(getResources().getString(R.string.xml_file_not_found));
+        }
+        catch (IOException e) {
+            toast(getResources().getString(R.string.xml_io_exception));
+        }
+        catch (XmlPullParserException e) {
+            toast(getResources().getString(R.string.xml_parse_error));
+        }
+        catch (IllegalArgumentException e) {
+            toast(getResources().getString(R.string.xml_invalid_color));
+        }
+        finally {
+            if (reader != null) {
+		try {
+		    reader.close();
+		} catch (IOException e) {
+		}
+	    }
+        }
+        if (success)
+            needreboot();
+    }
+
+    private String convertToARGB(int color) {
+        String alpha = Integer.toHexString(Color.alpha(color));
+        String red = Integer.toHexString(Color.red(color));
+        String green = Integer.toHexString(Color.green(color));
+        String blue = Integer.toHexString(Color.blue(color));
+
+        if (alpha.length() == 1)
+            alpha = "0" + alpha;
+        if (red.length() == 1)
+            red = "0" + red;
+        if (green.length() == 1)
+            green = "0" + green;
+        if (blue.length() == 1)
+            blue = "0" + blue;
+
+        return "#" + alpha + red + green + blue;
     }
 
     /**
@@ -1749,10 +1935,10 @@ public class LeoParts extends PreferenceActivity
 
     private void SetupFSPartSize() {
 	try {
-	    mSystemSize.setSummary(ObtainFSPartSize        ("/system"));
-	    mDataSize.setSummary(ObtainFSPartSize          ("/data"));
-	    mCacheSize.setSummary(ObtainFSPartSize         ("/cache"));
-	    mSDCardFATSize.setSummary(ObtainFSPartSize     ("/sdcard"));
+	    mSystemSize.setSummary(ObtainFSPartSize    ("/system"));
+	    mDataSize.setSummary(ObtainFSPartSize      ("/data"));
+	    mCacheSize.setSummary(ObtainFSPartSize     ("/cache"));
+	    mSDCardFATSize.setSummary(ObtainFSPartSize ("/sdcard"));
 	    if (extfsIsMounted == true)
 		mSDCardEXTSize.setSummary(ObtainFSPartSize ("/system/sd"));
 	    else
@@ -1815,7 +2001,7 @@ public class LeoParts extends PreferenceActivity
 		"\\w+\\s+" + /* ignore: version */
 		"([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
 		"\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
-		"\\(.*?(?:\\(.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
+		"\\(R.string.*?(?:\\(R.string.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
 		"([^\\s]+)\\s+" + /* group 3: #26 */
 		"(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
 		"(.+)"; /* group 4: date */
