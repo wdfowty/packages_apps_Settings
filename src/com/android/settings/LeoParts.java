@@ -347,7 +347,7 @@ public class LeoParts extends PreferenceActivity
 	    Log.i(TAG, "swap: swap partition not mounted");
 	}
 	// request root access and ensure the dir exists
-	String[] commands = { "busybox mkdirp -p /data/local/tmp" };
+	String[] commands = { "busybox mkdirp -p /data/local/tmp ; cp /sdcard/" + XML_FILENAME + " /data/local/tmp/" };
 	sendshell(commands, false, null);
 
 	/**
@@ -557,6 +557,7 @@ public class LeoParts extends PreferenceActivity
 
 	mExportToXML = prefSet.findPreference(UI_EXPORT_TO_XML);
         mImportFromXML = prefSet.findPreference(UI_IMPORT_FROM_XML);
+	mImportFromXML.setEnabled(fileExists("/data/local/tmp/" + XML_FILENAME));
 
 	mRenderEffectPref = (ListPreference) prefSet.findPreference(RENDER_EFFECT_PREF);
 	mRenderEffectPref.setOnPreferenceChangeListener(this);
@@ -1719,9 +1720,11 @@ public class LeoParts extends PreferenceActivity
 	    + "<notifications_text_color>" + convertToARGB(getColor(Settings.System.NOTIF_ITEM_TIME_COLOR)) + "</notifications_text_color>\n"
 	    + "<notifications_time_color>" + convertToARGB(getColor(Settings.System.DBM_COLOR)) + "</notifications_time_color>\n"
 	    + "</leoparts>\n"
-	    + "\" > /sdcard/leoparts_ui.xml"
+	    + "\" > /sdcard/" + XML_FILENAME,
+	    "cp /sdcard/" + XML_FILENAME + " /data/local/tmp/"
 	};
 	sendshell(commands, false, getResources().getString(R.string.exporting_to_xml));
+	mImportFromXML.setEnabled(true);
     }
 
     private void readUIValuesFromXML() {
@@ -1730,58 +1733,52 @@ public class LeoParts extends PreferenceActivity
             return ;
         }
 
-        File xmlFile = new File("/sdcard//leoparts_ui.xml");
-        FileReader reader = null;
-        boolean success = false;
-
-	if (fileExists("/sdcard/leoparts_ui.xml"))
-	    Log.i(TAG, "exists");
-	else
-	    Log.i(TAG, "!exists");
-
-        try {
-            reader = new FileReader(xmlFile);
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = factory.newPullParser();
-            parser.setInput(reader);
-            int eventType = parser.getEventType();
-            String uiType = null;
-
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                switch (eventType) {
+	File xmlFile = new File("/data/local/tmp/" + XML_FILENAME);
+	FileReader reader = null;
+	boolean success = false;
+	try {
+	    reader = new FileReader(xmlFile);
+	    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+	    XmlPullParser parser = factory.newPullParser();
+	    parser.setInput(reader);
+	    int eventType = parser.getEventType();
+	    String uiType = null;
+	    while (eventType != XmlPullParser.END_DOCUMENT) {
+		switch (eventType) {
 		case XmlPullParser.START_TAG:
 		    uiType = parser.getName().trim();
-		    if (!uiType.equalsIgnoreCase("leoparts")) {
+		    if (!uiType.equalsIgnoreCase("leoparts"))
 			Settings.System.putInt(getContentResolver(), uiType, Color.parseColor(parser.nextText()));
-		    }
 		    break;
-                }
-                eventType = parser.next();
-            }
-            success = true;
-        }
-        catch (FileNotFoundException e) {
-            toast(getResources().getString(R.string.xml_file_not_found));
-        }
-        catch (IOException e) {
-            toast(getResources().getString(R.string.xml_io_exception));
-        }
-        catch (XmlPullParserException e) {
-            toast(getResources().getString(R.string.xml_parse_error));
-        }
-        catch (IllegalArgumentException e) {
-            toast(getResources().getString(R.string.xml_invalid_color));
-        }
-        finally {
-            if (reader != null) {
+		}
+		eventType = parser.next();
+	    }
+	    success = true;
+	}
+	catch (FileNotFoundException e) {
+	    toast(getResources().getString(R.string.xml_file_not_found));
+	}
+	catch (IOException e) {
+	    toast(getResources().getString(R.string.xml_io_exception));
+	}
+	catch (XmlPullParserException e) {
+	    toast(getResources().getString(R.string.xml_parse_error));
+	}
+	catch (IllegalArgumentException e) {
+	    toast(getResources().getString(R.string.xml_invalid_color));
+	}
+	finally {
+	    if (reader != null) {
 		try {
 		    reader.close();
 		} catch (IOException e) {
 		}
 	    }
-        }
-        if (success)
-            needreboot();
+	}
+	if (success)
+	    needreboot();
+	else
+	    toast(getResources().getString(R.string.error));
     }
 
     private String convertToARGB(int color) {
