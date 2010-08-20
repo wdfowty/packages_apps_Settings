@@ -1371,7 +1371,7 @@
     <string name="title_import_from_xml">Importer les couleurs depuis XML</string>
     <string name="summary_import_from_xml">Importer les couleurs depuis /sdcard/leoparts_ui.xml</string>
     <string name="exporting_to_xml">Exportation vers XML...</string>
-    <string name="importing_to_xml">Importation depuis XML...</string>
+    <string name="importing_from_xml">Importation depuis XML...</string>
     <string name="message_dialog_import">Voulez-vous vraiment importer les couleurs de l\'IU depuis un XML ?</string>
     <string name="xml_file_not_found">Fichier XML non trouvé !</string>
     <string name="xml_io_exception">Erreur lors de la lecture du fichier !</string>

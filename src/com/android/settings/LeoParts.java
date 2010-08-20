@@ -1728,6 +1728,7 @@ public class LeoParts extends PreferenceActivity
 
     final Runnable mReadXML = new Runnable() {
 	    public void run() {
+		patience.cancel();
 		File xmlFile = new File("/data/local/tmp/" + XML_FILENAME);
 		FileReader reader = null;
 		boolean success = false;
@@ -1783,6 +1784,7 @@ public class LeoParts extends PreferenceActivity
             return ;
         }
 
+	patience = ProgressDialog.show(LeoParts.this, "", getResources().getString(R.string.importing_from_xml), true);
 	Thread t = new Thread() {
 		public void run() {
 		    String[] commands = {
