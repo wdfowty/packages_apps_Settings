@@ -1720,12 +1720,62 @@ public class LeoParts extends PreferenceActivity
 	    + "<notifications_text_color>" + convertToARGB(getColor(Settings.System.NOTIF_ITEM_TIME_COLOR)) + "</notifications_text_color>\n"
 	    + "<notifications_time_color>" + convertToARGB(getColor(Settings.System.DBM_COLOR)) + "</notifications_time_color>\n"
 	    + "</leoparts>\n"
-	    + "\" > /sdcard/" + XML_FILENAME,
-	    "cp /sdcard/" + XML_FILENAME + " /data/local/tmp/"
+	    + "\" > /sdcard/" + XML_FILENAME
 	};
 	sendshell(commands, false, getResources().getString(R.string.exporting_to_xml));
 	mImportFromXML.setEnabled(true);
     }
+
+    final Runnable mReadXML = new Runnable() {
+	    public void run() {
+		File xmlFile = new File("/data/local/tmp/" + XML_FILENAME);
+		FileReader reader = null;
+		boolean success = false;
+		try {
+		    reader = new FileReader(xmlFile);
+		    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+		    XmlPullParser parser = factory.newPullParser();
+		    parser.setInput(reader);
+		    int eventType = parser.getEventType();
+		    String uiType = null;
+		    while (eventType != XmlPullParser.END_DOCUMENT) {
+			switch (eventType) {
+			case XmlPullParser.START_TAG:
+			    uiType = parser.getName().trim();
+			    if (!uiType.equalsIgnoreCase("leoparts"))
+				Settings.System.putInt(getContentResolver(), uiType, Color.parseColor(parser.nextText()));
+			    break;
+			}
+			eventType = parser.next();
+		    }
+		    success = true;
+		}
+		catch (FileNotFoundException e) {
+		    toast(getResources().getString(R.string.xml_file_not_found));
+		}
+		catch (IOException e) {
+		    toast(getResources().getString(R.string.xml_io_exception));
+		}
+		catch (XmlPullParserException e) {
+		    toast(getResources().getString(R.string.xml_parse_error));
+		}
+		catch (IllegalArgumentException e) {
+		    toast(getResources().getString(R.string.xml_invalid_color));
+		}
+		finally {
+		    if (reader != null) {
+			try {
+			    reader.close();
+			} catch (IOException e) {
+			}
+		    }
+		}
+		if (success)
+		    needreboot();
+		else
+		    toast(getResources().getString(R.string.error));
+	    }
+	};
 
     private void readUIValuesFromXML() {
         if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
@@ -1733,52 +1783,28 @@ public class LeoParts extends PreferenceActivity
             return ;
         }
 
-	File xmlFile = new File("/data/local/tmp/" + XML_FILENAME);
-	FileReader reader = null;
-	boolean success = false;
-	try {
-	    reader = new FileReader(xmlFile);
-	    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-	    XmlPullParser parser = factory.newPullParser();
-	    parser.setInput(reader);
-	    int eventType = parser.getEventType();
-	    String uiType = null;
-	    while (eventType != XmlPullParser.END_DOCUMENT) {
-		switch (eventType) {
-		case XmlPullParser.START_TAG:
-		    uiType = parser.getName().trim();
-		    if (!uiType.equalsIgnoreCase("leoparts"))
-			Settings.System.putInt(getContentResolver(), uiType, Color.parseColor(parser.nextText()));
-		    break;
+	Thread t = new Thread() {
+		public void run() {
+		    String[] commands = {
+			"cp /sdcard/" + XML_FILENAME + " /data/local/tmp/" + XML_FILENAME
+		    };
+		    ShellInterface shell = new ShellInterface(commands);
+		    shell.start();
+		    while (shell.isAlive())
+			{
+			    try {
+				Thread.sleep(500);
+			    }
+			    catch (InterruptedException e) {
+			    }
+			}
+		    if (shell.interrupted())
+			toast(getResources().getString(R.string.error));
+		    else
+			mHandler.post(mReadXML);
 		}
-		eventType = parser.next();
-	    }
-	    success = true;
-	}
-	catch (FileNotFoundException e) {
-	    toast(getResources().getString(R.string.xml_file_not_found));
-	}
-	catch (IOException e) {
-	    toast(getResources().getString(R.string.xml_io_exception));
-	}
-	catch (XmlPullParserException e) {
-	    toast(getResources().getString(R.string.xml_parse_error));
-	}
-	catch (IllegalArgumentException e) {
-	    toast(getResources().getString(R.string.xml_invalid_color));
-	}
-	finally {
-	    if (reader != null) {
-		try {
-		    reader.close();
-		} catch (IOException e) {
-		}
-	    }
-	}
-	if (success)
-	    needreboot();
-	else
-	    toast(getResources().getString(R.string.error));
+	    };
+	t.start();
     }
 
     private String convertToARGB(int color) {
