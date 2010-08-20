@@ -2019,15 +2019,16 @@ public class LeoParts extends PreferenceActivity
 	    } finally {
 		reader.close();
 	    }
+	    // Linux version 2.6.32.9-27227-g3c98b0d (android-build@apa26.mtv.corp.google.com) (gcc version 4.4.0 (GCC) ) #1 PREEMPT Wed Jun 16 16:23:11 PDT 2010
 	    final String PROC_VERSION_REGEX =
 		"\\w+\\s+" + /* ignore: Linux */
-		"\\w+\\s+" + /* ignore: version */
-		"([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
-		"\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
-		"\\(R.string.*?(?:\\(R.string.*?\\)).*?\\)\\s+" + /* ignore: (gcc ..) */
-		"([^\\s]+)\\s+" + /* group 3: #26 */
-		"(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
-		"(.+)"; /* group 4: date */
+                "\\w+\\s+" + /* ignore: version */
+                "([^\\s]+)\\s+" + /* group 1: 2.6.22-omap1 */
+                "\\(([^\\s@]+(?:@[^\\s.]+)?)[^)]*\\)\\s+" + /* group 2: (xxxxxx@xxxxx.constant) */
+                "\\((?:[^(]*\\([^)]*\\))?[^)]*\\)\\s+" + /* ignore: (gcc ..) */
+                "([^\\s]+)\\s+" + /* group 3: #26 */
+                "(?:PREEMPT\\s+)?" + /* ignore: PREEMPT (optional) */
+                "(.+)"; /* group 4: date */
 	    Pattern p = Pattern.compile(PROC_VERSION_REGEX);
 	    Matcher m = p.matcher(procVersionStr);
 	    if (!m.matches()) {
