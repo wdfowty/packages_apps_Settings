@@ -31,31 +31,31 @@
 	<PreferenceScreen
 	   android:key="rom_device"
 	   android:title="@string/device"
-	   android:summary=" Unavailable">
+	   android:summary="Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_name_version"
 	   android:title="@string/name_version"
-	   android:summary=" Unavailable">
+	   android:summary="Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_system_build"
 	   android:title="@string/system_build"
-	   android:summary=" Unavailable">
+	   android:summary="Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_kernel"
 	   android:title="@string/kernel"
-	   android:summary=" Unavailable">
+	   android:summary="Unavailable">
 	</PreferenceScreen>
 
 	<PreferenceScreen
 	   android:key="rom_bootloader_radio"
 	   android:title="@string/bootloader_radio"
-	   android:summary=" Unavailable">
+	   android:summary="Unavailable">
 	</PreferenceScreen>
 
       </PreferenceCategory>
@@ -141,7 +141,7 @@
 	   android:key="adb_wifi"
 	   android:title="@string/adb_wifi_title"
 	   android:summaryOn="@string/adb_wifi_summary_on"
-	   android:summaryOff="@string/adb_wifi_summary_off" />
+	   android:summaryOff="@string/adb_wifi_summary_off"/>
 
 	<ListPreference
 	   android:key="app2sd"
@@ -150,7 +150,7 @@
 	   android:entries="@array/entries_app2sd"
 	   android:entryValues="@array/entryvalues_app2sd"
 	   android:defaultValue="0"
-	   android:dialogTitle="@string/select_option" />
+	   android:dialogTitle="@string/select_option"/>
 
       </PreferenceCategory>
 
@@ -161,26 +161,26 @@
 	   android:key="pulse_screen_on"
 	   android:title="@string/pulse_title"
 	   android:summaryOn="@string/pulse_summary_on"
-	   android:summaryOff="@string/pulse_summary_off" />
+	   android:summaryOff="@string/pulse_summary_off"/>
 
 	<CheckBoxPreference
 	   android:key="trackball_wake"
 	   android:title="@string/wake_title"
 	   android:summaryOn="@string/wake_summary_on"
-	   android:summaryOff="@string/wake_summary_off" />
+	   android:summaryOff="@string/wake_summary_off"/>
 
 	<CheckBoxPreference
 	   android:key="trackball_unlock"
 	   android:title="@string/unlock_title"
 	   android:summaryOn="@string/unlock_summary_on"
 	   android:summaryOff="@string/unlock_summary_off"
-	   android:dependency="trackball_wake" />
+	   android:dependency="trackball_wake"/>
 
 	<CheckBoxPreference
 	   android:key="trackball_hang"
 	   android:title="@string/hang_title"
 	   android:summaryOn="@string/hang_summary_on"
-	   android:summaryOff="@string/hang_summary_off" />
+	   android:summaryOff="@string/hang_summary_off"/>
 
       </PreferenceCategory>
 
@@ -190,7 +190,7 @@
 	<CheckBoxPreference
            android:key="pref_show_recent_apps_title"
            android:title="@string/recent_apps_show_title"
-           android:defaultValue="true" />
+           android:defaultValue="true"/>
 
 	<ListPreference
            android:key="pref_recent_apps_num"
@@ -198,7 +198,7 @@
            android:summary="@string/recent_apps_num_summary"
            android:entries="@array/entries_recent_apps_num"
            android:entryValues="@array/entries_recent_apps_num"
-           android:dialogTitle="@string/select_option" />
+           android:dialogTitle="@string/select_option"/>
 
       </PreferenceCategory>
 
@@ -209,7 +209,7 @@
 	   android:key="ui_sounds"
 	   android:title="@string/uisounds_title"
 	   android:summaryOn="@string/uisounds_summary_on"
-	   android:summaryOff="@string/uisounds_summary_off" />
+	   android:summaryOff="@string/uisounds_summary_off"/>
 
 	<PreferenceScreen
 	   android:key="fix_perms"
@@ -238,31 +238,31 @@
 	   android:key="battery_percent"
 	   android:title="@string/battery_percent_title"
 	   android:summaryOn="@string/battery_percent_on"
-	   android:summaryOff="@string/battery_percent_off" />
+	   android:summaryOff="@string/battery_percent_off"/>
 
 	<CheckBoxPreference
 	   android:key="h_icon"
 	   android:title="@string/h_icon_title"
 	   android:summaryOn="@string/h_icon_on"
-	   android:summaryOff="@string/h_icon_off" />
+	   android:summaryOff="@string/h_icon_off"/>
 
 	<CheckBoxPreference
 	   android:key="hide_clock"
 	   android:title="@string/hide_clock_title"
 	   android:summaryOn="@string/hide_clock_on"
-	   android:summaryOff="@string/hide_clock_off" />
+	   android:summaryOff="@string/hide_clock_off"/>
 
 	<CheckBoxPreference
            android:key="show_status_dbm"
            android:title="@string/title_show_dbm"
 	   android:summaryOn="@string/show_dbm_on"
-	   android:summaryOff="@string/show_dbm_off" />
+	   android:summaryOff="@string/show_dbm_off"/>
 
 	<CheckBoxPreference
 	   android:key="am_pm"
 	   android:title="@string/hide_ampm_title"
 	   android:summaryOn="@string/hide_ampm_on"
-	   android:summaryOff="@string/hide_ampm_off" />
+	   android:summaryOff="@string/hide_ampm_off"/>
 
 	<PreferenceScreen
 	   android:title="@string/wysie_colors_title"
@@ -275,33 +275,33 @@
 	       android:key="battery_status_color_title"
 	       android:title="@string/battery_status_color_title"
 	       android:defaultValue="-1"
-	       android:dependency="battery_percent" />
+	       android:dependency="battery_percent"/>
 
 	    <Preference
 	       android:key="clock_color"
 	       android:title="@string/title_clock_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="dbm_color"
                android:title="@string/title_dbm_color"
                android:defaultValue="-16777216"
-               android:dependency="show_status_dbm" />
+               android:dependency="show_status_dbm"/>
 
 	    <Preference
 	       android:key="date_color"
 	       android:title="@string/title_date_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="plmn_label_color"
 	       android:title="@string/title_plmn_label_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="spn_label_color"
 	       android:title="@string/title_spn_label_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	  </PreferenceCategory>
 
@@ -311,32 +311,32 @@
 	    <Preference
 	       android:key="new_notifications_ticker_color"
 	       android:title="@string/title_notifications_ticker_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="notifications_count_color"
 	       android:title="@string/title_notifications_count_color"
-	       android:defaultValue="-1" />
+	       android:defaultValue="-1"/>
 
 	    <Preference
 	       android:key="no_notifications_color"
 	       android:title="@string/title_no_notifications_color"
-	       android:defaultValue="-1" />
+	       android:defaultValue="-1"/>
 
 	    <Preference
 	       android:key="clear_button_label_color"
 	       android:title="@string/title_clear_button_label_color"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="ongoing_notifications_color"
 	       android:title="@string/title_ongoing_notifications_color"
-	       android:defaultValue="-1" />
+	       android:defaultValue="-1"/>
 
 	    <Preference
 	       android:key="latest_notifications_color"
 	       android:title="@string/title_latest_notifications_color"
-	       android:defaultValue="-1" />
+	       android:defaultValue="-1"/>
 
 	  </PreferenceCategory>
 
@@ -346,17 +346,17 @@
 	    <Preference
 	       android:key="notifications_title_color"
 	       android:title="@string/title_notifications_items_title"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="notifications_text_color"
 	       android:title="@string/title_notifications_items_text"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	    <Preference
 	       android:key="notifications_time_color"
 	       android:title="@string/title_notifications_items_time"
-	       android:defaultValue="-16777216" />
+	       android:defaultValue="-16777216"/>
 
 	  </PreferenceCategory>
 
@@ -365,12 +365,12 @@
 	    <Preference
                android:key="export_to_xml"
                android:title="@string/title_export_to_xml"
-               android:summary="@string/summary_export_to_xml" />
+               android:summary="@string/summary_export_to_xml"/>
 
 	    <Preference
                android:key="import_from_xml"
                android:title="@string/title_import_from_xml"
-               android:summary="@string/summary_import_from_xml" />
+               android:summary="@string/summary_import_from_xml"/>
 
 	  </PreferenceCategory>
 
@@ -384,13 +384,13 @@
         <CheckBoxPreference
 	   android:key="lockscreen_music_controls"
 	   android:title="@string/pref_lockscreen_music_controls_title"
-	   android:summary="@string/pref_lockscreen_music_controls_summary" />
+	   android:summary="@string/pref_lockscreen_music_controls_summary"/>
 
 	<CheckBoxPreference
 	   android:key="lockscreen_always_music_controls"
            android:dependency="lockscreen_music_controls"
            android:title="@string/pref_lockscreen_always_music_controls_title"
-	   android:summary="@string/pref_lockscreen_always_music_controls_summary" />
+	   android:summary="@string/pref_lockscreen_always_music_controls_summary"/>
 
       </PreferenceCategory>
 
@@ -399,15 +399,15 @@
 
 	<CheckBoxPreference
 	   android:key="rotation_90"
-	   android:title="@string/rotation_90" />
+	   android:title="@string/rotation_90"/>
 
 	<CheckBoxPreference
 	   android:key="rotation_180"
-	   android:title="@string/rotation_180" />
+	   android:title="@string/rotation_180"/>
 
 	<CheckBoxPreference
 	   android:key="rotation_270"
-	   android:title="@string/rotation_270" />
+	   android:title="@string/rotation_270"/>
 
       </PreferenceCategory>
 
@@ -420,13 +420,13 @@
 	   android:title="@string/pref_render_effect_title"
 	   android:summary="@string/pref_render_effect_summary"
 	   android:entries="@array/entries_render_effect"
-	   android:entryValues="@array/values_render_effect" />
+	   android:entryValues="@array/values_render_effect"/>
 
 	<CheckBoxPreference
 	   android:key="power_prompt"
 	   android:title="@string/power_prompt_title"
            android:summary="@string/power_prompt_summary"
-           android:defaultValue="true" />
+           android:defaultValue="true"/>
 
       </PreferenceCategory>
 
@@ -446,56 +446,68 @@
 	  <CheckBoxPreference
              android:key="calculator"
              android:title="Calculator"
-             android:summaryOn=" Calculator installed"
-             android:summaryOff=" Calculator removed" />
+             android:summaryOn="Calculator installed"
+             android:summaryOff="Calculator removed"/>
+
+	  <CheckBoxPreference
+             android:key="chrome2phone"
+             android:title="Chrome2Phone"
+             android:summaryOn="Chrome2Phone installed"
+             android:summaryOff="Chrome2Phone removed"/>
 
 	  <CheckBoxPreference
              android:key="car_home"
              android:title="Car Home"
-             android:summaryOn=" Car Home installed"
-             android:summaryOff=" Car Home removed" />
+             android:summaryOn="Car Home installed"
+             android:summaryOff="Car Home removed"/>
 
 	  <CheckBoxPreference
              android:key="email"
              android:title="Email"
-             android:summaryOn=" Email installed"
-             android:summaryOff=" Email removed" />
+             android:summaryOn="Email installed"
+             android:summaryOff="Email removed"/>
 
 	  <CheckBoxPreference
              android:key="facebook"
              android:title="Facebook"
-             android:summaryOn=" Facebook installed"
-             android:summaryOff=" Facebook removed" />
+             android:summaryOn="Facebook installed"
+             android:summaryOff="Facebook removed"/>
 
           <CheckBoxPreference
 	     android:key="google_talk"
 	     android:title="Google Talk"
-	     android:summaryOn=" Google Talk installed"
-	     android:summaryOff=" Google Talk removed" />
+	     android:summaryOn="Google Talk installed"
+	     android:summaryOff="Google Talk removed"/>
 
 	  <CheckBoxPreference
 	     android:key="google_voice"
 	     android:title="Google Voice"
-	     android:summaryOn=" Google Voice installed"
-	     android:summaryOff=" Google Voice removed" />
+	     android:summaryOn="Google Voice installed"
+	     android:summaryOff="Google Voice removed"/>
 
 	  <CheckBoxPreference
 	     android:key="stk"
 	     android:title="Sim Toolkit"
-	     android:summaryOn=" Stk installed"
-	     android:summaryOff=" Stk removed" />
+	     android:summaryOn="Stk installed"
+	     android:summaryOff="Stk removed"/>
 
 	  <CheckBoxPreference
 	     android:key="twitter"
 	     android:title="Twitter"
-	     android:summaryOn=" Twitter installed"
-	     android:summaryOff=" Twitter removed" />
+	     android:summaryOn="Twitter installed"
+	     android:summaryOff="Twitter removed"/>
+
+	  <CheckBoxPreference
+	     android:key="protips"
+	     android:title="Protips"
+	     android:summaryOn="Protips installed"
+	     android:summaryOff="Protips removed"/>
 
 	  <CheckBoxPreference
 	     android:key="youtube"
 	     android:title="Youtube"
-	     android:summaryOn=" Youtube installed"
-	     android:summaryOff=" Youtube removed" />
+	     android:summaryOn="Youtube installed"
+	     android:summaryOff="Youtube removed"/>
 
 	</PreferenceScreen>
 
@@ -511,31 +523,31 @@
 	   android:entries="@array/entries_bootanim"
 	   android:entryValues="@array/entryvalues_bootanim"
 	   android:defaultValue="1"
-	   android:dialogTitle="@string/select_option" />
+	   android:dialogTitle="@string/select_option"/>
 
 	<CheckBoxPreference
 	   android:key="filemanager"
 	   android:title="File manager"
-	   android:summaryOn=" File manager installed"
-	   android:summaryOff=" File manager removed" />
+	   android:summaryOn="File manager installed"
+	   android:summaryOff="File manager removed"/>
 
 	<CheckBoxPreference
 	   android:key="terminal"
 	   android:title="Terminal"
-	   android:summaryOn=" Terminal installed"
-	   android:summaryOff=" Terminal removed" />
+	   android:summaryOn="Terminal installed"
+	   android:summaryOff="Terminal removed"/>
 
 	<CheckBoxPreference
 	   android:key="htc_ime"
 	   android:title="HTC_IME keyboard"
-	   android:summaryOn=" HTC_IME installed"
-	   android:summaryOff=" HTC_IME not installed" />
+	   android:summaryOn="HTC_IME installed"
+	   android:summaryOff="HTC_IME not installed"/>
 
 	<CheckBoxPreference
 	   android:key="cpu_led"
 	   android:title="%CPU LED monitor"
-	   android:summaryOn=" CPUstatusLED installed"
-	   android:summaryOff=" CPUstatusLED not installed" />
+	   android:summaryOn="CPUstatusLED installed"
+	   android:summaryOff="CPUstatusLED not installed"/>
 
 	<PreferenceScreen
 	   android:key="metamorph"
@@ -596,7 +608,7 @@
       <PreferenceScreen
 	 android:key="about_thanks"
 	 android:title="@string/thanks_title"
-	 android:summary="britoso, Jr33, crimsondr, Cyanogen, Wysie, jeagoss, kmobs, ctso, Google, XDA community and... You">
+	 android:summary="britoso, Jr33, crimsondr, lilHermit, Cyanogen, Wysie, jeagoss, kmobs, ctso, Google, XDA community and... You">
       </PreferenceScreen>
 
       <PreferenceScreen
@@ -634,31 +646,31 @@
       <PreferenceScreen
 	    android:key="system_storage_levels"
 	    android:title="/system"
-	    android:summary=" Unavailable">
+	    android:summary="Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="data_storage_levels"
 	    android:title="/data"
-	    android:summary=" Unavailable">
+	    android:summary="Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="cache_storage_levels"
 	    android:title="/cache"
-	    android:summary=" Unavailable">
+	    android:summary="Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="sdcardfat_storage_levels"
 	    android:title="SDCARD - FAT32"
-	    android:summary=" Unavailable">
+	    android:summary="Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen
 	    android:key="sdcardext_storage_levels"
 	    android:title="SDCARD - EXT3"
-	    android:summary=" Unavailable">
+	    android:summary="Unavailable">
       </PreferenceScreen>
 
       <PreferenceScreen

@@ -228,6 +228,8 @@ public class LeoParts extends PreferenceActivity
     // Apps & Addons
     private static final String CALCULATOR_PREF = "calculator";
     private CheckBoxPreference mCalculatorPref;
+    private static final String CHROME2PHONE = "chrome2phone";
+    private CheckBoxPreference mChrome2PhonePref;
     private static final String CAR_HOME_PREF = "car_home";
     private CheckBoxPreference mCarHomePref;
     private static final String EMAIL_PREF = "email";
@@ -242,6 +244,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mStkPref;
     private static final String TWITTER_PREF = "twitter";
     private CheckBoxPreference mTwitterPref;
+    private static final String PROTIPS_PREF = "protips";
+    private CheckBoxPreference mProtipsPref;
     private static final String YOUTUBE_PREF = "youtube";
     private CheckBoxPreference mYouTubePref;
 
@@ -574,6 +578,10 @@ public class LeoParts extends PreferenceActivity
 	mCalculatorPref.setOnPreferenceChangeListener(this);
 	mCalculatorPref.setChecked(fileExists("/system/app/Calculator.apk"));
 	mCalculatorPref.setEnabled(fileExists("/system/app/Calculator.apk"));
+	mChrome2PhonePref = (CheckBoxPreference) prefSet.findPreference(CHROME2PHONE);
+	mChrome2PhonePref.setOnPreferenceChangeListener(this);
+	mChrome2PhonePref.setChecked(fileExists("/system/app/ChromeToPhone.apk"));
+	mChrome2PhonePref.setEnabled(fileExists("/system/app/ChromeToPhone.apk"));
 	mCarHomePref = (CheckBoxPreference) prefSet.findPreference(CAR_HOME_PREF);
 	mCarHomePref.setOnPreferenceChangeListener(this);
 	mCarHomePref.setChecked(fileExists("/system/app/CarHomeGoogle.apk") && fileExists("/system/app/CarHomeLauncher.apk"));
@@ -598,6 +606,10 @@ public class LeoParts extends PreferenceActivity
 	mTwitterPref.setOnPreferenceChangeListener(this);
 	mTwitterPref.setChecked(fileExists("/system/app/Twitter.apk"));
 	mTwitterPref.setEnabled(fileExists("/system/app/Twitter.apk"));
+	mProtipsPref = (CheckBoxPreference) prefSet.findPreference(PROTIPS_PREF);
+	mProtipsPref.setOnPreferenceChangeListener(this);
+	mProtipsPref.setChecked(fileExists("/system/app/Protips.apk"));
+	mProtipsPref.setEnabled(fileExists("/system/app/Protips.apk"));
 	mStkPref = (CheckBoxPreference) prefSet.findPreference(STK_PREF);
 	mStkPref.setOnPreferenceChangeListener(this);
 	mStkPref.setChecked(fileExists("/system/app/Stk.apk"));
@@ -862,6 +874,8 @@ public class LeoParts extends PreferenceActivity
 	    Settings.System.putInt(getContentResolver(), Settings.System.POWER_DIALOG_PROMPT, mPowerPromptPref.isChecked() ? 0 : 1);
 	else if (preference == mCalculatorPref)
 	    return removeSystemApp(mCalculatorPref, "Calculator", "Calculator.apk");
+	else if (preference == mChrome2PhonePref)
+	    return removeSystemApp(mChrome2PhonePref, "Chrome2Phone", "ChromeToPhone.apk");
 	else if (preference == mCarHomePref)
 	    return removeSystemApp(mCarHomePref, "CarHome", "CarHomeGoogle.apk", "CarHomeLauncher.apk");
 	else if (preference == mEmailPref)
@@ -876,6 +890,8 @@ public class LeoParts extends PreferenceActivity
 	    return removeSystemApp(mStkPref, "Sim Toolkit", "Stk.apk");
 	else if (preference == mTwitterPref)
 	    return removeSystemApp(mTwitterPref, "Twitter", "Twitter.apk");
+	else if (preference == mProtipsPref)
+	    return removeSystemApp(mProtipsPref, "Protips", "Protips.apk");
 	else if (preference == mYouTubePref)
 	    return removeSystemApp(mYouTubePref, "YouTube", "YouTube.apk");
 	else if (preference == mFileManagerPref)
@@ -1978,7 +1994,7 @@ public class LeoParts extends PreferenceActivity
 	} catch (RuntimeException e) {
 	    e.printStackTrace();
 	}
-	return " Unavailable";
+	return "Unavailable";
     }
 
     public String getFormattedFingerprint() {
@@ -2009,7 +2025,7 @@ public class LeoParts extends PreferenceActivity
 	    Matcher m = p.matcher(procVersionStr);
 	    if (!m.matches()) {
 		Log.e(TAG, "Regex did not match on /proc/version: " + procVersionStr);
-		return " Unavailable";
+		return "Unavailable";
 	    } else if (m.groupCount() < 4) {
 		Log.e(TAG, "Regex match on /proc/version only returned " + m.groupCount() + " groups");
 		return " " + getResources().getString(R.string.unavailable);
