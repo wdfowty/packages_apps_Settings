@@ -31,7 +31,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -66,7 +65,6 @@ public class ProxySelector extends Activity
     EditText    mHostnameField;
     EditText    mPortField;
     Button      mOKButton;
-    CheckBox    mProxyWifiOnly;
 
     // Matches blank input, ips, and domain names
     private static final String HOSTNAME_REGEXP = "^$|^[a-zA-Z0-9]+(\\-[a-zA-Z0-9]+)*(\\.[a-zA-Z0-9]+(\\-[a-zA-Z0-9]+)*)*$";
@@ -104,8 +102,6 @@ public class ProxySelector extends Activity
         mPortField.setOnClickListener(mOKHandler);
         mPortField.setOnFocusChangeListener(mOnFocusChangeHandler);
 
-	mProxyWifiOnly = (CheckBox)findViewById(R.id.wifi_only);
-
         mOKButton = (Button)findViewById(R.id.action);
         mOKButton.setOnClickListener(mOKHandler);
 
@@ -137,8 +133,6 @@ public class ProxySelector extends Activity
 
         String portStr = port == -1 ? "" : Integer.toString(port);
         mPortField.setText(portStr);
-
-	mProxyWifiOnly.setChecked(Proxy.isProxyForWifiOnly(this));
 
         Intent intent = getIntent();
 
@@ -229,8 +223,7 @@ public class ProxySelector extends Activity
             hostname += ':' + portStr;
         }
         Settings.Secure.putString(res, Settings.Secure.HTTP_PROXY, hostname);
-	Settings.Secure.putInt(res, Settings.Secure.HTTP_PROXY_WIFI_ONLY, mProxyWifiOnly.isChecked() ? 1 : 0);
-	sendBroadcast(new Intent(Proxy.PROXY_CHANGE_ACTION));
+        sendBroadcast(new Intent(Proxy.PROXY_CHANGE_ACTION));
 
         return true;
     }
@@ -247,7 +240,6 @@ public class ProxySelector extends Activity
             public void onClick(View v) {
                 mHostnameField.setText("");
                 mPortField.setText("");
-		mProxyWifiOnly.setChecked(true);
             }
         };
 

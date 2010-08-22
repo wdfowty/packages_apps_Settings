@@ -1378,8 +1378,4 @@
     <string name="xml_parse_error">Erreur lors du parsing du fichier !</string>
     <string name="xml_invalid_color">Couleur invalide dans le XML !</string>
 
-    <string name="proxy_setting">Paramêtres de proxy</string>
-    <string name="proxy_setting_summary">Configurer un proxy pour accéder à internet</string>
-    <string name="proxy_wifi_only">Utiliser le proxy uniquement pour le Wi-Fi</string>
-
 </resources>
