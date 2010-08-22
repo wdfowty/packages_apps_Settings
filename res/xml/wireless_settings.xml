@@ -1,4 +1,4 @@
-1;2305;0c<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2008 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -84,15 +84,6 @@
             android:action="android.intent.action.MAIN"
             android:targetPackage="com.android.phone"
             android:targetClass="com.android.phone.Settings" />
-    </PreferenceScreen>
-
-    <PreferenceScreen
-        android:title="@string/proxy_setting"
-        android:summary="@string/proxy_setting_summary">
-        <intent
-            android:action="android.intent.action.MAIN"
-            android:targetPackage="com.android.settings"
-            android:targetClass="com.android.settings.ProxySelector" />
     </PreferenceScreen>
 
 </PreferenceScreen>
