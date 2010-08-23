@@ -27,6 +27,8 @@ public class ProgressCategory extends PreferenceCategory {
 
     private boolean mProgress = false;
     
+    private View oldView = null;
+
     public ProgressCategory(Context context, AttributeSet attrs) {
         super(context, attrs);
         setLayoutResource(R.layout.preference_progress_category);
@@ -41,6 +43,13 @@ public class ProgressCategory extends PreferenceCategory {
         int visibility = mProgress ? View.VISIBLE : View.INVISIBLE;
         textView.setVisibility(visibility);
         progressBar.setVisibility(visibility);
+
+	if (oldView != null) {
+	    oldView.findViewById(R.id.scanning_progress).setVisibility(View.GONE);
+	    oldView.findViewById(R.id.scanning_text).setVisibility(View.GONE);
+	    oldView.setVisibility(View.GONE);
+	}
+	oldView = view;
     }
     
     /**

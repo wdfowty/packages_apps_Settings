@@ -188,6 +188,8 @@ public class BluetoothSettings extends PreferenceActivity
         super.onPause();
 
         mLocalManager.setForegroundActivity(null);
+	mDevicePreferenceMap.clear();
+	mDeviceList.removeAll();
 
         unregisterReceiver(mReceiver);
 
