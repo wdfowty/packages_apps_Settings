@@ -2825,22 +2825,8 @@ found in the list of installed applications.</string>
     <string name="xml_parse_error">Error parsing XML!</string>
     <string name="xml_invalid_color">Invalid color code in XML!</string>
 
-    <string name="sound_title">Sound settings</string>
-    <string name="sound_notifications_focus_title">Notification focus</string>
-    <string name="sound_notifications_focus_summary">Audio focus requests causes compatible apps to lower the volume while notifications play.</string>
-    <string name="sound_to_speaker_title">Always play on speaker</string>
-    <string name="sound_notifications_title">Notifications</string>
-    <string name="sound_rings_title">Ring tones</string>
-    <string name="sound_alarms_title">Alarms</string>
-    <string name="sound_note_title">Note</string>
-    <string name="sound_note_summary">The settings below apply only when headphones are used.</string>
-    <string name="sound_attenuation_title">Attenuation of set volume</string>
-    <string name="sound_limitvol_title">Volume if music playing</string>
-    <string name="sound_notifications_attenuation_dialog">Notification attenuation</string>
-    <string name="sound_rings_attenuation_dialog">Ring tone attenuation</string>
-    <string name="sound_alarms_attenuation_dialog">Alarm attenuation</string>
-    <string name="sound_notifications_limitvol_dialog">Notification volume</string>
-    <string name="sound_rings_limitvol_dialog">Ring tone volume</string>
-    <string name="sound_alarms_limitvol_dialog">Alarm volume</string>
+    <string name="proxy_setting">Proxy settings</string>
+    <string name="proxy_setting_summary">Configure a proxy to access the internet</string>
+    <string name="proxy_wifi_only">Use proxy only on wifi</string>
 
 </resources>
