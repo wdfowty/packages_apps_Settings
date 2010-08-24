@@ -45,7 +45,6 @@ public class Settings extends PreferenceActivity {
 	PreferenceGroup parent = (PreferenceGroup) findPreference(KEY_PARENT);
 	Utils.updatePreferenceToSpecificActivityOrRemove(this, parent, KEY_SYNC_SETTINGS, 0);
 	Utils.updatePreferenceToSpecificActivityOrRemove(this, parent, KEY_SEARCH_SETTINGS, 0);
-	Utils.updatePreferenceToSpecificActivityOrRemove(this, parent, KEY_LAUNCHER, 0);
 
 	Preference dockSettings = parent.findPreference(KEY_DOCK_SETTINGS);
 	if (getResources().getBoolean(R.bool.has_dock_settings) == false && dockSettings != null) {
