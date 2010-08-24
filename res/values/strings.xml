@@ -2547,8 +2547,6 @@ found in the list of installed applications.</string>
     <string name="repo_patch_url">http://android.shk-desktop.com/LeoParts/patch/</string>
     <string name="version_file">version</string>
 
-    <string name="launcher_settings_title">ADWLauncher</string>
-
     <string name="title_color_picker">Pick a color</string>
     <string name="msg_color_picker">Tap on center color to confirm.\nPress back to cancel.</string>
 
