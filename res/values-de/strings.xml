@@ -1366,7 +1366,7 @@
     <string name="adb_instructions_off">Du musst das USB Kabel anschließen um eine ADB Verbindung aufbauen zu können.\n\nDu musst den ADB Modus auf dem Computer neustarten, Start:\n$ adb usb</string>
 
     <string name="te_xml">XML Tools</string>
-    <string name="title_dialog_ui_interface">UI Oberflächen Tweaks/string>
+    <string name="title_dialog_ui_interface">UI Oberflächen Tweaks</string>
     <string name="title_export_to_xml">Exportiere Farben in eine XML-Datei</string>
     <string name="summary_export_to_xml">Exportiere Farben nach /sdcard/leoparts_ui.xml</string>
     <string name="xml_sdcard_unmounted">SDKarte nicht vorhanden!</string>

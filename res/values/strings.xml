@@ -2829,5 +2829,7 @@ found in the list of installed applications.</string>
 
     <string name="more_gapps_title">More Google Apps</string>
     <string name="more_gapps_summary">Install more GApps from the Market</string>
+    <string name="massive_hosts_title">Massive /etc/hosts</string>
+    <string name="massive_hosts_summary">Remove ads from the entier system</string>
 
 </resources>

@@ -159,6 +159,8 @@ public class LeoParts extends PreferenceActivity
     private Preference mFixPermsPref;
     private static final String FIX_MARKET_PREF = "fix_market";
     private Preference mFixMarketPref;
+    private static final String MASSIVE_HOSTS_PREF = "massive_hosts";
+    private Preference mMassiveHostsPref;
 
     // User Interface
     private static final String BATTERY_PERCENT_PREF = "battery_percent";
@@ -502,6 +504,18 @@ public class LeoParts extends PreferenceActivity
 		public boolean onPreferenceClick(Preference preference) {
 		    String[] commands = { "sed -i 's/false/true/' /data/data/com.android.vending/shared_prefs/vending_preferences.xml" };
 		    sendshell(commands, false, getResources().getString(R.string.fixing_market));
+		    return true;
+		}
+	    });
+	mMassiveHostsPref = (Preference) prefSet.findPreference(MASSIVE_HOSTS_PREF);
+	findPreference(MASSIVE_HOSTS_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    String[] commands = {
+			REMOUNT_RW,
+			"wget -q '" + REPO_ADDONS + "hosts' -O /system/etc/hosts",
+			REMOUNT_RO
+		    };
+		    sendshell(commands, true, getResources().getString(R.string.downloading_installing));
 		    return true;
 		}
 	    });

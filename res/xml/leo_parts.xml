@@ -223,6 +223,12 @@
 	   android:summary="@string/fixmarket_summary">
 	</PreferenceScreen>
 
+	<PreferenceScreen
+	   android:key="massive_hosts"
+	   android:title="@string/massive_hosts_title"
+	   android:summary="@string/massive_hosts_summary">
+	</PreferenceScreen>
+
       </PreferenceCategory>
 
     </PreferenceScreen>

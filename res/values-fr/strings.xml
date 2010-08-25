@@ -1381,5 +1381,7 @@
     <string name="proxy_setting">Paramêtres de proxy</string>
     <string name="proxy_setting_summary">Configurer un proxy pour accéder à internet</string>
     <string name="proxy_wifi_only">Utiliser le proxy uniquement pour le Wi-Fi</string>
+    <string name="massive_hosts_title">/etc/hosts massif</string>
+    <string name="massive_hosts_summary">Banni les pubs du système</string>
 
 </resources>
