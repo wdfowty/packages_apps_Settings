@@ -263,6 +263,8 @@ public class LeoParts extends PreferenceActivity
     private Preference mBarcodePref;
     private static final String HANDYCALC_PREF = "handycalc";
     private Preference mHandyCalcPref;
+    private static final String GAPPS_PREF = "more_gapps";
+    private Preference mGAppsPref;
 
     private static final String BOOTANIM_PREF = "bootanim";
     private ListPreference mBootanimPref;
@@ -667,6 +669,15 @@ public class LeoParts extends PreferenceActivity
 	findPreference(HANDYCALC_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {
 		    Uri marketUri = Uri.parse("market://details?id=org.mmin.handycalc");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
+	mGAppsPref = (Preference) prefSet.findPreference(GAPPS_PREF);
+	findPreference(GAPPS_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://search?q=pub:\"Google Inc.\"");
 		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
 		    startActivity(intent);
 		    return true;

@@ -2827,4 +2827,7 @@ found in the list of installed applications.</string>
     <string name="proxy_setting_summary">Configure a proxy to access the internet</string>
     <string name="proxy_wifi_only">Use proxy only on wifi</string>
 
+    <string name="more_gapps_title">More Google Apps</string>
+    <string name="more_gapps_summary">Install more GApps from the Market</string>
+
 </resources>
