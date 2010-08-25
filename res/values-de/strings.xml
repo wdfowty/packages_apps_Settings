@@ -1344,6 +1344,43 @@
     <string name="about_disclamer_title">Disclamer</string>
     <string name="about_disclamer_summary">LeoParts ist nicht verantwortlich für Zwischenfälle mit deinem Gerät, du bist es!</string>
 
+    <string name="settings_close">Die Einstellungen schließen sich möglicherweise selbst, wenn dem so ist Starte das Gerät neu.</string>
+
+    <string name="compcache_title">Aktiviere SWAP</string>
+    <string name="compcache_summary_on">SWAP wird genutzt</string>
+    <string name="compcache_summary_off">SWAP wird nicht genutzt</string>
+
+    <string name="recent_apps">Laufende Apps</string>
+    <string name="recent_apps_show_title">Zeige laufende Programme Titel</string>
+    <string name="recent_apps_num_title">Anzahl der laufenden Programme</string>
+    <string name="recent_apps_num_summary">Nummer der laufenden Programme, die beim halten von Home angezeigt werden</string>
+
+    <string name="adb_wifi_title">Drahtloser ADB Modus</string>
+    <string name="adb_wifi_summary_on">ADB Daemon wird im Drahtlosmodus gestartet</string>
+    <string name="adb_wifi_summary_off">ADB Daemon wird im USB Modus gestartet</string>
+    <string name="activate_stock_a2sd">Aktiviere Standart App2sd...</string>
+    <string name="adb_wifi_on">Starte ADB im Drahtlosmodus...</string>
+    <string name="adb_wifi_off">Starte ADB im USB Modus...</string>
+    <string name="instructions">Anleitung</string>
+    <string name="adb_instructions_on">Dein Computer und das Gerät müssen im selben Netzwerk sein.\n\nDU musst den Drahtlosmodus auch auf deinem Computer starten, Starten:\n$ adb tcpip %ip%:%P%</string>
+    <string name="adb_instructions_off">Du musst das USB Kabel anschließen um eine ADB Verbindung aufbauen zu können.\n\nDu musst den ADB Modus auf dem Computer neustarten, Start:\n$ adb usb</string>
+
+    <string name="te_xml">XML Tools</string>
+    <string name="title_dialog_ui_interface">UI Oberflächen Tweaks/string>
+    <string name="title_export_to_xml">Exportiere Farben in eine XML-Datei</string>
+    <string name="summary_export_to_xml">Exportiere Farben nach /sdcard/leoparts_ui.xml</string>
+    <string name="xml_sdcard_unmounted">SDKarte nicht vorhanden!</string>
+    <string name="message_dialog_export">Willst du wirklich die UI Farben in eine XML exportieren?\nDie vorhandene Datei wird überschrieben.</string>
+    <string name="title_import_from_xml">Importiere Farben aus einer XML-Datei</string>
+    <string name="summary_import_from_xml">Importiert Farben von /sdcard/leoparts_ui.xml</string>
+    <string name="exporting_to_xml">Exportiere zu einer XML...</string>
+    <string name="importing_from_xml">Importiere aus einer XML...</string>
+    <string name="message_dialog_import">illst du wirklich die UI Farben aus einer XML importieren?</string>
+    <string name="xml_file_not_found">XML file not found!</string>
+    <string name="xml_io_exception">Fehler! Kann Datei nicht lesen!</string>
+    <string name="xml_parse_error">Fehler! Datei ist fehlerhaft!</string>
+    <string name="xml_invalid_color">Unzulässiger Farbcode in der XML!</string>
+
     <string name="proxy_setting">Proxy-Einstellungen</string>
     <string name="proxy_setting_summary">Einen Proxy für Internetzugriff einrichten</string>
     <string name="proxy_wifi_only">Proxy nur über WLAN nutzen</string>
