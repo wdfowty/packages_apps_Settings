@@ -255,6 +255,8 @@ public class LeoParts extends PreferenceActivity
     private CheckBoxPreference mFileManagerPref;
     private static final String TERMINAL_PREF = "terminal";
     private CheckBoxPreference mTerminalPref;
+    private static final String ADWLAUNCHER_PREF = "adwlauncher";
+    private Preference mAdwLauncherPref;
     private static final String METAMORPH_PREF = "metamorph";
     private Preference mMetamorphPref;
     private static final String TRACKBALL_ALERT_PREF = "trackball_alert";
@@ -643,6 +645,15 @@ public class LeoParts extends PreferenceActivity
 	mTerminalPref.setOnPreferenceChangeListener(this);
 	mTerminalPref.setChecked(fileExists("/system/app/Terminal.apk"));
 	mTerminalPref.setEnabled(mTerminalPref.isChecked());
+	mAdwLauncherPref = (Preference) prefSet.findPreference(ADWLAUNCHER_PREF);
+	findPreference(ADWLAUNCHER_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+		public boolean onPreferenceClick(Preference preference) {
+		    Uri marketUri = Uri.parse("market://details?id=org.adw.launcher");
+		    Intent intent = new Intent (Intent.ACTION_VIEW, marketUri);
+		    startActivity(intent);
+		    return true;
+		}
+	    });
 	mMetamorphPref = (Preference) prefSet.findPreference(METAMORPH_PREF);
 	findPreference(METAMORPH_PREF).setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		public boolean onPreferenceClick(Preference preference) {

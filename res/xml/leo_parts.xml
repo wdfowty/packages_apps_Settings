@@ -556,6 +556,12 @@
 	   android:summaryOff="CPUstatusLED not installed"/>
 
 	<PreferenceScreen
+	   android:key="adwlauncher"
+	   android:title="ADWLauncher"
+	   android:summary="@string/install_market">
+	</PreferenceScreen>
+
+	<PreferenceScreen
 	   android:key="metamorph"
 	   android:title="Metamorph"
 	   android:summary="@string/install_market">
